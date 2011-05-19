@@ -1,0 +1,74 @@
+/*
+ * bverror.h
+ *
+ * Copyright (C) 2011 Texas Instruments, Inc.
+ *
+ * This file is part of BLTsville, an open application programming interface
+ * (API) for accessing 2-D software or hardware implementations.
+ *
+ * This work is licensed under the Creative Commons Attribution-NoDerivs 3.0
+ * Unported License. To view a copy of this license, visit
+ * http://creativecommons.org/licenses/by-nd/3.0/ or send a letter to
+ * Creative Commons, 444 Castro Street, Suite 900, Mountain View, California,
+ * 94041, USA.
+ */
+
+#ifndef BVERROR_H
+#define BVERROR_H
+
+/*
+ * bverror - These are error codes returned by BLTsville functions.
+ */
+enum bverror {
+	BVERR_NONE = 0,
+	BVERR_UNKNOWN = -1,
+	BVERR_DST_NOT_MAPPED = -37,
+	BVERR_SRC1_NOT_MAPPED = -38,
+	BVERR_SRC2_NOT_MAPPED = -39,
+	BVERR_MASK_NOT_MAPPED = -40,
+	BVERR_MEMORY = -2,
+	BVERR_RESOURCE = -3,
+	BVERR_UNSUPPORTED_BLTPARAMS_VERSION = -4,
+	BVERR_UNSUPPORTED_DST_VERSION = -5,
+	BVERR_UNSUPPORTED_SRC1_VERSION = -41,
+	BVERR_UNSUPPORTED_SRC2_VERSION = -42,
+	BVERR_UNSUPPORTED_MASK_VERSION = -43,
+	BVERR_BAD_FLAGS = -6,
+	BVERR_UNSUPPORTED_FLAGS = -7,
+	BVERR_BAD_DST_POINTER = -8,
+	BVERR_BAD_SRC1_POINTER = -9,
+	BVERR_BAD_SRC2_POINTER = -10,
+	BVERR_BAD_MASK_POINTER = -11,
+	BVERR_UNSUPPORTED_DST_FORMAT = -12,
+	BVERR_UNSUPPORTED_SRC1_FORMAT = -13,
+	BVERR_UNSUPPORTED_SRC2_FORMAT = -14,
+	BVERR_UNSUPPORTED_MASK_FORMAT = -15,
+	BVERR_BAD_DST_RECT = -16,
+	BVERR_BAD_SRC1_RECT = -17,
+	BVERR_BAD_SRC2_RECT = -18,
+	BVERR_BAD_MASK_RECT = -19,
+	BVERR_BAD_CLIP_RECT = -20,
+	BVERR_UNSUPPORTED_DST_RECT = -21,
+	BVERR_UNSUPPORTED_SRC1_RECT = -22,
+	BVERR_UNSUPPORTED_SRC2_RECT = -23,
+	BVERR_UNSUPPORTED_MASK_RECT = -24,
+	BVERR_UNSUPPORTED_CLIP_RECT = -25,
+	BVERR_UNSUPPORTED_SRC1_SCALE = -26,
+	BVERR_UNSUPPORTED_SRC2_SCALE = -27,
+	BVERR_UNSUPPORTED_MASK_SCALE = -28,
+	BVERR_UNSUPPORTED_SRC1_ROTATION = -29,
+	BVERR_UNSUPPORTED_SRC2_ROTATION = -30,
+	BVERR_UNSUPPORTED_MASK_ROTATION = -31,
+	BVERR_UNSUPPORTED_ROP = -32,
+	BVERR_UNSUPPORTED_BLEND = -33,
+	BVERR_UNSUPPORTED_KEY = -34,
+	BVERR_UNSUPPORTED_DITHER = -35,
+	BVERR_UNSUPPORTED_SCALE_TYPE = -36,
+	BVERR_UNSUPPORTED_BATCH_FLAGS = -37,
+	BVERR_BAD_BATCH_HANDLE = -38,
+	BVERR_UNSUPPORTED_MASK_SIZE = -41,
+	BVERR_MEMORY_UNMAPPABLE = -42,
+	/* Comments and more codes TBD (values to be modified!) */
+};
+
+#endif /* BVERROR_H */

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Welcome to BLTsville</title>
+<style type="text/css">
+.coderef {
+				font-family: "Courier New", Courier, monospace;
+}
+.code {
+				margin-left: 40px;
+				font-family: "Courier New", Courier, monospace;
+				font-size: small;
+}
+.Header1 {
+				font-size: xx-large;
+				font-weight: bold;
+				text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<p class="Header1">Welcome to BLTsville!</p>
+<hr />
+<p>BLTsville is the open 2-D application programming interface (API) designed to 
+provide an abstract interface for both hardware and software 2-D 
+implementations.&nbsp; The API is designed and maintained by Texas Instruments, 
+Inc., but anyone is free to use it with no cost or obligation.</p>
+<p>BLT is short for BLock Transfer.&nbsp; BLTing is moving blocks, or 
+rectangles, of pixels around.&nbsp; This is what BLTsville is all about.</p>
+<p>The API currently has a user mode interface, but kernel mode is on the way.&nbsp; 
+Obviously, the kernel mode interface will have more operating system dependence, 
+but as much as possible, the user mode itself is agnostic of operating system.&nbsp; 
+But the kernel mode interface will be quite similar to the user mode.</p>
+<p>To build a user mode client for BLTsville, the header <span class="coderef">
+bltsville.h</span> must be included.&nbsp; This header holds the definitions, 
+enumerations, structures, and interface for BLTsville.</p>
+<p>BLTsville&#39;s interface consists of three functions per implementation, which 
+must be imported at run time:</p>
+<ul class="code">
+				<li>bv_map()</li>
+				<li>bv_blt()</li>
+				<li>bv_unmap()</li>
+</ul>
+<p>Importing these functions is an operating system dependent operation.&nbsp; 
+In Linux, for example, it might be done like this (error handling excluded for 
+clarity):</p>
+<p class="code">void* bvlibcpu = dlopen(&quot;libbltsville_cpu.so&quot;, RTLD_LOCAL | 
+RTLD_LAZY);<br />
+bv_map bv_map = (bv_map)dlsym(bvlibcpu, &quot;bv_map&quot;);<br />
+bv_blt bv_blt = (bv_blt)dlsym(bvlibcpu, &quot;bv_blt&quot;);<br />
+bv_unmap bv_unmap = (bv_unmap)dlsym(bvlibcpu, &quot;bv_unmap&quot;);</p>
+<p>BLTsville does not allocate buffers.&nbsp; Instead, it operates on buffers 
+provided by the client.&nbsp; For most hardware implementations underneath the 
+BLTsville API, the buffer must 
+be mapped into the context of the hardware.&nbsp; Often this means 
+copying the central processing unit (CPU) memory management unit (MMU) entries 
+for the buffer into the MMU for the hardware.&nbsp; But whatever the need, BLTsville abstracts this operation.</p>
+<p>The process of mapping (and unmapping) can incur a great deal of overhead.&nbsp; 
+Such an operation is not something that is desirable to be done for each BLT.&nbsp; 
+For smaller BLTs, the overhead would outweigh the advantages obtained with the 
+hardware acceleration.&nbsp; So, BLTsville separates the mapping and unmapping 
+from the BLTs themselves, so that the client can avoid repeatedly dealing with 
+the operation more than once per buffer.&nbsp; BLTsville provides the
+<span class="coderef">bv_map()</span> and <span class="coderef">bv_unmap()</span> 
+functions to map and unmap the buffers into the context of the implementation.&nbsp;
+</p>
+<p>Obviously an API cannot add capabilities beyond the implementation&#39;s 
+abilities.&nbsp; So if the 
+implementation requires memory to be allocated from a special pool, that 
+responsibility falls upon the client.&nbsp; The <span class="coderef">bv_map()</span> 
+function for that implementation will need to check the characteristics of the 
+memory and return an error if it does not meet the necessary criteria.</p>
+<p>What about multiple implementations?&nbsp; Is it necessary to map and unmap 
+each one?</p>
+<p>Tracking which implementations have been mapped and which ones haven&#39;t, as 
+well as ensuring that each implementation is only mapped once, are burdens 
+BLTsville does not force upon its clients.&nbsp; The design requires that only one
+<span class="coderef">bv_map()</span> and <span class="coderef">bv_unmap()</span> 
+call needs to be made by the client.&nbsp; More may be called, but only one is 
+required.</p>
+<p>The method of limiting the <span class="coderef">bv_map()</span> to one 
+implementation is via lazy mapping done behind the scenes.&nbsp; The implementations which receives the
+<span class="coderef">bv_map()</span> call will do an actual mapping.&nbsp; But the remaining implementations 
+will do the mapping upon the first <span class="coderef">bv_blt()</span> call in 
+that implementation.&nbsp; This has several 
+advantages:</p>
+<ol>
+				<li>The client only needs to call one <span class="coderef">
+				bv_map()</span> function in one (any) implementation.</li>
+				<li>The client does not need to track which implementations&#39; 
+				<span class="coderef">bv_map()</span> functions have been called.</li>
+				<li>Mapping does not have to be done for any 
+				implementation that is not used.</li>
+				<li>The client can choose to isolate all mapping overhead to 
+				initialization by explicitly calling all implementations&#39;
+				<span class="coderef">bv_map()</span> functions at that time.</li>
+</ol>
+<p>The method of limiting the <span class="coderef">bv_unmap()</span> to one 
+implementation requires a different approach.&nbsp; The mapping consists of a chain of bvbuffermap objects that each contain the information needed by the various 
+implementations that have been mapped.&nbsp; These objects also contain a 
+pointer to the <span class="coderef">bv_unmap()</span> function for the 
+associated implementation.&nbsp; This allows the one <span class="coderef">
+bv_unmap()</span> called by the client to forward the call to the other 
+implementations that have been mapped.&nbsp; As with the lazy mapping, this 
+unmapping happens behind the scenes, so the client doesn&#39;t have to deal with it.</p>
+
+</body>
+
+</html>
