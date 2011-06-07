@@ -76,6 +76,9 @@ enum bverror {
 
 	BVERR_DST_HANDLE =	/* invalid bvbltparams.dstmap */
 		BVERRDEF_VENDOR_ALL + 23000,
+	BVERR_DST_ALIGNMENT =	/* unsupported buffer base address */
+		BVERRDEF_VENDOR_ALL + 23100,
+
 	BVERR_DST_VERS =	/* dstgeom.structsize too small */
 		BVERRDEF_VENDOR_ALL + 24000,
 	BVERR_DST_FORMAT =	/* bltparams.dstgeom.format not supported */
@@ -87,6 +90,8 @@ enum bverror {
 
 	BVERR_SRC1_HANDLE =	/* invalid bvbltparams.src1.map */
 		BVERRDEF_VENDOR_ALL + 25000,
+	BVERR_SRC1_ALIGNMENT =	/* unsupported buffer base address */
+		BVERRDEF_VENDOR_ALL + 25100,
 
 	BVERR_SRC1_TILE_VERS =	/* mask.tileparams.structsize too small */
 		BVERRDEF_VENDOR_ALL + 25100,
@@ -114,6 +119,8 @@ enum bverror {
 
 	BVERR_SRC2_HANDLE =	/* invalid bvbltparams.src2.map */
 		BVERRDEF_VENDOR_ALL + 27000,
+	BVERR_SRC2_ALIGNMENT =	/* unsupported buffer base address */
+		BVERRDEF_VENDOR_ALL + 27100,
 
 	BVERR_SRC2_TILE_VERS =	/* mask.tileparams.structsize too small */
 		BVERRDEF_VENDOR_ALL + 27100,
@@ -141,6 +148,8 @@ enum bverror {
 
 	BVERR_MASK_HANDLE =	/* invalid bvbltparams.mask.map */
 		BVERRDEF_VENDOR_ALL + 29000,
+	BVERR_MASK_ALIGNMENT =	/* unsupported buffer base address */
+		BVERRDEF_VENDOR_ALL + 29100,
 
 	BVERR_MASK_TILE_VERS =	/* mask.tileparams.structsize too small */
 		BVERRDEF_VENDOR_ALL + 29100,
