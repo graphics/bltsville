@@ -44,7 +44,7 @@ enum bvfilter {
  */
 struct bvfilterop {
 	enum bvfilter filter;
-	void *filterparams;
+	void *params;
 };
 
 #endif /* BVFILTER_H */
