@@ -70,6 +70,7 @@ struct bvbufferdesc {
 	unsigned int structsize;	/* used to identify struct ver */
 	void *virtaddr;			/* virtual ptr to start of buffer */
 	unsigned long length;		/* length of the buffer in bytes */
+	struct bvbuffermap *map;	/* resource(s) associated w/buffer */
 };
 
 /*
@@ -444,7 +445,7 @@ enum bvdithermode {
 
 /*
  * bvtileparams - This structure provides additional parameters needed when
- * tiling.  This structure replaces the bvbuffermap in bvbltparams when the
+ * tiling.  This structure replaces the bvbufferdesc in bvbltparams when the
  * associated BVFLAG_TILE_* flag is set in bvbltparams.flags.
  */
 struct bvtileparams {
@@ -526,10 +527,10 @@ struct bvbltparams {
 	union {				/* (i) params for ops */
 		unsigned short rop;		/* when BVFLAG_ROP set */
 		enum bvblend blend;		/* when BVFLAG_BLEND set */
-		struct bvfilterop *filter_ptr;	/* when BVFLAG_FILTER set */
+		struct bvfilterop *filter;	/* when BVFLAG_FILTER set */
 	} op;
 
-	void *colorkey_ptr;		/* (i) pointer to color key pixel
+	void *colorkey;			/* (i) pointer to color key pixel
 					       matching non-SUBSAMPLE format
 					       of the keyed surface when
 					       BVFLAG_KEY_* is set */
@@ -547,12 +548,12 @@ struct bvbltparams {
 	enum bvscalemode scalemode;	/* (i/o) type of scaling */
 	enum bvdithermode dithermode;	/* (i/o) type of dither */
 
-	struct bvbuffermap *dstmap;	/* (i) dest buff from bv_map() */
+	struct bvbufferdesc *dstdesc;	/* (i) src1 after bv_map() */
 	struct bvsurfgeom *dstgeom;	/* (i) dest surf fmt and geometry */
 	struct bvrect dstrect;		/* (i) rect into which data written */
 
 	union {				/* (i) src1 buffer */
-		struct bvbuffermap *map;	 /* src1 buff from bv_map() */
+		struct bvbufferdesc *desc;	 /* src1 after bv_map() */
 		struct bvtileparams *tileparams; /* tile params when
 						    BVFLAG_TILE_SRC1 set */
 	} src1;
@@ -560,7 +561,7 @@ struct bvbltparams {
 	struct bvrect src1rect;		/* (i) rect from which data is read */
 
 	union {				/* (i) src2 buffer */
-		struct bvbuffermap *map;	 /* src2 buffer from bv_map() */
+		struct bvbufferdesc *desc;	 /* src2 after bv_map() */
 		struct bvtileparams *tileparams; /* tile params when
 						    BVFLAG_TILE_SRC2 set */
 	} src2;
@@ -568,7 +569,7 @@ struct bvbltparams {
 	struct bvrect src2rect;		/* (i) rect from which data is read */
 
 	union {				/* (i) mask buffer */
-		struct bvbuffermap *map;	 /* mask buffer from bv_map() */
+		struct bvbufferdesc *desc;	 /* mask after bv_map() */
 		struct bvtileparams *tileparams; /* tile params when
 						   BFFLAG_TILE_MASK is set */
 	} mask;
