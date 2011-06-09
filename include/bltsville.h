@@ -600,9 +600,8 @@ struct bvbltparams {
  * bv_*() - These are the API calls for BLTsville.  The client needs to
  * import these from the shared library.
  */
-typedef enum bverror (*BVFN_MAP)(struct bvbuffermap **buffermap,
-				 struct bvbufferdesc *bufferdesc);
+typedef enum bverror (*BVFN_MAP)(struct bvbufferdesc *bufferdesc);
 typedef enum bverror (*BVFN_BLT)(struct bvbltparams *bltparms);
-typedef enum bverror (*BVFN_UNMAP)(struct bvbuffermap *buffermap);
+typedef enum bverror (*BVFN_UNMAP)(struct bvbufferdesc *bufferdesc);
 
 #endif /* BLTSVILLE_H */
