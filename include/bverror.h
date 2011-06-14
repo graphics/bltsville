@@ -20,10 +20,11 @@
  * bverror - These are error codes returned by BLTsville functions.
  */
 #define BVERRDEF_VENDOR_SHIFT	24
+#define BVERRDEF_VENDOR_MASK	(0xFF << BVERRDEF_VENDOR_SHIFT)
+
 #define BVERRDEF_VENDOR_ALL	(0x00 << BVERRDEF_VENDOR_SHIFT)
 #define BVERRDEF_VENDOR_TI	(0x01 << BVERRDEF_VENDOR_SHIFT)
 /* 0xF0-0xFF reserved */
-#define BVERRDEF_VENDOR_MASK	(0xFF << BVERRDEF_VENDOR_SHIFT)
 
 enum bverror {
 	BVERR_NONE = 0,		/* no error */

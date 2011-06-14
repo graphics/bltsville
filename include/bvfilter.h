@@ -32,6 +32,7 @@
 enum bvfilter {
 	BVFILTER_DUMMY
 	/* TBD */
+
 #ifdef BVFILTER_EXTERNAL_INCLUDE
 #include BVFILTER_EXTERNAL_INCLUDE
 #endif

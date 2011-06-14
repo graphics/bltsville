@@ -78,13 +78,14 @@ struct bvbufferdesc {
  * the bvparams.flags element.
  */
 #define BVFLAG_OP_SHIFT	0
+#define BVFLAG_OP_MASK	(0xF << BVFLAG_OP_SHIFT)
+
 /* 0 reserved */
 #define BVFLAG_ROP	(0x1 << BVFLAG_OP_SHIFT) /* ROP4 spec'd in rop */
 #define BVFLAG_BLEND	(0x2 << BVFLAG_OP_SHIFT) /* blend spec'd in blend */
 /* 3 reserved */
 #define BVFLAG_FILTER	(0x4 << BVFLAG_OP_SHIFT) /* filter spec'd in filter */
 /* 5-F reserved */
-#define BVFLAG_OP_MASK	(0xF << BVFLAG_OP_SHIFT)
 
 #define BVFLAG_KEY_SRC		0x00000010 /* source color key - value spec'd
 					      by pcolorkey; Mutually exclusive
@@ -104,22 +105,27 @@ struct bvbufferdesc {
 #define BVFLAG_TILE_SRC2	0x00000400 /* source 2 is tiled */
 #define BVFLAG_TILE_MASK	0x00000800 /* mask is tiled */
 
+
 #define BVFLAG_BATCH_SHIFT	12
+#define BVFLAG_BATCH_MASK	(3 << BVFLAG_BATCH_SHIFT)
+
 #define BVFLAG_BATCH_BEGIN	(1 << BVFLAG_BATCH_SHIFT) /* begin batch */
 #define BVFLAG_BATCH_CONTINUE	(2 << BVFLAG_BATCH_SHIFT) /* continue batch */
 #define BVFLAG_BATCH_END	(3 << BVFLAG_BATCH_SHIFT) /* end batch */
-#define BVFLAG_BATCH_MASK	(3 << BVFLAG_BATCH_SHIFT)
+
+
+#define BVFLAG_HORZ_FLIP_MASK	0x00040000 /* flip mask horizontally */
+#define BVFLAG_VERT_FLIP_MASK	0x00080000 /* flip mask vertically */
 
 #define BVFLAG_HORZ_FLIP_SRC1	0x00004000 /* flip src1 horizontally */
 #define BVFLAG_VERT_FLIP_SRC1	0x00008000 /* flip src1 vertically */
 #define BVFLAG_HORZ_FLIP_SRC2	0x00010000 /* flip src2 horizontally */
 #define BVFLAG_VERT_FLIP_SRC2	0x00020000 /* flip src2 vertically */
-#define BVFLAG_HORZ_FLIP_MASK	0x00040000 /* flip mask horizontally */
-#define BVFLAG_VERT_FLIP_MASK	0x00080000 /* flip mask vertically */
+
 
 #define BVFLAG_SCALE_RETURN	0x00100000 /* return scale type used */
 #define BVFLAG_DITHER_RETURN	0x00200000 /* return dither type used */
-/**** Bits 31-16 reserved ****/
+/**** Bits 31-22 reserved ****/
 
 /*
  * BVIMPL_* - BLTsville implementations may be combined under managers to
@@ -137,11 +143,12 @@ struct bvbufferdesc {
  * bvscalemode - This specifies the type of scaling to perform.
  */
 #define BVSCALEDEF_VENDOR_SHIFT 24
+#define BVSCALEDEF_VENDOR_MASK (0xFF << BVSCALEDEF_VENDOR_SHIFT)
+
 #define BVSCALEDEF_VENDOR_ALL (0 << BVSCALEDEF_VENDOR_SHIFT)
 #define BVSCALEDEF_VENDOR_TI  (1 << BVSCALEDEF_VENDOR_SHIFT)
 /* 0xF0-0xFE reserved */
 #define BVSCALEDEF_VENDOR_GENERIC (0xFF << BVSCALEDEF_VENDOR_SHIFT)
-#define BVSCALEDEF_VENDOR_MASK (0xFF << BVSCALEDEF_VENDOR_SHIFT)
 
 /***** VENDOR_GENERIC definitions *****/
 /**** Bits 23-22 indicate classification ****/
@@ -175,7 +182,11 @@ struct bvbufferdesc {
 /**** EXPLICIT definitions ****/
 /* Bits 21-16 reserved */
 #define BVSCALEDEF_HORZ_SHIFT	8
+#define BVSCALEDEF_HORZ_MASK	(0xFF << BVSCALEDEF_HORZ_SHIFT)
+
 #define BVSCALEDEF_VERT_SHIFT	0
+#define BVSCALEDEF_VERT_MASK	(0xFF << BVSCALEDEF_VERT_SHIFT)
+
 #define BVSCALEDEF_NEAREST_NEIGHBOR	0x00
 #define BVSCALEDEF_LINEAR		0x01
 #define BVSCALEDEF_CUBIC		0x02
@@ -187,8 +198,6 @@ struct bvbufferdesc {
 /* 0x08 reserved */
 #define BVSCALEDEF_9_TAP		0x09
 /* 0x0A-0xFF reserved */
-#define BVSCALEDEF_HORZ_MASK	(0xFF << BVSCALEDEF_HORZ_SHIFT)
-#define BVSCALEDEF_VERT_MASK	(0xFF << BVSCALEDEF_VERT_SHIFT)
 
 enum bvscalemode {
 	BVSCALE_FASTEST =	BVSCALEDEF_VENDOR_ALL |
@@ -314,11 +323,12 @@ enum bvscalemode {
  * bvdithermode - This defines the type of dithering to use.
  */
 #define BVDITHERDEF_VENDOR_SHIFT 24
+#define BVDITHERDEF_VENDOR_MASK (0xFF << BVDITHERDEF_VENDOR_SHIFT)
+
 #define BVDITHERDEF_VENDOR_ALL (0 << BVDITHERDEF_VENDOR_SHIFT)
 #define BVDITHERDEF_VENDOR_TI  (1 << BVDITHERDEF_VENDOR_SHIFT)
 /* 0xF0-0xFE reserved */
 #define BVDITHERDEF_VENDOR_GENERIC (0xFF << BVDITHERDEF_VENDOR_SHIFT)
-#define BVDITHERDEF_VENDOR_MASK (0xFF << BVDITHERDEF_VENDOR_SHIFT)
 
 /***** VENDOR_GENERIC definitions *****/
 /* Bits 23-18 reserved */
@@ -548,7 +558,7 @@ struct bvbltparams {
 	enum bvscalemode scalemode;	/* (i/o) type of scaling */
 	enum bvdithermode dithermode;	/* (i/o) type of dither */
 
-	struct bvbufferdesc *dstdesc;	/* (i) src1 after bv_map() */
+	struct bvbufferdesc *dstdesc;	/* (i) dest after bv_map() */
 	struct bvsurfgeom *dstgeom;	/* (i) dest surf fmt and geometry */
 	struct bvrect dstrect;		/* (i) rect into which data written */
 
