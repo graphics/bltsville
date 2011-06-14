@@ -30,9 +30,10 @@
  *	     when BVFLAG_BLEND is set in the bvbltparams.flags field.
  */
 #define BVBLENDDEF_FORMAT_SHIFT 28
+#define BVBLENDDEF_FORMAT_MASK (0xF << BVBLENDDEF_FORMAT_SHIFT)
+
 #define BVBLENDDEF_FORMAT_CLASSIC	(0x0 << BVBLENDDEF_FORMAT_SHIFT)
 #define BVBLENDDEF_FORMAT_ESSENTIAL	(0x1 << BVBLENDDEF_FORMAT_SHIFT)
-#define BVBLENDDEF_FORMAT_MASK (0xF << BVBLENDDEF_FORMAT_SHIFT)
 
 /*
  * Definitions for BVBLDNDDEF_FORMAT_PORTERDUFF, use the following equations:
@@ -67,26 +68,93 @@
 /*
  * The following definitions are be used to modify the enumerations.
  */
-#define BVBLENDDEF_REMOTE	0x00800000	/* mask surface provides alpha
+#define BVBLENDDEF_REMOTE	0x04000000	/* mask surface provides alpha
 						   for source 1 */
 
 /* These enable global alpha and define the type of globalalpha */
-#define BVBLENDDEF_GLOBAL_SHIFT 22
+#define BVBLENDDEF_GLOBAL_SHIFT 24
+#define BVBLENDDEF_GLOBAL_MASK (3 << BVBLENDDEF_GLOBAL_SHIFT)
+
 #define BVBLENDDEF_GLOBAL_UCHAR	 (0 << BVBLENDDEF_GLOBAL_SHIFT)
 #define BVBLENDDEF_GLOBAL_USHORT (1 << BVBLENDDEF_GLOBAL_SHIFT)
 #define BVBLENDDEF_GLOBAL_ULONG	 (2 << BVBLENDDEF_GLOBAL_SHIFT)
 #define BVBLENDDEF_GLOBAL_FLOAT	 (3 << BVBLENDDEF_GLOBAL_SHIFT)
-#define BVBLENDDEF_GLOBAL_MASK (3 << BVBLENDDEF_GLOBAL_SHIFT)
 
 /*
  * For BVBLENDDEF_FORMAT_CLASSIC, the specific blend operation is constructed
- * using the definitions above.
+ * using the definitions above.  Following the format identifier, the
+ * remaining 28 bits are divided into four groups of 6 bits plus 4 modifier
+ * bits.
  *
- * Note that the equations assume the surfaces are premultiplied.  So
+ * Starting with the following equations:
+ *  Cd = K1 x C1 + K2 x C2
+ *  Ad = K3 x A1 + K4 x A2
+ *
+ * The four 6-bit fields are used to specify the values for the four constant
+ * (K) values.
+ *
+ * These 6-bit fields are further divided into 3 groups of 2 bits each.  The
+ * rightmost 2 groups specify parameters used as indicated by the leftmost
+ * group.
+ *
+ * Bits n through n+1 specify the second parameter:
+ * 00b = 1-Cs
+ * 01b = 1-As
+ * 10b = 1-Cd
+ * 11b = 1-Ad
+ *
+ * Bits n+2 through n+3 specify the first parameter:
+ * 00b = Cs
+ * 01b = As
+ * 10b = Cd
+ * 11b = Ad
+ *
+ * Bits n+4 through n+5 indicate how the two fields are used:
+ * 00b = only the first parameter is used (special case for both 00b)
+ * 01b = minimum of two fields
+ * 10b = maximum of two fields
+ * 11b = only the second parameter is used (special case for both 11b)
+ *
+ * Put together, these can define portions of the blend equations that can be
+ * put together in a variety of ways:
+ *
+ * 00 00 00: 0
+ * 00 00 11: C1
+ * 00 01 11: A1
+ * 00 10 11: C2
+ * 00 11 11: A2
+ * 11 00 00: 1-C1
+ * 11 00 01: 1-A1
+ * 11 00 10: 1-C2
+ * 11 00 11: 1-A2
+ * 11 11 11: 1
+ * 01 01 11: min(A1,1-A2)
+ *
+ * Putting these together into the proper constants, the blending equations
+ * can be built for DirectFB or Porter-Duff:
+ *
+ * For Porter-Duff, the equations can be more specifically defined.  For
+ * convenience, these are defined below.  These utilize the local alpha as
+ * indicated.  To use global or remote alpha, these enumerations need to be
+ * modified.  For example, to include the global alpha in the Porter-Duff
+ * SRC1OVER blend, the blend could be defined like this:
+ *   params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_GLOBAL_UCHAR;
+ *
+ * To include the remote alpha, the blend could be defined like this:
+ *   params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_REMOTE;
+ *
+ * And to include both:
+ *   params.op.blend = BVBLEND_SRC1OVER +
+ *		       BVBLENDDEF_GLOBAL_UCHAR +
+ *		       BVBLENDDEF_REMOTE;
+ *
+ * Note that if the source color formats include local alphas, the local
+ * alphas, global alpha, and remote alpha will be used together.
+ *
+ * Note also that the equations assume the surfaces are premultiplied.  So
  * if the surface formats indicate that they are not premultiplied, the
  * alpha multiplication of each color is done prior to using the surface
  * values in the equations.
- *
  * For example, BVBLEND_SRC1OVER specifies the equations:
  *   Cd = C1 x 1 + C2 x (1 - A1)
  *   Ad = A1 x 1 + A2 x (1 - A1)
@@ -99,26 +167,36 @@
  *   Cd = C1 x 1 + C2 x A2 x (1 - A1)
  *   Ad = A1 x 1 + A2 x (1 - A1)
  *
- * For convenience, the Porter-Duff versions are defined below.  These utilize
- * the local alpha if the formats include it.  To use global or remote alpha,
- * these enumerations need to be modified.  For example, to include the global
- * alpha in the Porter-Duff SRC1OVER blend, the blend could be defined like
- * this:
- *   params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_GLOBAL_UCHAR;
- * To include the remote alpha, the blend could be defined like this:
- *   params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_REMOTE;
- * And to include both:
- *   params.op.blend = BVBLEND_SRC1OVER +
- *		       BVBLENDDEF_GLOBAL_UCHAR +
- *		       BVBLENDDEF_REMOTE;
+ * For DirectFB, the SetSrcBlendFunction() and SetDstBlendFunction() can
+ * specify 121 combinations of blends (11 x 11). It's impractical to
+ * specify these combinations individually.  INstead, the settings indicated
+ * by each call should be bitwise OR'd to make the proper single value used in
+ * BLTsville.
  *
- * Note that if the source color formats include local alphas, the local
- * alphas, global alpha, and remote alpha will be used together:
+ * binary value                                 <- SetSrcBlendFunction()
+ *           [--K1--] [--K2--] [--K3--] [--K4--]
+ * 00000000 00 00 00 xx xx xx 00 00 00 xx xx xx <- DSBF_ZERO
+ * 00000000 11 11 11 xx xx xx 11 11 11 xx xx xx <- DSBF_ONE
+ * 00000000 00 00 11 xx xx xx 00 01 11 xx xx xx <- DSBF_SRCCOLOR
+ * 00000000 11 00 00 xx xx xx 11 00 01 xx xx xx <- DSBF_INVSRCCOLOR
+ * 00000000 00 01 11 xx xx xx 00 01 11 xx xx xx <- DSBF_SRCALPHA
+ * 00000000 11 00 01 xx xx xx 11 00 01 xx xx xx <- DSBF_INVSRCALPHA
+ * 00000000 00 11 11 xx xx xx 00 11 11 xx xx xx <- DSBF_DESTALPHA
+ * 00000000 11 00 11 xx xx xx 11 00 11 xx xx xx <- DSBF_INVDESTALPHA
+ * 00000000 00 10 11 xx xx xx 00 11 11 xx xx xx <- DSBF_DESTCOLOR
+ * 00000000 11 00 10 xx xx xx 11 00 11 xx xx xx <- DSBF_INVDESTCOLOR
+ * 00000000 01 01 11 xx xx xx 11 11 11 xx xx xx <- DSBF_SRCALPHASAT
  *
- * For an interface like DirectFB, where the source and destination blending
- * functions are set separately, the blend value must be created manually from
- * the arguments passed to those functions
- * (e.g. SetSrcBlendFunction()/SetDstBlendFunction()).
+ * binary value                                 <- SetDstBlendFunction()
+ * 00000000 xx xx xx 00 00 00 xx xx xx 00 00 00 <- DSBF_ZERO
+ * 00000000 xx xx xx 11 11 11 xx xx xx 11 11 11 <- DSBF_ONE
+ * etc.
+ *
+ */
+
+/*
+ * For FORMAT_ESSENTIAL, the variety of well-known blending functions from
+ * popular image manipulation programs are specified.
  */
 
 enum bvblend {
@@ -214,6 +292,7 @@ enum bvblend {
 	BVBLEND_REFLECT = BVBLENDDEF_FORMAT_ESSENTIAL + 20,
 	BVBLEND_GLOW = BVBLENDDEF_FORMAT_ESSENTIAL + 21,
 	BVBLEND_PHOENIX = BVBLENDDEF_FORMAT_ESSENTIAL + 22,
+
 #ifdef BVBLEND_EXTERNAL_INCLUDE
 #define BVBLEND_EXTERNAL_INCLUDE
 #endif
