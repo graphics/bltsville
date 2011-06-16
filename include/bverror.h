@@ -228,7 +228,7 @@ enum bverror {
 
 	BVERR_BATCH_FLAGS =	/* bvbltparams.batchflags not supported */
 		BVERRDEF_VENDOR_ALL + 42000,
-	BVERR_BATCH_HANDLE =	/* bvbltparams.batchhandle not valid */
+	BVERR_BATCH =		/* bvbltparams.batch not valid */
 		BVERRDEF_VENDOR_ALL + 43000,
 
 	BVERR_OP_FAILED =	/* async operation failed to start */
