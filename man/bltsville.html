@@ -1,15 +1,12 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
 <meta http-equiv="Content-Language" content="en-us" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Welcome to BLTsville</title>
 <style type="text/css">
-.coderef {
-				font-family: "Courier New", Courier, monospace;
-}
-.code {
+.code_block {
 				margin-left: 40px;
 				font-family: "Courier New", Courier, monospace;
 				font-size: small;
@@ -19,73 +16,287 @@
 				font-weight: bold;
 				text-align: center;
 }
+.style2 {
+				margin-left: 40px;
+}
+.style4 {
+				text-align: center;
+}
+.Header2 {
+				font-size: xx-large;
+				font-weight: bold;
+				text-align: left;
+}
+.inline_code {
+				font-family: "Courier New", Courier, monospace;
+				font-size: small;
+}
+.underlined {
+				text-decoration: underline;
+}
 </style>
 </head>
 
 <body>
 
-<p class="Header1">Welcome to BLTsville!</p>
+<p class="style4">
+<img alt="" src="WelcomeToBLTsville.png" width="484" height="321" /></p>
 <hr />
 <p>BLTsville is the open 2-D application programming interface (API) designed to 
 provide an abstract interface for both hardware and software 2-D 
 implementations.&nbsp; The API is designed and maintained by Texas Instruments, 
 Inc., but anyone is free to use it with no cost or obligation.</p>
 <p>BLT is short for BLock Transfer.&nbsp; BLTing is moving blocks, or 
-rectangles, of pixels around.&nbsp; This is what BLTsville is all about.</p>
-<p>The API currently has a user mode interface, but kernel mode is on the way.&nbsp; 
-Obviously, the kernel mode interface will have more operating system dependence, 
-but as much as possible, the user mode itself is agnostic of operating system.&nbsp; 
-But the kernel mode interface will be quite similar to the user mode.</p>
-<p>To build a user mode client for BLTsville, the header <span class="coderef">
-bltsville.h</span> must be included.&nbsp; This header holds the definitions, 
-enumerations, structures, and interface for BLTsville.</p>
-<p>BLTsville&#39;s interface consists of three functions per implementation, which 
-must be imported at run time:</p>
-<ul class="code">
-				<li>bv_map()</li>
-				<li>bv_blt()</li>
-				<li>bv_unmap()</li>
+rectangles, of pixels around.&nbsp; BLTsville is the place to go for BLTs.</p>
+<p>Features found in BLTsville:</p>
+<ul>
+				<li>Solid fills</li>
+				<li>Copies</li>
+				<li>Color format conversion<ul>
+								<li>Extensive color format support<ul>
+												<li>RGB, BGR</li>
+												<li>RGBA, ARGB, etc.</li>
+												<li>YCbCr (YUV)<ul>
+																<li>subsampling</li>
+																<li>packed</li>
+																<li>planar</li>
+												</ul>
+												</li>
+												<li>Monochrome</li>
+												<li>Alpha-only</li>
+												<li>Look-Up Table (LUT)</li>
+								</ul>
+								</li>
+								<li>Extensible color format</li>
+				</ul>
+				</li>
+				<li>ROP4<ul>
+								<li>Three inputs</li>
+				</ul>
+				</li>
+				<li>Blends<ul>
+								<li>Pre-defined Porter-Duff blends</li>
+								<li>Pre-defined DirectFB support</li>
+								<li>Extensible blends</li>
+				</ul>
+				</li>
+				<li>Multiple </li>
+				<li>Filters<ul>
+								<li>Extensible filters</li>
+				</ul>
+				</li>
+				<li>Independent horizontal and vertical <strong>flipping</strong></li>
+				<li>Independent <strong>scaling</strong> of all three inputs</li>
+				<li>Choice of <strong>scaling</strong> type<ul>
+								<li>Quality based choice</li>
+								<li>Speed based choice</li>
+								<li>Image type based choice</li>
+								<li>Specific scale type choice</li>
+								<li>Extensible scale type</li>
+				</ul>
+				</li>
+				<li>Clipping</li>
+				<li>Independent <strong>rotation</strong> of all three inputs 
+				(multiples of 90 degrees)</li>
+				<li>Synchronous operations</li>
+				<li>Asynchronous operations<ul>
+								<li>Client notification of BLT completion</li>
+				</ul>
+				</li>
+				<li>Batching<ul>
+								<li>Combine multiple BLTs into group that can be 
+								handled more efficiently by implementations<ul>
+												<li>Character BLTs</li>
+												<li>Multi-layer blending</li>
+												<li>ROP/Blend combination with 
+												specified ordering</li>
+												<li>etc.</li>
+								</ul>
+								</li>
+								<li>Delta BLTs</li>
+				</ul>
+				</li>
+				<li>Dithering<ul>
+								<li>Quality based choice</li>
+								<li>Speed based choice</li>
+								<li>Image type based choice</li>
+								<li>Specific dither type choice</li>
+								<li>Extensible dither type</li>
+				</ul>
+				</li>
+				<li>Any implementation support<ul>
+								<li>CPU</li>
+								<li>2-D Accelerator</li>
+				</ul>
+				</li>
+				<li>BLTsville does not dictate capabilities of the 
+				implementations<ul>
+								<li>Operation specified either works or returns 
+								a response indicating it&#39;s not supported</li>
+				</ul>
+				</li>
 </ul>
-<p>Importing these functions is an operating system dependent operation.&nbsp; 
-In Linux, for example, it might be done like this (error handling excluded for 
-clarity):</p>
-<p class="code">void* bvlibcpu = dlopen(&quot;libbltsville_cpu.so&quot;, RTLD_LOCAL | 
-RTLD_LAZY);<br />
-bv_map bv_map = (bv_map)dlsym(bvlibcpu, &quot;bv_map&quot;);<br />
-bv_blt bv_blt = (bv_blt)dlsym(bvlibcpu, &quot;bv_blt&quot;);<br />
-bv_unmap bv_unmap = (bv_unmap)dlsym(bvlibcpu, &quot;bv_unmap&quot;);</p>
-<p>BLTsville does not allocate buffers.&nbsp; Instead, it operates on buffers 
-provided by the client.&nbsp; For most hardware implementations underneath the 
-BLTsville API, the buffer must 
-be mapped into the context of the hardware.&nbsp; Often this means 
-copying the central processing unit (CPU) memory management unit (MMU) entries 
-for the buffer into the MMU for the hardware.&nbsp; But whatever the need, BLTsville abstracts this operation.</p>
-<p>The process of mapping (and unmapping) can incur a great deal of overhead.&nbsp; 
-Such an operation is not something that is desirable to be done for each BLT.&nbsp; 
-For smaller BLTs, the overhead would outweigh the advantages obtained with the 
-hardware acceleration.&nbsp; So, BLTsville separates the mapping and unmapping 
-from the BLTs themselves, so that the client can avoid repeatedly dealing with 
-the operation more than once per buffer.&nbsp; BLTsville provides the
+<hr />
+<p class="style2">BLTsville currently has a user mode interface, but kernel mode 
+is on the way.&nbsp; 
+<em>Obviously, the kernel mode interface will have more operating system 
+dependence, but as much as possible, the user mode itself is agnostic of 
+operating system.&nbsp; However, the kernel mode interface will be quite similar 
+to the user mode.</em></p>
+<hr />
+<p class="Header2">Interface Headers</p>
+<p>BLTsville&#39;s API is defined in the BLTsville header files.&nbsp; A client must 
+include <span class="inline_code">bltsville.h</span> to access the 
+implementations.</p>
+<p>Note that the <span class="inline_code">bvinternal.h</span> header is for 
+implementations only and should not be used by clients.</p>
+<hr />
+<p class="Header2">BLTsville Names</p>
+<p>For most BLTsville clients, only one or both of the two main implementations 
+will be used.&nbsp; These two implementations are the CPU and default 2-D hardware 
+implementations.&nbsp; Clients use the standard names below to access these 
+implementations.&nbsp; The specific 
+name decoration will be dictated by the host Operating System (O/S):</p>
+<ul>
+				<li>CPU:&nbsp; bltsville_cpu<ul>
+								<li>Linux/Android:&nbsp; libbltsville_cpu.so</li>
+								<li>Windows:&nbsp; bltsville_cpu.dll</li>
+								<li>etc.</li>
+				</ul>
+				</li>
+				<li>2-D hardware:&nbsp; bltsville_2d<ul>
+								<li>Linux/Android:&nbsp; libbltsville_2d.so</li>
+								<li>Windows:&nbsp; bltsville_2d.dll</li>
+								<li>etc.</li>
+				</ul>
+				</li>
+</ul>
+<p>These entry points may represent the implementations themselves, or they may 
+be symbolic 
+links.&nbsp; In most cases, the 2-D hardware implementation will connect the 
+client 
+with the most capable 2-D hardware available in the system.</p>
+<p>In addition, there may be more implementations, but these will have 
+additional names as determined by the vendors.&nbsp; For example:</p>
+<ul>
+				<li>Reference CPU implementation:&nbsp; bltsville_refcpu</li>
+				<li>System DMA:&nbsp; bltsville_mydma</li>
+</ul>
+<p class="Header2">Visiting BLTsville</p>
+<p>Clients can use multiple BLTsville implementations.&nbsp; To facilitate this, BLTsville 
+implementation libraries are dynamically loaded by the client.&nbsp; Then the 
+BLTsville 
+entry points are imported.&nbsp; The specific procedure for this is dictated by the host 
+O/S.</p>
+<p>For example, a Linux client might use something like this:</p>
+<p class="code_block"><span style="font-family: courier new,monospace;">struct 
+bltsvillelib</span><br style="font-family: courier new,monospace;" />
+<span style="font-family: courier new,monospace;">{<br />
+&nbsp; char* libname;<br />
+&nbsp; void* hlib;<br style="font-family: courier new,monospace;" />
+&nbsp; BV_MAP bv_map;</span><br style="font-family: courier new,monospace;" />
+<span style="font-family: courier new,monospace;">&nbsp; BV_BLT bv_blt;</span><br style="font-family: courier new,monospace;" />
+<span style="font-family: courier new,monospace;">&nbsp; BV_UNMAP bvunmap;</span><br style="font-family: courier new,monospace;" />
+<span style="font-family: courier new,monospace;">};<br />
+<br />
+struct bltsvillelib bvlib[] =<br />
+{<br />
+&nbsp; { &quot;libbltsville_cpu.so&quot;, 0 },<br />
+&nbsp; { &quot;libbltsville_2d.so&quot;, 0 }<br />
+};<br />
+<br />
+for(int i = 0; i &lt; sizeof(bvlib) / sizeof(struct bltsvillelib); i++)<br />
+{<br />
+&nbsp; bvlib[i].hlib = dlopen(bvlib[i].libname, RTLD_LOCAL | RTLD_LAZY);<br />
+&nbsp; if(bvlib[i].hlib)<br />
+&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; bvlib[i].bv_map = (BV_MAP)dlsym(bvlib[i].hlib, &quot;bv_map&quot;);<br />
+&nbsp;&nbsp;&nbsp; bvlib[i].bv_blt = (BV_BLT)dlsym(bvlib[i].hlib, &quot;bv_blt&quot;);<br />
+&nbsp;&nbsp;&nbsp; bvlib[i].bv_unmap = (BV_UNMAP)dlsym(bvlib[i].hlib, &quot;bv_unmap&quot;);<br />
+&nbsp; }<br />
+}</span></p>
+<p class="Header2">Things To Do In BLTsville</p>
+<p>BLTsville&#39;s interface consists of three functions per implementation, which 
+must be imported by the client at run time, as indicated above:</p>
+<ul class="code_block">
+				<li><span class="inline_code"><a href="#bv_map">bv_map()</a></span></li>
+				<li><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></li>
+				<li><span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span></li>
+</ul>
+<p class="Header2"><label id="bv_map">bv_map()</label></p>
+<p class="code_block">enum bverror bv_map(struct bvbufferdesc* buffdesc);</p>
+<p><span class="underlined"><strong>BLTsville does not allocate buffers.</strong></span>&nbsp;&nbsp; 
+Clients must provide a buffer description via the <span class="inline_code">
+<a href="#bvbufferdesc">bvbufferdesc</a></span> structure so that BLTsville can 
+access the buffer.</p>
+<p><span class="inline_code">bv_map()</span> is used to provide the 
+implementation an opportunity to associate hardware 
+resources with the specified buffer.&nbsp; Most hardware requires this type of 
+mapping, and there is usually appreciable overhead associated with this 
+operation.</p>
+<p>Note that it is not required that the client call <span class="inline_code">bv_map()</span> prior to calling
+<span class="inline_code"><a href="#bv_blt">bv_blt()</a></span>.&nbsp; However, if
+<span class="inline_code">bv_map()</span> is not called at least once for a 
+given buffer, the necessary mapping will be done automatically when
+<span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> is called, and 
+removed upon return.&nbsp; This means the overhead will be incurred for every 
+<a href="#bv_blt" class="inline_code">bv_blt()</a> call which uses that buffer.</p>
+<p>Client are provided with <span class="inline_code">bv_map()</span> so they can control exactly when the 
+mapping overhead is encountered.&nbsp;&nbsp; For a given buffer, the client can 
+call the <span class="inline_code">bv_map()</span> in each implementation to establish that mapping immediately.</p>
+<p>However, as a special bonus, BLTsville clients are not required to call
+<span class="inline_code">bv_map()</span> for each implementation being used.&nbsp; 
+One call to any implementation&#39;s <span class="inline_code">bv_map()</span> is 
+sufficient to indicate that the client can be trusted to make the corresponding 
+call to <span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span> upon 
+destruction of the buffer.&nbsp; As a result, the implementations can use
+<strong>lazy mapping</strong> only when necessary.&nbsp; This way a client that 
+has multiple implementations available will not incur the overhead of the 
+mapping at all, unless a <span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> 
+call to that implementation is made.&nbsp; But the mapping is not removed after 
+the first call, so that the overhead can be avoided on subsequent <span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> 
+calls.</p>
+<p>Normally, the lowest overhead <span class="inline_code">bv_map()</span> call 
+will be in the CPU-based implementation.&nbsp; So most clients will want to make 
+a single, low overhead <span class="inline_code">bv_map()</span> call to the <em>
+bltsville_cpu</em> implementation to avoid the mapping/unmapping overhead on 
+each <span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> call, while 
+avoiding the mapping overhead when possible.</p>
+<p class="Header2"><label id="bv_blt">bv_blt()</label></p>
+<p class="code_block">enum bverror bv_blt(struct bvbltparams* bltparams);</p>
+<p>The main function of BLTsville is <span class="inline_code">bv_blt()</span>.&nbsp; 
+A <span class="inline_code">bvbltparams</span> structure is passed into
+<span class="inline_code">bv_blt()</span> to trigger the desired 2-D operation.</p>
+<p>In practice, the process of mapping (and unmapping) can incur a great deal of overhead.&nbsp; 
+Such an operation is not something that is practical to be done for each BLT if 
+performance is critical.&nbsp; 
+For smaller BLTs, the overhead would outweigh the advantages obtained with hardware acceleration.&nbsp; So 
+mapping and unmapping are separated from BLTing in BLTsville.&nbsp; This way the 
+client can avoid repeatedly dealing with 
+the mapping/unmapping operations more than once per buffer.&nbsp; BLTsville provides the
 <span class="coderef">bv_map()</span> and <span class="coderef">bv_unmap()</span> 
 functions to map and unmap the buffers into the context of the implementation.&nbsp;
 </p>
-<p>Obviously an API cannot add capabilities beyond the implementation&#39;s 
-abilities.&nbsp; So if the 
+<p><em>Obviously an API cannot add capabilities beyond an implementation&#39;s 
+capabilities.&nbsp; So if the 
 implementation requires memory to be allocated from a special pool, that 
-responsibility falls upon the client.&nbsp; The <span class="coderef">bv_map()</span> 
+responsibility falls upon the client.&nbsp; The </em> <span class="coderef"><em>bv_map()</em></span><em> 
 function for that implementation will need to check the characteristics of the 
-memory and return an error if it does not meet the necessary criteria.</p>
+memory and return an error if it does not meet the necessary criteria.</em></p>
+<hr />
 <p>What about multiple implementations?&nbsp; Is it necessary to map and unmap 
 each one?</p>
 <p>Tracking which implementations have been mapped and which ones haven&#39;t, as 
-well as ensuring that each implementation is only mapped once, are burdens 
-BLTsville does not force upon its clients.&nbsp; The design requires that only one
+well as ensuring that each implementation is only mapped once, are burdens BLTsville does not force upon its 
+clients.&nbsp; The design requires that only one
 <span class="coderef">bv_map()</span> and <span class="coderef">bv_unmap()</span> 
 call needs to be made by the client.&nbsp; More may be called, but only one is 
 required.</p>
 <p>The method of limiting the <span class="coderef">bv_map()</span> to one 
-implementation is via lazy mapping done behind the scenes.&nbsp; The implementations which receives the
-<span class="coderef">bv_map()</span> call will do an actual mapping.&nbsp; But the remaining implementations 
+implementation is via lazy mapping done behind the scenes.&nbsp; The 
+implementations which receives the
+<span class="coderef">bv_map()</span> call will do an actual mapping.&nbsp; But the remaining 
+implementations 
 will do the mapping upon the first <span class="coderef">bv_blt()</span> call in 
 that implementation.&nbsp; This has several 
 advantages:</p>
@@ -106,8 +317,8 @@ implementations that have been mapped.&nbsp; These objects also contain a
 pointer to the <span class="coderef">bv_unmap()</span> function for the 
 associated implementation.&nbsp; This allows the one <span class="coderef">
 bv_unmap()</span> called by the client to forward the call to the other 
-implementations that have been mapped.&nbsp; As with the lazy mapping, this 
-unmapping happens behind the scenes, so the client doesn&#39;t have to deal with it.</p>
+implementations that have been mapped.&nbsp; As with the lazy mapping, this unmapping happens behind the scenes, so the 
+client doesn&#39;t have to deal with it.</p>
 
 </body>
 
