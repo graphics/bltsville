@@ -47,6 +47,8 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 12000,
 	BVERR_BUFFERDESC_LEN =	/* bvbufferdesc.length not supported */
 		BVERRDEF_VENDOR_ALL + 13000,
+	BVERR_BUFFERDESC_ALIGNMENT = /* unsupported buffer base address */
+		BVERRDEF_VENDOR_ALL + 14000,
 
 	BVERR_BLTPARAMS_VERS =	/* bvbltparams.structsize too small */
 		BVERRDEF_VENDOR_ALL + 20000,
@@ -117,16 +119,16 @@ enum bverror {
 	BVERR_SRC1DESC_ALIGNMENT = /* unsupported buffer base address */
 		BVERRDEF_VENDOR_ALL + 29400,
 
-	BVERR_SRC1GEOM =		/* invalid bvbltparams.dstgeom */
+	BVERR_SRC1GEOM =		/* invalid bvbltparams.src1geom */
 		BVERRDEF_VENDOR_ALL + 30000,
-	BVERR_SRC1GEOM_VERS =	/* dstgeom.structsize too small */
+	BVERR_SRC1GEOM_VERS =	/* src1geom.structsize too small */
 		BVERRDEF_VENDOR_ALL + 30100,
-	BVERR_SRC1GEOM_FORMAT =	/* bltparams.dstgeom.format not supported */
+	BVERR_SRC1GEOM_FORMAT =	/* bltparams.src1geom.format not supported */
 		BVERRDEF_VENDOR_ALL + 30200,
-	BVERR_SRC1GEOM_STRIDE =	/* bltparams.dstgeom.stride not supported */
+	BVERR_SRC1GEOM_STRIDE =	/* bltparams.src1geom.stride not supported */
 		BVERRDEF_VENDOR_ALL + 30300,
 
-	BVERR_SRC1RECT =		/* bvbltparams.dstrect not supported */
+	BVERR_SRC1RECT =		/* bvbltparams.src1rect not supported */
 		BVERRDEF_VENDOR_ALL + 31000,
 
 	BVERR_SRC1_HORZSCALE = /* horz scale for src1->dst not supported */
@@ -156,16 +158,16 @@ enum bverror {
 	BVERR_SRC2DESC_ALIGNMENT = /* unsupported buffer base address */
 		BVERRDEF_VENDOR_ALL + 33400,
 
-	BVERR_SRC2GEOM =		/* invalid bvbltparams.dstgeom */
+	BVERR_SRC2GEOM =		/* invalid bvbltparams.src2geom */
 		BVERRDEF_VENDOR_ALL + 34000,
-	BVERR_SRC2GEOM_VERS =	/* dstgeom.structsize too small */
+	BVERR_SRC2GEOM_VERS =	/* src2geom.structsize too small */
 		BVERRDEF_VENDOR_ALL + 34100,
-	BVERR_SRC2GEOM_FORMAT =	/* bltparams.dstgeom.format not supported */
+	BVERR_SRC2GEOM_FORMAT =	/* bltparams.src2geom.format not supported */
 		BVERRDEF_VENDOR_ALL + 34200,
-	BVERR_SRC2GEOM_STRIDE =	/* bltparams.dstgeom.stride not supported */
+	BVERR_SRC2GEOM_STRIDE =	/* bltparams.src2geom.stride not supported */
 		BVERRDEF_VENDOR_ALL + 34300,
 
-	BVERR_SRC2RECT =		/* bvbltparams.dstrect not supported */
+	BVERR_SRC2RECT =		/* bvbltparams.src2rect not supported */
 		BVERRDEF_VENDOR_ALL + 35000,
 
 	BVERR_SRC2_HORZSCALE = /* horz scale for src2->dst not supported */
@@ -195,16 +197,16 @@ enum bverror {
 	BVERR_MASKDESC_ALIGNMENT = /* unsupported buffer base address */
 		BVERRDEF_VENDOR_ALL + 37400,
 
-	BVERR_MASKGEOM =		/* invalid bvbltparams.dstgeom */
+	BVERR_MASKGEOM =		/* invalid bvbltparams.maskgeom */
 		BVERRDEF_VENDOR_ALL + 38000,
-	BVERR_MASKGEOM_VERS =	/* dstgeom.structsize too small */
+	BVERR_MASKGEOM_VERS =	/* maskgeom.structsize too small */
 		BVERRDEF_VENDOR_ALL + 38100,
-	BVERR_MASKGEOM_FORMAT =	/* bltparams.dstgeom.format not supported */
+	BVERR_MASKGEOM_FORMAT =	/* bltparams.maskgeom.format not supported */
 		BVERRDEF_VENDOR_ALL + 38200,
-	BVERR_MASKGEOM_STRIDE =	/* bltparams.dstgeom.stride not supported */
+	BVERR_MASKGEOM_STRIDE =	/* bltparams.maskgeom.stride not supported */
 		BVERRDEF_VENDOR_ALL + 38300,
 
-	BVERR_MASKRECT =		/* bvbltparams.dstrect not supported */
+	BVERR_MASKRECT =		/* bvbltparams.maskrect not supported */
 		BVERRDEF_VENDOR_ALL + 39000,
 
 	BVERR_MASK_HORZSCALE = /* horz scale for mask->dst not supported */
