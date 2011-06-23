@@ -36,7 +36,7 @@ struct bvbuffermap {
 	unsigned int structsize; /* used to ID structure ver */
 
 	/* function to unmap this resource */
-	enum bverror (*bv_unmap)(struct bvbuffermap *buffermap);
+	BVFN_MAP bv_unmap;
 
 	unsigned long handle;	 /* resource-specific info */
 
