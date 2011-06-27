@@ -38,7 +38,7 @@ struct bvrect {
  */
 
 struct bvsurfgeom {
-	unsigned int structsize;	/* used to identify struct ver */
+	unsigned int structsize;	/* used to identify struct version */
 	enum ocdformat format;		/* color format of surface */
 	unsigned int width;		/* width of the surface in pixels */
 	unsigned int height;		/* height of the surface in lines */
@@ -67,7 +67,7 @@ struct bvbuffmap;
  * in a call to bv_map().
  */
 struct bvbuffdesc {
-	unsigned int structsize;	/* used to identify struct ver */
+	unsigned int structsize;	/* used to identify struct version */
 	void *virtaddr;			/* virtual ptr to start of buffer */
 	unsigned long length;		/* length of the buffer in bytes */
 	struct bvbuffmap *map;	/* resource(s) associated w/buffer */
@@ -461,7 +461,7 @@ enum bvdithermode {
  * associated BVFLAG_TILE_* flag is set in bvbltparams.flags.
  */
 struct bvtileparams {
-	unsigned int structsize; /* used to ID structure ver */
+	unsigned int structsize; /* used to ID structure version */
 	unsigned long flags;	 /* tile flags */
 	void *virtaddr;		 /* pointer to the brush */
 	int dstleft;		 /* horizontal offset */
@@ -509,7 +509,7 @@ struct bvtileparams {
  * if an error occurs.
  */
 struct bvcallbackerror {
-	unsigned int structsize;	/* used to ID structure ver */
+	unsigned int structsize;	/* used to ID structure version */
 	enum bverror error;		/* error during async BLT */
 	char* errdesc;			/* 0-terminated ASCII string
 					   with extended error info (not
@@ -527,7 +527,7 @@ struct bvbatch;
  * parameters for a BLT.
  */
 struct bvbltparams {
-	unsigned int structsize;	/* (i) used to ID structure ver */
+	unsigned int structsize;	/* (i) used to ID structure version */
 	char *errdesc;			/* (o) 0-terminated ASCII string
 					       with extended error info (not
 					       for end users) */
