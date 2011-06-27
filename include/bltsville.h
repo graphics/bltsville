@@ -55,22 +55,22 @@ struct bvsurfgeom {
 };
 
 /*
- * bvbuffermap - This is a private structure used by BLTsville
+ * bvbuffmap - This is a private structure used by BLTsville
  * implementations to manage resources associated with a buffer.  A pointer
  * to this is returned from bv_map() and used in subsequent bv_blt() and
  * bv_unmap() calls.
  */
-struct bvbuffermap;
+struct bvbuffmap;
 
 /*
- * bvbufferdesc - This structure is used to specify the buffer parameters
+ * bvbuffdesc - This structure is used to specify the buffer parameters
  * in a call to bv_map().
  */
-struct bvbufferdesc {
+struct bvbuffdesc {
 	unsigned int structsize;	/* used to identify struct ver */
 	void *virtaddr;			/* virtual ptr to start of buffer */
 	unsigned long length;		/* length of the buffer in bytes */
-	struct bvbuffermap *map;	/* resource(s) associated w/buffer */
+	struct bvbuffmap *map;	/* resource(s) associated w/buffer */
 };
 
 /*
@@ -457,7 +457,7 @@ enum bvdithermode {
 
 /*
  * bvtileparams - This structure provides additional parameters needed when
- * tiling.  This structure replaces the bvbufferdesc in bvbltparams when the
+ * tiling.  This structure replaces the bvbuffdesc in bvbltparams when the
  * associated BVFLAG_TILE_* flag is set in bvbltparams.flags.
  */
 struct bvtileparams {
@@ -560,12 +560,12 @@ struct bvbltparams {
 	enum bvscalemode scalemode;	/* (i/o) type of scaling */
 	enum bvdithermode dithermode;	/* (i/o) type of dither */
 
-	struct bvbufferdesc *dstdesc;	/* (i) dest after bv_map() */
+	struct bvbuffdesc *dstdesc;	/* (i) dest after bv_map() */
 	struct bvsurfgeom *dstgeom;	/* (i) dest surf fmt and geometry */
 	struct bvrect dstrect;		/* (i) rect into which data written */
 
 	union {				/* (i) src1 buffer */
-		struct bvbufferdesc *desc;	 /* src1 after bv_map() */
+		struct bvbuffdesc *desc;	 /* src1 after bv_map() */
 		struct bvtileparams *tileparams; /* tile params when
 						    BVFLAG_TILE_SRC1 set */
 	} src1;
@@ -573,7 +573,7 @@ struct bvbltparams {
 	struct bvrect src1rect;		/* (i) rect from which data is read */
 
 	union {				/* (i) src2 buffer */
-		struct bvbufferdesc *desc;	 /* src2 after bv_map() */
+		struct bvbuffdesc *desc;	 /* src2 after bv_map() */
 		struct bvtileparams *tileparams; /* tile params when
 						    BVFLAG_TILE_SRC2 set */
 	} src2;
@@ -581,7 +581,7 @@ struct bvbltparams {
 	struct bvrect src2rect;		/* (i) rect from which data is read */
 
 	union {				/* (i) mask buffer */
-		struct bvbufferdesc *desc;	 /* mask after bv_map() */
+		struct bvbuffdesc *desc;	 /* mask after bv_map() */
 		struct bvtileparams *tileparams; /* tile params when
 						   BFFLAG_TILE_MASK is set */
 	} mask;
@@ -612,8 +612,8 @@ struct bvbltparams {
  * bv_*() - These are the API calls for BLTsville.  The client needs to
  * import these from the shared library.
  */
-typedef enum bverror (*BVFN_MAP)(struct bvbufferdesc *bufferdesc);
+typedef enum bverror (*BVFN_MAP)(struct bvbuffdesc *buffdesc);
 typedef enum bverror (*BVFN_BLT)(struct bvbltparams *bltparms);
-typedef enum bverror (*BVFN_UNMAP)(struct bvbufferdesc *bufferdesc);
+typedef enum bverror (*BVFN_UNMAP)(struct bvbuffdesc *buffdesc);
 
 #endif /* BLTSVILLE_H */

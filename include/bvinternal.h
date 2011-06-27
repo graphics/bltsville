@@ -22,9 +22,9 @@
 #define BVINTENRAL_H
 
 /*
- * bvbuffermap - The bvbuffermap structure is used to track resources
+ * bvbuffmap - The bvbuffmap structure is used to track resources
  * associated with a buffer, such as a h/w MMU entry.  The implementations
- * add bvbuffermap objects when they allocate the resources.  Then when a
+ * add bvbuffmap objects when they allocate the resources.  Then when a
  * buffer is accessed, the implementations can regain access to the
  * associated resources.  The implementations allocate and populate this
  * structure when a bv_map() call is made.  It is used in subsequent
@@ -32,7 +32,7 @@
  * and the structure (if applicable).  Note that a given resource might be
  * used by more than one implementation.
  */
-struct bvbuffermap {
+struct bvbuffmap {
 	unsigned int structsize; /* used to ID structure ver */
 
 	/* function to unmap this resource */
@@ -41,7 +41,7 @@ struct bvbuffermap {
 	unsigned long handle;	 /* resource-specific info */
 
 	/* pointer to next resource mapping structure */
-	struct bvbuffermap *nextmap;
+	struct bvbuffmap *nextmap;
 };
 
 #endif /* BVINTERNAL_H */
