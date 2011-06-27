@@ -68,22 +68,22 @@
 /*
  * The following definitions are be used to modify the enumerations.
  */
-#define BVBLENDDEF_REMOTE	0x04000000	/* mask surface provides alpha
+#define BVBLENDDEF_REMOTE	0x08000000	/* mask surface provides alpha
 						   for source 1 */
+
+/* Bit 26 reserved */
 
 /* These enable global alpha and define the type of globalalpha */
 #define BVBLENDDEF_GLOBAL_SHIFT 24
-#define BVBLENDDEF_GLOBAL_MASK (3 << BVBLENDDEF_GLOBAL_SHIFT)
+#define BVBLENDDEF_GLOBAL_MASK	(3 << BVBLENDDEF_GLOBAL_SHIFT)
 
-#define BVBLENDDEF_GLOBAL_UCHAR	 (0 << BVBLENDDEF_GLOBAL_SHIFT)
-#define BVBLENDDEF_GLOBAL_USHORT (1 << BVBLENDDEF_GLOBAL_SHIFT)
-#define BVBLENDDEF_GLOBAL_ULONG	 (2 << BVBLENDDEF_GLOBAL_SHIFT)
-#define BVBLENDDEF_GLOBAL_FLOAT	 (3 << BVBLENDDEF_GLOBAL_SHIFT)
+#define BVBLENDDEF_GLOBAL_NONE	(0 << BVBLENDDEF_GLOBAL_SHIFT)
+#define BVBLENDDEF_GLOBAL_UCHAR	(1 << BVBLENDDEF_GLOBAL_SHIFT)
+/* 2 reserved */
+#define BVBLENDDEF_GLOBAL_FLOAT	(3 << BVBLENDDEF_GLOBAL_SHIFT)
 
 union bvalpha {
 	unsigned char size8;	/* btwn 0 (0.0) and 255 (1.0) */
-	unsigned short size16;	/* btwn 0 (0.0) and 65535 (1.0) */
-	unsigned long size32;	/* btwn 0 (0.0) and 4^32-1 (0.0) */
 	float fp;		/* btwn 0.0 and 1.0 */
 };
 
