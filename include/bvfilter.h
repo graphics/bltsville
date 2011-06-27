@@ -29,7 +29,7 @@
 /*
  * bvfilter is an enumeration used to designate the type of filter being used.
  */
-enum bvfilter {
+enum bvfiltertype {
 	BVFILTER_DUMMY
 	/* TBD */
 
@@ -44,7 +44,7 @@ enum bvfilter {
  * bvbltparams.flags.
  */
 struct bvfilter {
-	enum bvfilter filter;
+	enum bvfiltertype filter;
 	void *params;
 };
 
