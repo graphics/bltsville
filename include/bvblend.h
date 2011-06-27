@@ -80,6 +80,13 @@
 #define BVBLENDDEF_GLOBAL_ULONG	 (2 << BVBLENDDEF_GLOBAL_SHIFT)
 #define BVBLENDDEF_GLOBAL_FLOAT	 (3 << BVBLENDDEF_GLOBAL_SHIFT)
 
+union bvalpha {
+	unsigned char size8;	/* btwn 0 (0.0) and 255 (1.0) */
+	unsigned short size16;	/* btwn 0 (0.0) and 65535 (1.0) */
+	unsigned long size32;	/* btwn 0 (0.0) and 4^32-1 (0.0) */
+	float fp;		/* btwn 0.0 and 1.0 */
+};
+
 /*
  * For BVBLENDDEF_FORMAT_CLASSIC, the specific blend operation is constructed
  * using the definitions above.  Following the format identifier, the

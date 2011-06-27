@@ -547,15 +547,11 @@ struct bvbltparams {
 					       of the keyed surface when
 					       BVFLAG_KEY_* is set */
 
-	union {				/* (i) global alpha when BVFLAG_BLEND
+	union bvalpha globalalpha;	/* (i) global alpha when BVFLAG_BLEND
 					       set in flags and
-					       BVBLENDDEF_GLOBAL is set in
-					       blend */
-		unsigned char size8;	/* btwn 0 (0.0) and 255 (1.0) */
-		unsigned short size16;	/* btwn 0 (0.0) and 65535 (1.0) */
-		unsigned long size32;	/* btwn 0 (0.0) and 4^32-1 (0.0) */
-		float fp;		/* btwn 0.0 and 1.0 */
-	} globalalpha;
+					       BVBLENDDEF_GLOBAL_* is set in
+					       blend; typed determined by
+					       BVBLENDDEF_GLOBAL_* */
 
 	enum bvscalemode scalemode;	/* (i/o) type of scaling */
 	enum bvdithermode dithermode;	/* (i/o) type of dither */
