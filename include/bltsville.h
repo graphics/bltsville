@@ -539,7 +539,7 @@ struct bvbltparams {
 	union {				/* (i) params for ops */
 		unsigned short rop;		/* when BVFLAG_ROP set */
 		enum bvblend blend;		/* when BVFLAG_BLEND set */
-		struct bvfilterop *filter;	/* when BVFLAG_FILTER set */
+		struct bvfilter *filter;	/* when BVFLAG_FILTER set */
 	} op;
 
 	void *colorkey;			/* (i) pointer to color key pixel

@@ -43,7 +43,7 @@ enum bvfilter {
  * parameters when the BVFLAG_FILTER operation is specified in
  * bvbltparams.flags.
  */
-struct bvfilterop {
+struct bvfilter {
 	enum bvfilter filter;
 	void *params;
 };
