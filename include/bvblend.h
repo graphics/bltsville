@@ -65,6 +65,8 @@
 #define BVBLENDDEF_K3_SHIFT 6
 #define BVBLENDDEF_K4_SHIFT 0
 
+#define BVBLENDDEF_CLASSIC_EQUATION_MASK 0x00FFFFFF
+
 /*
  * The following definitions are be used to modify the enumerations.
  */
