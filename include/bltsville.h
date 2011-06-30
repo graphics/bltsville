@@ -114,13 +114,12 @@ struct bvbuffdesc {
 #define BVFLAG_BATCH_END	(3 << BVFLAG_BATCH_SHIFT) /* end batch */
 
 
-#define BVFLAG_HORZ_FLIP_MASK	0x00040000 /* flip mask horizontally */
-#define BVFLAG_VERT_FLIP_MASK	0x00080000 /* flip mask vertically */
-
 #define BVFLAG_HORZ_FLIP_SRC1	0x00004000 /* flip src1 horizontally */
 #define BVFLAG_VERT_FLIP_SRC1	0x00008000 /* flip src1 vertically */
 #define BVFLAG_HORZ_FLIP_SRC2	0x00010000 /* flip src2 horizontally */
 #define BVFLAG_VERT_FLIP_SRC2	0x00020000 /* flip src2 vertically */
+#define BVFLAG_HORZ_FLIP_MASK	0x00040000 /* flip mask horizontally */
+#define BVFLAG_VERT_FLIP_MASK	0x00080000 /* flip mask vertically */
 
 
 #define BVFLAG_SCALE_RETURN	0x00100000 /* return scale type used */
