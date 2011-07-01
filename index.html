@@ -6,10 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Welcome to BLTsville</title>
 <style type="text/css">
-    .cmd_line { background: #000; color: #fff; padding: 15px; }
-    a { color: #efb8c7; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
+.cmd_line {
+				background: #000;
+				color: #fff;
+				padding: 10px;
+}
 .code_block {
 				margin-left: 40px;
 				font-family: "Courier New", Courier, monospace;
@@ -19,12 +20,14 @@
 				margin-left: 40px;
 }
 .center {
-				text-align: center;
 }
-.Header {
+.Header1 {
+				margin: 0px 0 0 0;
 				font-size: xx-large;
 				font-weight: bold;
 				text-align: left;
+				line-height: normal;
+				background-color: #E0E0E0;
 }
 .inline_code {
 				font-family: "Courier New", Courier, monospace;
@@ -149,25 +152,74 @@
 				border-width: 1px;
 				padding: 1px 4px;
 }
+    a { }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+.style17 {
+				font-size: xx-small;
+				line-height: 100%;
+}
+.Header2 {
+				font-size: xx-large;
+				font-weight: bold;
+				margin: 0px;
+				line-height: 100%;
+}
 </style>
 </head>
 
 <body>
 
-<p class="center">
-<img alt="" src="bvlogo.png" width="484" height="321" /></p>
+<table style="width: 100%; line-height: 100%;">
+				<tr>
+								<td style="width: 484px">
+<img alt="" src="bvlogo.png"/></td>
+								<td>
+								<p>BLTsville is the open 2-D API designed to provide an abstract interface for both 
+								hardware and software 2-D implementations.</p>
+<p>BLTs (BLock Transfers) involve the moving around of blocks (rectangles) of pixels.&nbsp; BLTsville is the place to go 
+for BLTs.</p>
 <hr />
-<p>BLTsville is the open 2-D application programming interface (API) designed to 
-provide an abstract interface for both hardware and software 2-D 
-implementations.&nbsp; The API is designed and maintained by Texas Instruments, 
-Inc., but anyone is free to use it with no cost or obligation.</p>
-<p>BLT is short for BLock Transfer.&nbsp; BLTing is moving blocks, or 
-rectangles, of pixels around.&nbsp; BLTsville is the place to go for BLTs.</p>
-<hr />
+												<table style="width: 100%">
+																<tr>
+																				<td>
 <div class="download"><img alt="CC BY-ND" longdesc="Creative Commons Attribution-NoDerivs 3.0 Unported License" src="http://i.creativecommons.org/l/by-nd/3.0/88x31.png" width="88" height="31" /></div>
+<p class="Header2">License</p>
+																</td>
+																</tr>
+																<tr>
+																				<td>
+<div>
+<p class="style17">The API is designed and maintained by Texas Instruments, Inc., but anyone is free to use it with no 
+cost or obligation.</p>
 <p>This project is licensed under the <a href="http://creativecommons.org/licenses/by-nd/3.0/">Creative Commons 
 Attribution-NoDerivs 3.0 Unported License</a>.</p>
+</div>
+																				</td>
+																</tr>
+												</table>
 <hr />
+								<table style="width: 100%">
+												<tr>
+																<td>
+<p class="Header2">Dependencies</p>
+																</td>
+																</tr>
+																<tr>
+																				<td>
+<p>This project is dependent on the <a href="http://github.com/graphics/ocd">Open Color format Defintions (OCD) project</a>.</p>
+																</td>
+																</tr>
+												</table>
+<hr />
+    							<table style="width: 100%">
+												<tr>
+																<td>
+    <p class="Header2">Source</p>
+    															</td>
+												</tr>
+												<tr>
+																<td>
     <div class="download">
       <a href="http://github.com/graphics/bltsville/zipball/master">
         <img width="90" alt="download zip" src="http://github.com/images/modules/download/zip.png"/></a>
@@ -175,14 +227,19 @@ Attribution-NoDerivs 3.0 Unported License</a>.</p>
         <img width="90" alt ="download tar" src="http://github.com/images/modules/download/tar.png"/></a>
     </div>
 <div>
-      Get the source code on GitHub at <a href="http://github.com/graphics/bltsville">graphics/ocd</a>, or download this project in either
+      Get the source code on GitHub at <a href="http://github.com/graphics/bltsville">graphics/bltsville</a>, or download this project in either
       <a href="http://github.com/graphics/bltsville/zipball/master">zip</a> or
       <a href="http://github.com/graphics/bltsville/tarball/master">tar</a> formats.</div>
     <p>You can also clone the project with <a href="http://git-scm.com">Git</a> by running:</p>
       <pre><a class="cmd_line">$ git clone git://github.com/graphics/bltsville</a></pre>
-<pre>&nbsp;</pre>
+																</td>
+												</tr>
+								</table>
+								</td>
+				</tr>
+</table>
 <hr />
-<p class="Header">Points of Interest in BLTsville</p>
+<p class="Header1">Points of Interest in BLTsville</p>
 <table style="width: 100%">
 				<tr>
 								<td style="width: 50%" valign="top">
@@ -284,7 +341,7 @@ Attribution-NoDerivs 3.0 Unported License</a>.</p>
 				</li>
 </ul>
 <hr />
-<p class="Header">Interface Headers</p>
+<p class="Header1">Interface Headers</p>
 <p>BLTsville&#39;s API is defined in the BLTsville header files.&nbsp; A client must 
 include <span class="inline_code">bltsville.h</span> to access the 
 implementations.</p>
@@ -297,7 +354,7 @@ dependence, but as much as possible, the user mode itself is agnostic of
 operating system.&nbsp; However, the kernel mode interface will be quite similar 
 to the user mode.</em></p>
 <hr />
-<p class="Header">BLTsville Neighborhoods</p>
+<p class="Header1">BLTsville Neighborhoods</p>
 <p>For most BLTsville clients, only one or both of the two main implementations 
 will be used.&nbsp; These two implementations are the CPU and default 2-D hardware 
 implementations.&nbsp; Clients use the standard names below to access these 
@@ -331,14 +388,14 @@ additional unique names as determined by the vendors.&nbsp; For example:</p>
 				<li>System DMA:&nbsp; <span class="filename">bltsville_mydma</span></li>
 </ul>
 <hr />
-<p class="Header">Visiting BLTsville</p>
+<p class="Header1">Visiting BLTsville</p>
 <p>More than one BLTsville implementation may be available.&nbsp; To facilitate this, BLTsville 
 implementation libraries are dynamically loaded by the client.&nbsp; Then the 
 BLTsville 
 entry points are imported.&nbsp; The specific procedure for this is dictated by the host 
 O/S.</p>
 <hr />
-<p class="Header">Things To Do In BLTsville</p>
+<p class="Header1">Things To Do In BLTsville</p>
 <p>BLTsville&#39;s interface consists of three functions per implementation, 
 which must be imported by the client at run time:</p>
 <ul class="code_block">
@@ -1547,7 +1604,7 @@ vendor ID can be accomplished by submitting a patch.</p>
 <p>bvbltparams.src1/src2/maskrect</p>
 <p>&nbsp;</p>
 <hr />
-<p class="Header">Where to Start</p>
+<p class="Header1">Where to Start</p>
 <p><em>(Note that error checking is omitted in all the examples below for 
 clarity.)</em>&nbsp;</p>
 <p>1.&nbsp; Clients begin by opening one or more BLTsville implementations 
