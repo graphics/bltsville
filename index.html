@@ -1432,9 +1432,11 @@ BVBLENDDEF_FORMAT_CLASSIC</span> provides for an 8-bit (unsigned character / byt
 <span class="inline_code">BVBLENDDEF_GLOBAL_FLOAT</span>.</p>
 <p class="Code_Header_2">bvbltparams.scalemode</p>
 <p class="code_block">enum bvscalemode scalemode; /* input/output */</p>
-<p>This member allows the client to specify the type of scaling to be used.&nbsp; The enumeration consists of 8 bits 
+<p>This member allows the client to specify the type of scaling to be used.&nbsp; The enumeration 
+begins with 8 bits 
 indicating the vendor.&nbsp; The remaining bits are defined by the vendor.&nbsp; <span class="inline_code">
-BVSCALEDEF_VENDOR_ALL</span> and <span class="inline_code">BVSCALEDEF_VENDOR_GENERAL</span> is shared by all 
+BVSCALEDEF_VENDOR_ALL</span> and <span class="inline_code">BVSCALEDEF_VENDOR_GENERAL</span> 
+are shared by all 
 implementations.</p>
 <p><span class="inline_code">BVSCALEDEF_VENDOR_ALL</span> can be used to specify an implicit scale type.&nbsp; This type 
 is converted to an explicit type by the implementation:</p>
@@ -1460,24 +1462,28 @@ is converted to an explicit type by the implementation:</p>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_FASTEST_PHOTO</td>
-								<td>The fastest method of scaling appropriate for photographs is used.&nbsp; No 
+								<td>The fastest method of scaling appropriate for photographs is used.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_FASTEST_DRAWING</td>
-								<td>The fastest method of scaling appropriate for drawings is used.&nbsp; No 
+								<td>The fastest method of scaling appropriate for drawings is used.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_GOOD</td>
 								<td>A scaling technique is chosen that may be higher quality than the
-								<span class="inline_code">BVSCALE_FASTEST</span> choice.&nbsp; No implementation will 
+								<span class="inline_code">BVSCALE_FASTEST</span> choice.&nbsp; 
+								This may include nearest neighbor.&nbsp; No implementation will 
 								return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_GOOD_POINT_SAMPLE</td>
 								<td>A point sample scaling technique is chosen that may be higher quality than the
-								<span class="inline_code">BVSCALE_FASTEST_POINT_SAMPLE</span> choice.</td>
+								<span class="inline_code">BVSCALE_FASTEST_POINT_SAMPLE</span> choice.&nbsp; 
+								This may include nearest neighbor.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_GOOD_INTERPOLATED</td>
@@ -1487,25 +1493,29 @@ is converted to an explicit type by the implementation:</p>
 				<tr>
 								<td class="inline_code">BVSCALE_GOOD_PHOTO</td>
 								<td>A scaling technique appropriate for photographs is chosen that may be higher quality 
-								than the <span class="inline_code">BVSCALE_FASTEST_PHOTO</span> choice.&nbsp; No 
+								than the <span class="inline_code">BVSCALE_FASTEST_PHOTO</span> choice.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_GOOD_DRAWING</td>
 								<td>A scaling technique appropriate for drawings is chosen that may be higher quality 
-								than the <span class="inline_code">BVSCALE_FASTEST_DRAWING</span> choice.&nbsp; No 
+								than the <span class="inline_code">BVSCALE_FASTEST_DRAWING</span> choice.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_BETTER</td>
 								<td>A scaling technique is chosen that may be higher quality than the
-								<span class="inline_code">BVSCALE_GOOD</span> choice.&nbsp; No implementation will 
+								<span class="inline_code">BVSCALE_GOOD</span> choice.&nbsp; 
+								This may include nearest neighbor.&nbsp; No implementation will 
 								return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_BETTER_POINT_SAMPLE</td>
 								<td>A point sample scaling technique is chosen that may be higher quality than the
-								<span class="inline_code">BVSCALE_GOOD_POINT_SAMPLE</span> choice.</td>
+								<span class="inline_code">BVSCALE_GOOD_POINT_SAMPLE</span> choice.&nbsp; 
+								This may include nearest neighbor.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_BETTER_INTERPOLATED</td>
@@ -1515,18 +1525,21 @@ is converted to an explicit type by the implementation:</p>
 				<tr>
 								<td class="inline_code">BVSCALE_BETTER_PHOTO</td>
 								<td>A scaling technique appropriate for photographs is chosen that may be higher quality 
-								than the <span class="inline_code">BVSCALE_GOOD_PHOTO</span> choice.&nbsp; No 
+								than the <span class="inline_code">BVSCALE_GOOD_PHOTO</span> choice.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_BETTER_DRAWING</td>
 								<td>A scaling technique appropriate for drawings is chosen that may be higher quality 
-								than the <span class="inline_code">BVSCALE_GOOD_DRAWING</span> choice.&nbsp; No 
+								than the <span class="inline_code">BVSCALE_GOOD_DRAWING</span> choice.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_BEST</td>
-								<td>The highest quality scaling technique is chosen.&nbsp; No implementation will return 
+								<td>The highest quality scaling technique is chosen.&nbsp; 
+								This may include nearest neighbor.&nbsp; No implementation will return 
 								an error for this setting.</td>
 				</tr>
 				<tr>
@@ -1540,11 +1553,13 @@ is converted to an explicit type by the implementation:</p>
 				<tr>
 								<td class="inline_code">BVSCALE_BEST_PHOTO</td>
 								<td>The highest quality scaling technique appropriate for photographs is chosen.&nbsp; 
+								This may include nearest neighbor.&nbsp; 
 								No implementation will return an error for this setting.</td>
 				</tr>
 				<tr>
 								<td class="inline_code">BVSCALE_BEST_DRAWING</td>
-								<td>The highest quality scaling technique appropriate for drawings is chosen.&nbsp; No 
+								<td>The highest quality scaling technique appropriate for drawings is chosen.&nbsp; 
+								This may include nearest neighbor.&nbsp; No 
 								implementation will return an error for this setting.</td>
 				</tr>
 </table>
@@ -1555,35 +1570,35 @@ types.&nbsp; At this point, only a limited number of explicit scale types are de
 <br/>
 <table>
 				<tr>
-								<td>BVSCALE_NEAREST_NEIGHBOR</td>
+								<td class="inline_code">BVSCALE_NEAREST_NEIGHBOR</td>
 								<td>This is a point sample scaling technique where the resampled destination pixel is 
 								set to the value of the closest source pixel.</td>
 				</tr>
 				<tr>
-								<td>BVSCALE_BILINEAR</td>
+								<td class="inline_code">BVSCALE_BILINEAR</td>
 								<td>This is an interpolated scaling technique where the resampled destination pixel is 
 								set to a value linearly interpolated in two dimensions from the four closest source 
 								pixels.</td>
 				</tr>
 				<tr>
-								<td>BVSCALE_BICUBIC</td>
+								<td class="inline_code">BVSCALE_BICUBIC</td>
 								<td>This is an interpolated scaling technique where the resampled destination pixel is 
 								set to a value calculated using cubic interpolation in two dimensions.</td>
 				</tr>
 				<tr>
-								<td>BVSCALE_3x3_TAP</td>
+								<td class="inline_code">BVSCALE_3x3_TAP</td>
 								<td>&nbsp;</td>
 				</tr>
 				<tr>
-								<td>BVSCALE_5x5_TAP</td>
+								<td class="inline_code">BVSCALE_5x5_TAP</td>
 								<td>&nbsp;</td>
 				</tr>
 				<tr>
-								<td>BVSCALE_7x7_TAP</td>
+								<td class="inline_code">BVSCALE_7x7_TAP</td>
 								<td>&nbsp;</td>
 				</tr>
 				<tr>
-								<td>BVSCALE_9x9_TAP</td>
+								<td class="inline_code">BVSCALE_9x9_TAP</td>
 								<td>&nbsp;</td>
 				</tr>
 </table>
@@ -1594,15 +1609,213 @@ returned in the <span class="inline_code">scalemode</span> member.</p>
 <p>NOTE:&nbsp; Extending the <span class="inline_code">BVSCALEDEF_VENDOR_GENERAL</span> scale types or obtaining a 
 vendor ID can be accomplished by submitting a patch.</p>
 <p class="Code_Header_2">bvbltparams.dithermode</p>
-<p>&nbsp;</p>
-<p>bvbltparams.dstdesc</p>
-<p>bvbltparams.dstgeom</p>
-<p>bvbltparams.dstrect</p>
-<p>bvbltparams.src1/src2/ask.desc</p>
-<p>bvbltparams.src1/src2/mask.tileparams</p>
-<p>bvbltparams.src1/src2/maskgeom</p>
-<p>bvbltparams.src1/src2/maskrect</p>
-<p>&nbsp;</p>
+<p class="code_block">enum bvdithermode dithermode; /* input/output */</p>
+<p>This member allows the client to specify the type of dithering to be used, 
+when the output format has fewer bits of depth than the internal calculation.&nbsp; 
+The enumeration begins with 8 bits 
+indicating the vendor.&nbsp; The remaining bits are defined by the vendor.&nbsp; <span class="inline_code">
+BVDITHERDEF_VENDOR_ALL</span> and <span class="inline_code">BVDITHERDEF_VENDOR_GENERAL</span> 
+are shared by all 
+implementations.</p>
+<p><span class="inline_code">BVDITHERDEF_VENDOR_ALL</span> can be used to specify an implicit 
+dither type.&nbsp; This type 
+is converted to an explicit type by the implementation:</p>
+<table>
+				<tr>
+								<td class="inline_code">BVDITHER_FASTEST</td>
+								<td>The fastest method of dithering available is used.&nbsp; This may include 
+								no dithering (truncation).&nbsp; The value of this enumeration is purposely 0, and is the default 
+								dither 
+								type.&nbsp; No implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_FASTEST_ON</td>
+								<td>The fastest method of dithering available is used.&nbsp; 
+								This will not include no dithering.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_FASTEST_RANDOM</td>
+								<td>The fastest method of dithering using a 
+								random technique.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_FASTEST_ORDERED</td>
+								<td>The fastest method of dithering using an 
+								ordered diffusion technique.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">
+								BVDITHER_FASTEST_DIFFUSED</td>
+								<td>The fastest method of dithering using an 
+								error diffusion technique.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_FASTEST_PHOTO</td>
+								<td>The fastest method of dithering appropriate for photographs is used.&nbsp; 
+								This may include no dithering.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_FASTEST_DRAWING</td>
+								<td>The fastest method of dithering appropriate for drawings is used.&nbsp; 
+								This may include no dithering.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_GOOD</td>
+								<td>A dithering technique is chosen that may be higher quality than the
+								<span class="inline_code">BVDITHER_FASTEST</span> choice.&nbsp; 
+								This may include no dithering.&nbsp; No implementation will 
+								return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_GOOD_RANDOM</td>
+								<td>A random dithering technique is chosen that may be higher quality than the
+								<span class="inline_code">BVDITHER_FASTEST_RANDOM</span> choice.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_GOOD_ORDERED</td>
+								<td>An ordered dithering technique is chosen that may be higher quality than the
+								<span class="inline_code">BVDITHER_FASTEST_ORDERED</span> choice.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_GOOD_DIFFUSED</td>
+								<td>A diffused dithering technique is chosen 
+								that may be higher quality than the
+								<span class="inline_code">
+								BVDITHER_FASTEST_DIFFUSED</span> choice.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_GOOD_PHOTO</td>
+								<td>A dithering technique appropriate for photographs is chosen that may be higher quality 
+								than the <span class="inline_code">BVDITHER_FASTEST_PHOTO</span> choice.&nbsp; 
+								This may include no dithering.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_GOOD_DRAWING</td>
+								<td>A dithering technique appropriate for drawings is chosen that may be higher quality 
+								than the <span class="inline_code">BVDITHER_FASTEST_DRAWING</span> choice.&nbsp; 
+								This may include no dithering.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BETTER</td>
+								<td>A dithering technique is chosen that may be higher quality than the
+								<span class="inline_code">BVDITHER_GOOD</span> choice.&nbsp; 
+								This may include no dithering.&nbsp; No implementation will 
+								return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BETTER_RANDOM</td>
+								<td>A random dithering technique is chosen that may be higher quality than the
+								<span class="inline_code">BVDITHER_GOOD_RANDOM</span> choice.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BETTER_ORDERED</td>
+								<td>An ordered dithering technique is chosen that may be higher quality than the
+								<span class="inline_code">BVDITHER_GOOD_ORDERED</span> choice.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BETTER_DIFFUSED</td>
+								<td>A diffused dithering technique is chosen 
+								that may be higher quality than the
+								<span class="inline_code">BVDITHER_GOOD_DIFFUSED</span> 
+								choice.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BETTER_PHOTO</td>
+								<td>A scaling technique appropriate for photographs is chosen that may be higher quality 
+								than the <span class="inline_code">BVSCALE_GOOD_PHOTO</span> choice.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BETTER_DRAWING</td>
+								<td>A scaling technique appropriate for drawings is chosen that may be higher quality 
+								than the <span class="inline_code">BVSCALE_GOOD_DRAWING</span> choice.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BEST</td>
+								<td>The highest quality dithering technique is chosen.&nbsp; 
+								This may include no dithering.&nbsp; No implementation will return 
+								an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BEST_RANDOM</td>
+								<td>The highest quality random dithering technique is chosen.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BEST_ORDERED</td>
+								<td>The highest quality ordered dithering technique is chosen.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BEST_DIFFUSED</td>
+								<td>The highest quality diffused dithering 
+								technique is chosen.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BEST_PHOTO</td>
+								<td>The highest quality dithering technique appropriate for photographs is chosen.&nbsp; 
+								This may include no dithering.&nbsp; 
+								No implementation will return an error for this setting.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_BEST_DRAWING</td>
+								<td>The highest quality dithering technique appropriate for drawings is chosen.&nbsp; 
+								This may include no dithering.&nbsp; No 
+								implementation will return an error for this setting.</td>
+				</tr>
+</table>
+<br/>
+<span class="inline_code">BVDITHERDEF_VENDOR_GENERAL</span> can be used to specify one of the shared explicit 
+dithering types.&nbsp; At this point, only a limited number of explicit dither types are defined:
+<br/>
+<br/>
+<table>
+				<tr>
+								<td class="inline_code">BVDITHER_NONE</td>
+								<td>No dithering is performed.&nbsp; Internal 
+								pixel component values are truncated to the 
+								destination component bit depth.</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_ORDERED_2x2</td>
+								<td>&nbsp;</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_ORDERED_4x4</td>
+								<td>&nbsp;</td>
+				</tr>
+				<tr>
+								<td class="inline_code">BVDITHER_ORDERED_2x2_4x4</td>
+								<td>2x2 ordered dither is used for components 
+								with the lowest bit reduction.&nbsp; 4x4 ordered 
+								dither is used for the components with the 
+								highest bit reduction.&nbsp; (E.g. RGB24 to 
+								RGB565 will use 2x2 ordered dither for the green 
+								component and 4x4 ordered dither for the red and 
+								blue components.)</td>
+				</tr>
+				</table>
+<p>If the client wants to know the explicit type chosen by a given implementation, it can set <span class="inline_code">
+BVFLAG_DITHER_RETURN</span> 
+in the <span class="inline_code"><a href="#flags">bvbltparams.flags</a></span> member, and the explicit scale type is 
+returned in the <span class="inline_code">dithermode</span> member.</p>
+<p>NOTE:&nbsp; Extending the <span class="inline_code">BVDITHERDEF_VENDOR_GENERAL</span> scale types or obtaining a 
+vendor ID can be accomplished by submitting a patch.</p>
+<p class="Code_Header_2">bvbltparams.dstdesc</p>
+<p class="Code_Header_2">bvbltparams.dstgeom</p>
+<p class="Code_Header_2">bvbltparams.dstrect</p>
+<p class="Code_Header_2">bvbltparams.src1/src2/mask.desc</p>
+<p class="Code_Header_2">bvbltparams.src1/src2/mask.tileparams</p>
+<p class="Code_Header_2">bvbltparams.src1/src2/maskgeom</p>
+<p class="Code_Header_2">bvbltparams.src1/src2/maskrect</p>
+<p class="Code_Header_2">bvbltparams.cliprect</p>
+<p class="Code_Header_2">bvbltparams.batchflags</p>
+<p class="Code_Header_2">bvbltparams.batch</p>
+<p class="Code_Header_2">bvbltparams.callbackfn</p>
+<p class="Code_Header_2">bvbltparams.callbackdata</p>
 <hr />
 <p class="Header1">Where to Start</p>
 <p><em>(Note that error checking is omitted in all the examples below for 
