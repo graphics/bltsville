@@ -521,6 +521,14 @@ struct bvcallbackerror {
  */
 struct bvbatch;
 
+union bvinbuff {
+	struct bvbuffdesc *desc;	 /* buffer description when
+					    associated BVFLAG_TILE_*
+					    is not set */
+	struct bvtileparams *tileparams; /* tile params when associated
+					    BVFLAG_TILE_* flag is set */
+};
+
 /*
  * bvbltparams - This structure is passed into bv_blt() to specify the
  * parameters for a BLT.
@@ -559,27 +567,15 @@ struct bvbltparams {
 	struct bvsurfgeom *dstgeom;	/* (i) dest surf fmt and geometry */
 	struct bvrect dstrect;		/* (i) rect into which data written */
 
-	union {				/* (i) src1 buffer */
-		struct bvbuffdesc *desc;	 /* src1 after bv_map() */
-		struct bvtileparams *tileparams; /* tile params when
-						    BVFLAG_TILE_SRC1 set */
-	} src1;
+	union bvinbuff src1;		/* (i) src1 buffer */
 	struct bvsurfgeom *src1geom;	/* (i) src1 surf fmt and geometry */
 	struct bvrect src1rect;		/* (i) rect from which data is read */
 
-	union {				/* (i) src2 buffer */
-		struct bvbuffdesc *desc;	 /* src2 after bv_map() */
-		struct bvtileparams *tileparams; /* tile params when
-						    BVFLAG_TILE_SRC2 set */
-	} src2;
+	union bvinbuff src2;		/* (i) src2 buffer */
 	struct bvsurfgeom *src2geom;	/* (i) src2 surf fmt and geometry */
 	struct bvrect src2rect;		/* (i) rect from which data is read */
 
-	union {				/* (i) mask buffer */
-		struct bvbuffdesc *desc;	 /* mask after bv_map() */
-		struct bvtileparams *tileparams; /* tile params when
-						   BFFLAG_TILE_MASK is set */
-	} mask;
+	union bvinbuff mask;		/* (i) mask buffer */
 	struct bvsurfgeom *maskgeom;	/* (i) mask surf fmt and geometry */
 	struct bvrect maskrect;		/* (i) rect from which data is read */
 
