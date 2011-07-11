@@ -591,7 +591,8 @@ struct bvbltparams {
 						 with BVFLAG_BATCH_CONTINUE */
 
 	void (*callbackfn)(struct bvcallbackerror* err,
-			   unsigned long handle); /* (i) callback function when
+			   unsigned long callbackdata); /* (i) callback
+							 function when
 						         BVFLAG_ASYNC is set -
 						         err is 0 when no
 						         error; handle contains
