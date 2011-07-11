@@ -161,6 +161,14 @@
 .ctr {
 				text-align: center;
 }
+.note {
+				font-family: Arial, Helvetica, sans-serif;
+				font-weight: bold;
+				margin-left: 40px;
+}
+.style1 {
+				color: #FF0000;
+}
 </style>
 </head>
 
@@ -444,7 +452,7 @@ call, while avoiding the mapping overhead when possible.</em></p>
 <p><em>NOTE: Obviously any API cannot add capabilities beyond an implementation&#39;s 
 capabilities.&nbsp; So if the 
 implementation requires memory to be allocated from a special pool, that 
-responsibility falls upon the client.&nbsp; The </em> <span class="coderef"><em>bv_map()</em></span><em> 
+responsibility falls upon the client.&nbsp; The </em> <span class="inline_code"><em>bv_map()</em></span><em> 
 function for that implementation will need to check the characteristics of the 
 memory and return an error if it does not meet the necessary criteria.</em></p>
 <a name="bv_blt" class="Code_Header">bv_blt()</a>
@@ -642,76 +650,8 @@ exclusive.</p>
 <p class="Code_Header_3"><a name="BVFLAG_CLIP">bvbltparams.flags - BVFLAG_CLIP</a></p>
 <p>When <span class="inline_code">BVFLAG_CLIP</span> is set, the <span class="inline_code"><a href="#cliprect">cliprect</a></span> 
 member of <span class="inline_code"><a href="#bvbltparams">bvbltparams</a></span> is used by the implementation as a 
-limiting rectangle on data written to the destination.&nbsp; This is most useful for scaling operations, where the 
-necessary scaling factor will not allow translation of the destination rectangle back to the source on an integer pixel 
-boundary.</p>
-<p>For example, if the goal is to show a 640 x 480 video on a 1920 x 1080 screen, the video would be stretched to 1440 x 
-1080 to maintain the proper aspect ratio.&nbsp; So the relevant rectangles would be:</p>
-<table class="indent1">
-				<tr>
-								<td class="thin_bord"><strong>src1rect</strong></td>
-								<td class="thin_bord"><strong>dstrect</strong></td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 0) - 640 x 480</td>
-								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
-				</tr>
-</table>
-<p>However, to handle a 640 x 480 pop-up window that appears centered on the screen, in front of the video, the single 
-BLT may be broken into four smaller BLTs pieced around the popup.&nbsp; These rectangles would need to be:</p>
-<table class="indent1">
-				<tr>
-								<td class="thin_bord"><strong>src1rect</strong></td>
-								<td class="thin_bord"><strong>dstrect</strong></td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 0) - 640 x 133.333...</td>
-								<td class="thin_bord">(240, 0) - 1440 x 300</td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 133.333...) - 284.444... x 213.333...</td>
-								<td class="thin_bord">(240, 300) - 400 x 480</td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(568.888..., 133.333...) - 284.444... x 213.333...</td>
-								<td class="thin_bord">(1280, 300) - 400 x 480</td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 346.666...) - 640 x 133.333...</td>
-								<td class="thin_bord">(240, 780) - 1440 x 300</td>
-				</tr>
-</table>
-<p>Since this is a scaling factor of 2.25x, translating the required destination rectangles back to the source results 
-in non-integer coordinates and dimensions, as illustrated above.&nbsp; And adjusting the source rectangles to the 
-nearest integer values will result in visible discontinuities at the boundaries between the rectangles.</p>
-<p>Instead, using the <span class="inline_code">cliprect</span>, this situation can be handled more easily:</p>
-<table class="indent1">
-				<tr>
-								<td class="thin_bord"><strong>src1rect</strong></td>
-								<td class="thin_bord"><strong>dstrect</strong></td>
-								<td class="thin_bord"><strong>cliprect</strong></td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 0) - 640 x 480</td>
-								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
-								<td class="thin_bord">(240, 0) - 1440 x 300</td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 0) - 640 x 480</td>
-								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
-								<td class="thin_bord">(240, 300) - 400 x 480</td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 0) - 640 x 480</td>
-								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
-								<td class="thin_bord">(1280, 300) - 400 x 480</td>
-				</tr>
-				<tr>
-								<td class="thin_bord">(0, 0) - 640 x 480</td>
-								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
-								<td class="thin_bord">(240, 780) - 1440 x 300</td>
-				</tr>
-</table>
+limiting rectangle on data written to the destination.&nbsp; See
+<span class="inline_code"><a href="#cliprect">cliprect</a></span> for details.</p>
 <p class="Code_Header_3"><a name="BVFLAG_SRCMASK">bvbltparams.flags - BVFLAG_SRCMASK</a></p>
 <p>Normally, the mask is applied at the destination, after all scaling has been completed (including scaling the mask if 
 necessary).&nbsp; But some environments require that the mask be applied at the sources, before scaling occurs.&nbsp; 
@@ -1823,15 +1763,268 @@ rectangle to receive the BLT.&nbsp; This rectangle is clipped by
 when <span class="inline_code"><a href="#BVFLAG_CLIP">BVFLAG_CLIP</a></span> is 
 set in the <span class="inline_code"><a href="#flags">bvbltparams.flags</a></span> 
 member.</p>
-<p class="Code_Header_2">bvbltparams.src1/src2/mask.desc</p>
-<p class="Code_Header_2">bvbltparams.src1/src2/ask.tileparams</p>
-<p class="Code_Header_2">bvbltparams.src1/src2/maskgeom</p>
+<p class="Code_Header_2">bvbltparams.<a name="src1.desc">src1</a>/<a name="src2.desc">src2</a>/<a name="mask.desc">mask.desc</a></p>
+<p class="code_block"><a href="#bvbuffdesc">struct bvbuffdesc</a> *src1.desc;<br />
+<a href="#bvbuffdesc">struct bvbuffdesc</a> *src2.desc;<br />
+<a href="#bvbuffdesc">struct bvbuffdesc</a> *mask.desc;</p>
+<p>These members are used to identify the buffer for the source1, source2, and 
+mask surfaces when the associated <span class="inline_code">BVFLAG_TILE_*</span> 
+flag is not set.&nbsp; The buffer is the memory in which the surface lies.&nbsp; 
+See the <span class="inline_code"><a href="#src1geom">
+bvbltparams.src1/src2/maskgeom</a></span> for the format and layout/geometry of 
+the surface.</p>
+<p class="note">NOTE WELL:&nbsp; NEVER change the value of bvbuffdesc.virtptr 
+while a buffer is mapped.</p>
+<p class="Code_Header_2">bvbltparams.<a name="src1.tileparams">src1</a>/<a name="src2.tileparams">src2</a>/<a name="mask.tileparams">mask.tileparams</a></p>
+<p class="code_block"><a href="#bvtileparams">struct bvtileparams</a> 
+*src1.tileparams;<br />
+<a href="#bvtileparams">struct bvtileparams</a> *src2.tileparams;<br />
+<a href="#bvtileparams">struct bvtileparams</a> *mask.tileparams;</p>
+<p>These members are used to identify the buffer for the source1, source2, and 
+mask surfaces when the associated <span class="inline_code">BVFLAG_TILE_*</span> 
+flag is set.&nbsp; The buffer is the memory in which the surface lies.&nbsp; 
+This differs from the <span class="inline_code"><a href="#src1.desc">
+src1/src2/mask.desc</a></span> identity by providing more information needed for 
+tiling and by not requiring mapping (for hardware implementations that support 
+tiling, the tile data is usually moved into an on-chip cache).</p>
+<p class="Code_Header_2">bvbltparams.<a name="src1geom">src1</a>/<a name="src2geom">src2</a>/<a name="maskgeom">maskgeom</a></p>
+<p class="code_block"><a href="#bvsurfgeom">struct bvsurfgeom</a> src1geom;<br />
+<a href="#bvsurfgeom">struct bvsurfgeom</a> src2geom;<br />
+<a href="#bvsurfgeom">struct bvsurfgeom</a> maskgeom;</p>
+<p>These members describe the format and layout/geometry of their respective 
+surfaces.&nbsp; Separating <span class="inline_code"><a href="#bvsurfgeom">
+bvsurfgeom</a></span> from the <span class="inline_code"><a href="#bvbuffdesc">
+bvbuffdesc</a></span> allows easy use of buffers for multiple geometries without 
+remapping.&nbsp; See <span class="inline_code"><a href="#bvsurfgeom">bvsurfgeom</a></span> 
+and <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> for 
+details.</p>
 <p class="Code_Header_2">bbvbltparams.src1/src2/maskrect</p>
+<p class="code_block"><a href="#bvrect">struct bvrect</a> src1rect;<br />
+<a href="#bvrect">struct bvrect</a> src2rect;<br />
+<a href="#bvrect">struct bvrect</a> maskrect;</p>
+<p>These members specify the  
+rectangle from which data is read for the BLT.&nbsp; These rectangles are clipped by 
+a scaled version of the
+<span class="inline_code"><a href="#cliprect">bvbltparams.cliprect</a></span>&nbsp; 
+(scaling is based on the relationship between them and the
+<span class="inline_code"><a href="#dstrect">bvbltparams.dstrect</a></span>) 
+when <span class="inline_code"><a href="#BVFLAG_CLIP">BVFLAG_CLIP</a></span> is 
+set in the <span class="inline_code"><a href="#flags">bvbltparams.flags</a></span> 
+member.</p>
+<p>Example:</p>
+<p class="code_block"><a href="#src1rect">src1rect</a> = (0, 0) - (400 x 200)<br />
+<a href="#dstrect">dstrect</a> = (0, 0) - (800 x 600)<br />
+<a href="#cliprect">cliprect</a> = (10, 30) - (300 x 300)</p>
+<p>The scaling ratio of the <span class="inline_code"><a href="#dstrect">dstrect</a></span> 
+to the <span class="inline_code"><a href="#src1rect">src1rect</a></span> is 
+(800/400,&nbsp; 600/300) or (2, 3).&nbsp; Using this, the effective source 1 
+clipping rectangle becomes (10/2, 30/3) - (300/2 x 300/3) or (5, 10) - (150 x 
+100).</p>
+<p>Note that this approach allows fractional clipping at the source using a 
+method which is simpler to implement than fractional coordinates.</p>
+<p>The convention in BLTsville is that interpolated scaling (and filtering)
+<span class="underline">can</span> fetch pixels outside of the source rectangle 
+if needed for the scaling algorithm, as long as no attempt is made to fetch 
+pixels outside of the surface boundaries.&nbsp; <span class="style1"><em>Options 
+to allow the client to specify limiting the source region are being considered 
+at this time.</em></span></p>
 <p class="Code_Header_2">bvbltparams.cliprect</p>
+<p class="code_block"><a href="#bvrect">struct bvrect</a> cliprect;</p>
+<p><span class="inline_code">cliprect</span> is used to specify a rectangle that limits what region of the 
+destination is written.&nbsp; This is most useful for scaling operations, where the 
+necessary scaling factor will not allow translation of the destination rectangle back to the source on an integer pixel 
+boundary.</p>
+<p>For example, if the goal is to show a 640 x 480 video on a 1920 x 1080 screen, the video would be stretched to 1440 x 
+1080 to maintain the proper aspect ratio.&nbsp; So the relevant rectangles would be:</p>
+<table class="indent1">
+				<tr>
+								<td class="thin_bord"><strong>src1rect</strong></td>
+								<td class="thin_bord"><strong>dstrect</strong></td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 0) - 640 x 480</td>
+								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
+				</tr>
+</table>
+<p>However, to handle a 640 x 480 pop-up window that appears centered on the screen, in front of the video, the single 
+BLT may be broken into four smaller BLTs pieced around the popup.&nbsp; These rectangles would need to be:</p>
+<table class="indent1">
+				<tr>
+								<td class="thin_bord"><strong>src1rect</strong></td>
+								<td class="thin_bord"><strong>dstrect</strong></td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 0) - 640 x 133.333...</td>
+								<td class="thin_bord">(240, 0) - 1440 x 300</td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 133.333...) - 284.444... x 213.333...</td>
+								<td class="thin_bord">(240, 300) - 400 x 480</td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(568.888..., 133.333...) - 284.444... x 213.333...</td>
+								<td class="thin_bord">(1280, 300) - 400 x 480</td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 346.666...) - 640 x 133.333...</td>
+								<td class="thin_bord">(240, 780) - 1440 x 300</td>
+				</tr>
+</table>
+<p>Since this is a scaling factor of 2.25x, translating the required destination rectangles back to the source results 
+in non-integer coordinates and dimensions, as illustrated above.&nbsp; And adjusting the source rectangles to the 
+nearest integer values will result in visible discontinuities at the boundaries between the rectangles.</p>
+<p>Instead, using the <span class="inline_code">cliprect</span>, this situation can be handled more easily:</p>
+<table class="indent1">
+				<tr>
+								<td class="thin_bord"><strong>src1rect</strong></td>
+								<td class="thin_bord"><strong>dstrect</strong></td>
+								<td class="thin_bord"><strong>cliprect</strong></td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 0) - 640 x 480</td>
+								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
+								<td class="thin_bord">(240, 0) - 1440 x 300</td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 0) - 640 x 480</td>
+								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
+								<td class="thin_bord">(240, 300) - 400 x 480</td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 0) - 640 x 480</td>
+								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
+								<td class="thin_bord">(1280, 300) - 400 x 480</td>
+				</tr>
+				<tr>
+								<td class="thin_bord">(0, 0) - 640 x 480</td>
+								<td class="thin_bord">(240, 0) - 1440 x 1080</td>
+								<td class="thin_bord">(240, 780) - 1440 x 300</td>
+				</tr>
+</table>
 <p class="Code_Header_2">bvbltparams.batchflags</p>
-<p class="Code_Header_2">bvbltparams.batch</p>
-<p class="Code_Header_2">bvbltparams.callbackfn</p>
-<p class="Code_Header_2">bvbltparams.callbackdata</p>
+<p class="code_block">unsigned long batchflags;</p>
+<p><span class="inline_code">batchflags</span> are used by the client to indicate to the implementation which 
+parameters are changing between successive BLTs of a batch.&nbsp; The flags are 
+used when the <span class="inline_code"><a href="#flags">bvbltparams.flags</a></span> 
+has <span class="inline_code"><a href="#BVFLAG_BATCH_CONTINUE">
+BVFLAG_BATCH_CONTINUE</a></span> or <span class="inline_code">
+<a href="#BVFLAG_BATCH_END">BVFLAG_BATCH_END</a></span> set.</p>
+<p><span class="inline_code"><a name="BVBATCH_OP">BVBATCH_OP</a></span> 
+indicates that the operation type (<span class="inline_code"><a href="#BVFLAG_ROP">BVFLAG_ROP</a></span>,
+<span class="inline_code"><a href="#BVFLAG_BLEND">BVFLAG_BLEND</a></span>, <span class="inline_code">
+<a href="#BVFLAG_FILTER">BVFLAG_FILTER</a></span>, 
+etc.) has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_KEY">BVBATCH_KEY</a></span> 
+indicates that the <span class="inline_code"><a href="#colorkey">
+bvbltparams.colorkey</a></span> or the color key mode (<span class="inline_code"><a href="#BVFLAG_KEY_SRC">BVFLAG_KEY_SRC</a></span>/<span class="inline_code"><a href="#BVFLAG_KEY_DST">BVFLAG_KEY_DST</a></span>) 
+has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_MISCFLAGS">BVBATCH_MISCFLAGS</a></span> 
+indicates that <span class="inline_code"><a href="#flags">bvbltparams.flags</a></span> 
+other than the operation, color key, or clip flag have changes.</p>
+<p><span class="inline_code"><a name="BVBATCH_ALPHA">BVBATCH_ALPHA</a></span> 
+indicates that <span class="inline_code"><a href="#globalalpha">
+bvbltparams.globalalpha</a></span> or global alpha type has changed.</p>
+<p><a name="BVBATCH_DITHER" class="inline_code">BVBATCH_DITHER</a> indicates 
+that <span class="inline_code"><a href="#dithermode">bvbltparams.dithermode</a></span> 
+has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_SCALE">BVBATCH_SCALE</a></span> 
+indicates that <span class="inline_code"><a href="#scalemode">
+bvbltparams.scalemode</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_DST">BVBATCH_DST</a></span> 
+indicates that the destination surface (<span class="inline_code"><a href="#dstdesc">bvbltparams.dstdesc</a></span>,
+<span class="inline_code"><a href="#dstgeom">bvbltparams.dstgeom</a></span> ,or
+<span class="inline_code"><a href="#dstrect">bvbltparams.dstrect</a></span>) has 
+changed.</p>
+<p><span class="inline_code">BVBATCH_SRC1</span> indicates that the source 1 
+surface (<span class="inline_code"><a href="#src1.desc">bvbltparams.src1.desc</a></span> 
+or <span class="inline_code"><a href="#src1.tileparams">
+bvbltparams.src1.tileparams</a></span>, or <span class="inline_code">
+<a href="#src1geom">bvbltparams.src1geom</a></span>) 
+has changed.</p>
+<p><span class="inline_code">BVBATCH_SRC2</span> indicates that the source 2 
+surface (<span class="inline_code"><a href="#src2.desc">bvbltparams.src2.desc</a></span> 
+or <span class="inline_code"><a href="#src2.tileparams">
+bvbltparams.src2.tileparams</a></span>, or <span class="inline_code">
+<a href="#src2geom">bvbltparams.src2geom</a></span>) 
+has changed.</p>
+<p><span class="inline_code">BVBATCH_MASK</span> indicates that the mask 
+surface (<span class="inline_code"><a href="#mask.desc">bvbltparams.mask.desc</a></span> 
+or <span class="inline_code"><a href="#mask.tileparams">
+bvbltparams.mask.tileparams</a></span>, or <span class="inline_code">
+<a href="#maskgeom">bvbltparams.maskgeom</a></span>) 
+has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_DSTRECT_ORIGIN">
+BVBATCH_DSTRECT_ORIGIN</a></span> indicates that <span class="inline_code">
+<a href="#dstrect">bvbltparams.dstrect.left</a></span> or
+<span class="inline_code"><a href="#dstrect">top</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_DSTRECT_SIZE">BVBATCH_DSTRECT_SIZE</a></span> 
+indicates that the <span class="inline_code"><a href="#dstrect">
+bvbltparams.dstrect.width</a></span> or <a href="#dstrect">height</a> has 
+changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_SRC1RECT_ORIGIN">
+BVBATCH_SRC1RECT_ORIGIN</a></span> indicates that <span class="inline_code">
+<a href="#src1rect">bvbltparams.src1rect.left</a></span> or
+<span class="inline_code"><a href="#dstrect">top</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_SRC1RECT_SIZE">
+BVBATCH_SRC1RECT_SIZE</a></span> indicates that the <span class="inline_code">
+<a href="#src1rect">bvbltparams.src1rect.width</a></span> or <a href="#src1rect">
+height</a> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_SRC2RECT_ORIGIN">
+BVBATCH_SRC2RECT_ORIGIN</a></span> indicates that <span class="inline_code">
+<a href="#src2rect">bvbltparams.src2rect.left</a></span> or
+<span class="inline_code"><a href="#src2rect">top</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_SRC2RECT_SIZE">
+BVBATCH_SRC2RECT_SIZE</a></span> indicates that the <span class="inline_code">
+<a href="#src2rect">bvbltparams.src2rect.width</a></span> or <a href="#src2rect">
+height</a> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_MASKRECT_ORIGIN">
+BVBATCH_MASKRECT_ORIGIN</a></span> indicates that <span class="inline_code">
+<a href="#maskrect">bvbltparams.maskrect.left</a></span> or
+<span class="inline_code"><a href="#maskrect">top</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_MASKRECT_SIZE">
+BVBATCH_MASKRECT_SIZE</a></span> indicates that the <span class="inline_code">
+<a href="#maskrect">bvbltparams.maskrect.width</a></span> or <a href="#maskrect">
+height</a> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_CLIPRECT_ORIGIN">
+BVBATCH_CLIPRECT_ORIGIN</a></span> indicates that <span class="inline_code">
+<a href="#cliprect">bvbltparams.cliprect.left</a></span> or
+<span class="inline_code"><a href="#cliprect">top</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_CLIPRECT_SIZE">
+BVBATCH_CLIPRECT_SIZE</a></span> indicates that the <span class="inline_code">
+<a href="#cliprect">bvbltparams.cliprect.width</a></span> or <a href="#cliprect">
+height</a> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_TILE_SRC1">BVBATCH_TILE_SRC1</a></span> 
+indicates that the <span class="inline_code"><a href="#src1.tileparams">
+bvbltparams.src1.tileparams</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_TILE_SRC2">BVBATCH_TILE_SRC2</a></span> 
+indicates that the <span class="inline_code"><a href="#src2.tileparams">
+bvbltparams.src2.tileparams</a></span> 
+has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_TILE_MASK">BVBATCH_TILE_MASK</a></span> 
+indicates that the <span class="inline_code"><a href="#mask.tileparams">
+bvbltparams.mask.tileparams</a></span> has changed.</p>
+<p><span class="inline_code"><a name="BVBATCH_ENDNOP">BVBATCH_ENDNOP</a></span> 
+is a special flag used for clients that do not have information that a batch is 
+ending until after the last BLT has been issued.&nbsp; When this flag is set, no 
+BLT is done, but the batch is ended.</p>
+<p class="Code_Header_2"><a name="batch">bvbltparams.batch</a></p>
+<p class="code_block"><a href="#bvbatch">struct bvbatch</a> *batch;</p>
+<p>This member is used as a batch handle, so that multiple batches can be under 
+construction at the same time.</p>
+<p class="Code_Header_2"><a name="callbackfn">bvbltparams.callbackfn</a></p>
+<p class="code_block">void (*callbackfn)(<a href="#bvcallbackerror">struct 
+bvcallbackerror</a> *err, unsigned long <a href="#callbackdata">callbackdata</a>);</p>
+<p>This member is a pointer to a client-supplied function which is called by the 
+implementation when <span class="inline_code"><a href="#BVFLAG_ASYNC">
+BVFLAG_ASYNC</a></span> is set and the BLT is complete.</p>
+<p class="note">NOTE:&nbsp; This function <span class="underline">can be called</span> 
+before the <span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> call 
+has returned.</p>
+<p class="Code_Header_2"><a name="callbackdata">bvbltparams.callbackdata</a></p>
+<p class="code_block">unsigned long callbackdata;</p>
+<p>This member is used as the parameter passed back by the
+<span class="inline_code"><a href="#callbackfn">bvbltparams.callbackfn</a></span>.&nbsp; 
+This can be anything from an identifying index to a pointer used by the client.</p>
 <hr />
 <p class="Header1">Where to Start</p>
 <p><em>(Note that error checking is omitted in all the examples below for 
