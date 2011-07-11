@@ -166,8 +166,13 @@
 				font-weight: bold;
 				margin-left: 40px;
 }
-.style1 {
+.red {
 				color: #FF0000;
+}
+.float_rt {
+				float: right;
+				border-style: solid;
+				border-width: 0;
 }
 </style>
 </head>
@@ -177,7 +182,13 @@
 <table style="width: 100%; line-height: 100%;">
 				<tr>
 								<td style="width: 484px">
-<img alt="" src="bvlogo.png"/></td>
+<div style="background-image:url('bvlogo.png'); width: 484px; height: 321px;">
+<div style="position: relative; left: 0; top: 0;">
+<a href="http://graphics.github.com/ocd">
+<img src="ocdtab.png" alt="Now With OCD" style="border-width: 0; position: absolute; top: 0; right: 0;" /></a>
+</div>
+</div>
+</td>
 								<td>
 								<p>BLTsville is the open 2-D API designed to provide an abstract interface for both 
 								hardware and software 2-D implementations.</p>
@@ -238,6 +249,17 @@ Attribution-NoDerivs 3.0 Unported License</a>.</p>
       <pre><a class="cmd_line">$ git clone git://github.com/graphics/bltsville</a></pre>
 																</td>
 												</tr>
+												<tr><td>
+<hr />
+																<table style="width: 100%">
+																				<tr>
+																								<td class="Header2">Wiki</td>
+																				</tr>
+																				<tr>
+																								<td><a href="https://github.com/graphics/bltsville/wiki">https://github.com/graphics/bltsville/wiki</a></td>
+																				</tr>
+																</table>
+												</td></tr>
 								</table>
 								</td>
 				</tr>
@@ -1825,7 +1847,7 @@ method which is simpler to implement than fractional coordinates.</p>
 <p>The convention in BLTsville is that interpolated scaling (and filtering)
 <span class="underline">can</span> fetch pixels outside of the source rectangle 
 if needed for the scaling algorithm, as long as no attempt is made to fetch 
-pixels outside of the surface boundaries.&nbsp; <span class="style1"><em>Options 
+pixels outside of the surface boundaries.&nbsp; <span class="red"><em>Options 
 to allow the client to specify limiting the source region are being considered 
 at this time.</em></span></p>
 <p class="Code_Header_2">bvbltparams.cliprect</p>
