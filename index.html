@@ -494,6 +494,7 @@ including multiple calls to <span class="inline_code"><a href="#bv_map">bv_map()
 <p>Also for convenience, <span class="inline_code">bv_unmap()</span> may be 
 called multiple times on the same buffer.&nbsp; Note that only the first call 
 will actually free (all) associated resources.&nbsp;</p>
+<hr />
 <a name="bvbltparams" class="Code_Header">bvbltparams</a>
 <p><span class="inline_code">bvbltparams</span> is the central structure in 
 BLTsville.&nbsp; This structure holds the details of the BLT being requested by 
@@ -2047,6 +2048,22 @@ has returned.</p>
 <p>This member is used as the parameter passed back by the
 <span class="inline_code"><a href="#callbackfn">bvbltparams.callbackfn</a></span>.&nbsp; 
 This can be anything from an identifying index to a pointer used by the client.</p>
+<hr />
+<p class="Code_Header"><a name="bvcallbackerror">bvcallbackerror</a></p>
+<p class="code_block">struct bvcallbackerror {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int structsize;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bverror">enum bverror</a> 
+error;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char* errdesc;<br />
+};</p>
+<p class="Code_Header_2"><a name="bvcallbackerror.structsize">
+bvcallbackerror.structsize</a></p>
+<p>&nbsp;</p>
+<p class="Code_Header_2"><a name="bvcallbackerror.error">bvcallbackerror.error</a></p>
+<p>&nbsp;</p>
+<p class="Code_Header_2"><a name="bvcallbackerror.errdesc">
+bvcallbackerror.errdesc</a></p>
+<p>&nbsp;</p>
 <hr />
 <p class="Header1">Where to Start</p>
 <p><em>(Note that error checking is omitted in all the examples below for 
