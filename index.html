@@ -174,6 +174,13 @@
 				border-style: solid;
 				border-width: 0;
 }
+.glyph_cache {
+  font-family: "Courier New", Courier, monospace;
+  font-size: medium;
+  font-weight: normal;
+  font-style: normal;
+  margin-left: 40px;
+}
 </style>
 </head>
 
@@ -2049,6 +2056,210 @@ has returned.</p>
 <span class="inline_code"><a href="#callbackfn">bvbltparams.callbackfn</a></span>.&nbsp; 
 This can be anything from an identifying index to a pointer used by the client.</p>
 <hr />
+<p class="Header1">Batching<a name="batching"></a></p>
+<p>Batching is the single most powerful feature in BLTsville.&nbsp; It is used 
+for two major purposes:</p>
+<ol>
+  <li>To group similar BLTs which use most of the same parameters so that they 
+  can be handled more efficiently by the implementation.</li>
+  <li>To group BLTs that should go together so that implementations can use 
+  special features that go beyond what seems to be expressed by the BLTsville 
+  API.</li>
+</ol>
+<p class="note">NOTE:&nbsp; It is important to realize that BLTs batched 
+together may be done <span class="underline">in any order</span>, and in fact 
+may not even be done in the way specified.&nbsp; This includes the BLTs being 
+done as they are submitted, as well as no operations performed until the batch 
+submission is completed with <a href="#BVFLAG_BATCH_END" class="inline_code">
+BVFLAG_BATCH_END</a>.</p>
+<p class="Header2">Batches For Grouping Similar BLTs</p>
+<p>Often, groups of similar BLTs are performed, with changes to only a few 
+parameters.&nbsp; Some implementations have the ability to re-use previous 
+settings, coupled with these changes, to perform new BLTs.</p>
+<p>One good example of this in in rendering text, similar to that you are 
+reading now.&nbsp; In most systems, a glyph cache is maintained to hold the 
+characters of a given font, rasterized with the specific characteristics desired 
+(e.g. bold, italics, etc.).&nbsp; Each font in the glyph cache is normally 
+created using a font rasterization engine from a vector-based font, such as 
+FreeType.&nbsp; This technology allows fonts to be described in terms of curves 
+and lines instead of pixels, which means they can be created as needed, in any 
+size desirable.</p>
+<table style="width: 100%" class="glyph_cache">
+  <tr>
+    <td class="glyph_cache">&nbsp; !&quot;#$%&amp;&#39;()*+&#39;-./0123456789:;&lt;=&gt;?<br />
+    @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_<br />
+    `abcdefghijklmnopqrstuvwxyz{|}~</td>
+  </tr>
+</table>
+<p>Then, when a character needs to be rendered, it is copied from the 
+pre-rendered glyph cache.&nbsp; This is much more efficient than performing the 
+font rasterization from the vector description each time a character is used.</p>
+<p>With some hardware implementations, the setup to trigger the copy of these 
+characters from the glyph cache to the target surface can be quite significant, 
+when compared to the number of pixels actually affected.&nbsp; For example, each 
+character might consist of something on the order of&nbsp; 10 x 14, or about 140 
+pixels.&nbsp; Programming a typical hardware BLTer may require tens of commands 
+for each character.</p>
+<p>But note that each of these BLTs differs by only a few parameters.&nbsp; 
+Specifically, once the source and destination surfaces have been specified, and 
+the operation described, only the source and destination rectangles change 
+between BLTs. To alleviate much of this overhead, most implementations will 
+allow the configuration of a previous BLT to be used again, with only those 
+parameters which change provided for the subsequent BLTs.</p>
+<p>BLTsville provides access to this capability via the batch mechanism.</p>
+<p>For rendering a word using a monospaced font like this, the client might 
+construct the batch like this:</p>
+
+<p class="small_code_block">struct bvbuffdesc screendesc = {sizeof(struct 
+bvbuffdesc}, 0};<br />
+								struct bvsurfgeom screengeom = {sizeof(struct bvsurfgeom), 0};<br />
+struct bvbuffdesc glyphcachedesc = {sizeof(struct bvbuffdesc), 0};<br />
+struct bvsurfgeom glyphcachegeom = {sizeof(struct bvsurfgeom), 0};<br />
+struct bvtileparams solidcolortileparams = {sizeof(struct bvtileparams), 0};<br />
+struct bvbuffgeom solidcolorgeom = {sizeof(struct bvsurfgeom), 0};<br />
+<br />
+struct bvbltparams bltparams = {sizeof(struct 
+bvbltparams), 0};<br />
+<br />
+int charsperline = 32;<br />
+int fontwidth = 10;<br />
+int fontheight = 14;<br />
+int i = 0;<br />
+<br />
+screendesc.virtaddr = screenaddr;<br />
+screendesc.length = screenstride * screenheight;<br />
+screengeom.format = OCDFMT_RGB24;<br />
+								screengeom.width = screenwidth;<br />
+								screengeom.height = screenheight;<br />
+								screengeom.virtstride = screenstride;<br />
+<br />
+glyphcachedesc.virtaddr = glyphcacheaddr;<br />
+glyphcachedesc.length = glyphcachestride * glyphcacheheight;<br />
+glyphcachegeom.format = OCDFMT_ALPHA8;<br />
+glyphcachegeom.width = glyphcachewidth;<br />
+glyphcachegeom.height = glyphcacheheight;<br />
+glyphcachegeom.virtstride = glyphstride;<br />
+<br />
+solidcolortileparams.virtaddr = &amp;solidcolor;<br />
+solidcolortileparams.srcwidth = 1;<br />
+solidcolortileparams.srcheight = 1;<br />
+solidcolorgeom.format = OCDFMT_RGB24;<br />
+<br />
+bltparams.flags = BVFLAG_BLEND | BVFLAG_SRC1_TILED | BVFLAG_BATCH_BEGIN;<br />
+bltparams.op.blend = BVBLEND_SRCOVER + BVBLENDDEF_REMOTE;<br />
+bltparams.dstdesc = &amp;screendesc;<br />
+bltparams.dstgeom = &amp;screengeom;<br />
+
+bltparams.src1.tileparams = &amp;solidcolortileparams;<br />
+bltparams.src1geom = &amp;solidcolorgeom;<br />
+bltparams.src2.desc = &amp;screendesc;<br />
+bltparams.src2geom = &amp;screengeom;<br />
+bltparams.mask.desc = &amp;glyphcachedesc;<br />
+bltparams.maskgeom = &amp;glyphcachegeom;<br />
+<br />
+bltparams.dstrect.left = bltparams.src2rect.left = screenrect.left;<br />
+bltparams.dstrect.top = bltparams.src2rect.top = screenrect.top;<br />
+<br />
+bltparams.maskrect.width = bltparams.dstrect.width = bltparams.src2rect.width = 
+fontwidth;<br />
+bltparams.maskrect.height = bltparams.dstrect.height = bltparams.src2rect.height 
+= fontheight;<br />
+<br />
+bltparams.maskrect.left = ((text[i] - &#39; &#39;) % charsperline) * fontwidth;<br />
+bltparams.maskrect.top = ((text[i] - &#39; &#39;) / charsperline) * fontheight;<br />
+<br />
+bv_blt(&amp;bltparams);<br />
+<br />
+i++;<br />
+if(i &lt; textlen)<br />
+{<br />
+&nbsp; bltparams.flags = (bltparams.flags &amp; ~BVFLAG_BATCH_MASK) | 
+BVFLAG_BATCH_CONTINUE;<br />
+&nbsp; bltparams.batch = BVBATCH_DSTRECT_ORIGIN | BVBATCH_SRC2RECT_ORIGIN | 
+BVBATCH_MASKRECT_ORIGIN;<br />
+<br />
+&nbsp; do<br />
+&nbsp; {<br />
+&nbsp;&nbsp;&nbsp; bltparams.dstrect.left += fontwidth;<br />
+&nbsp;&nbsp;&nbsp; bltparams.src2rect.left = bltparams.dstrect.left;<br />
+<br />
+&nbsp;&nbsp;&nbsp; bltparams.maskrect.left = ((text[i] - &#39; &#39;) % charsperline) * 
+fontwidth;<br />
+&nbsp;&nbsp;&nbsp; bltparams.maskrect.top = ((text[i] - &#39; &#39;) / charsperline) * 
+fontheight;<br />
+<br />
+&nbsp;&nbsp;&nbsp; bv_blt(&amp;bltparams);<br />
+<br />
+&nbsp;&nbsp;&nbsp; i++;<br />
+&nbsp; }while(i &lt; textlen);<br />
+}<br />
+<br />
+bltparams.flags = (bltparams.flags &amp; ~BVFLAG_BATCH_MASK) | BVFLAG_BATCH_END;<br />
+bltparams.batch = BVBATCH_ENDNOP;<br />
+<br />
+bv_blt(&amp;bltparams);</p>
+<p class="Header2">Batches For Special Feature BLTs</p>
+<p>Enabling special features of some implementations is a special challenge.&nbsp; 
+But BLTsville is up the task.</p>
+<p>For example, perhaps an implementation is capable of blending 4 layers at the 
+same time.&nbsp; But BLTsville only allows blending to be specified using 2 
+layers at a time.&nbsp; How can this be accomplished?</p>
+<p>The most prevalent blending reference used is the Porter-Duff whitepaper, 
+which specifies blending of 2 sources.&nbsp; So any N-source blend would require 
+the blends to be specified as a grouping of 2 source blends in order to utilize 
+the Porter-Duff equations.&nbsp; That&#39;s how such a blend is specified in 
+BLTsville:</p>
+<p class="small_code_block">bltparams.dstrect.width = bltparams.src1rect.width = 
+bltparams.src2rect.width = dstgeom.width;<br />
+bltparams.dstrect.height = bltparams.src1rect.height = bltparams.src2rect.height 
+= dstgeom.height; <br />
+<br />
+bltparams.flags = BVFLAG_BLEND | BVFLAG_BATCH_BEGIN;<br />
+bltparams.op.blend = BVBLEND_SRCOVER;<br />
+bltparams.dstdesc = &amp;dstdesc;<br />
+bltparams.dstgeom = &amp;dstgeom;<br />
+
+bltparams.src1.desc = &amp;src1desc;<br />
+bltparams.src1geom = &amp;src1geom;<br />
+bltparams.src2.desc = &amp;src2desc;<br />
+bltparams.src2geom = &amp;src2geom;<br />
+<br />
+bv_blt(&amp;bltparams);<br />
+<br />
+bltparams.src1.desc = &amp;src3desc;<br />
+bltparams.src1geom = &amp;src3geom;<br />
+bltparams.dstdesc = &amp;dstdesc;<br />
+bltparams.dstgeom = &amp;dstgeom;<br />
+<br />
+bltparams.flags = (bltparams.flags &amp; ~BVFLAG_BATCH_MASK) | 
+BVFLAG_BATCH_CONTINUE;<br />
+bltparams.batch = BVBATCH_SRC1 | BVBATCH_SRC2;<br />
+<br />
+bv_blt(&amp;bltparams);<br />
+<br />
+bltparams.src1.desc = &amp;src4desc;<br />
+bltparams.src1geom = &amp;src4geom;<br />
+<br />
+bltparams.flags = (bltparams.flags &amp; ~BVFLAG_BATCH_MASK) | BVFLAG_BATCH_END;<br />
+bltparams.batch = BVBATCH_SRC1;<br />
+<br />
+bv_blt(&amp;bltparams);</p>
+<p>The driver for an implementation that can perform this pair of operations as 
+one BLT would be tasked with recognizing that the batch contained BLTs which can 
+be linked.</p>
+<p>The fantastic thing about this approach is that an implementation without the 
+ability to blend 4 sources would perform the 3 blends separately, with the 
+identical result.</p>
+<p class="note">NOTE: Since a batch of BLTs may be serviced in any number of 
+ways, the client must not rely on any intermediate results.&nbsp; (In this 
+example, the destination buffer may be used for intermediate results, so it is 
+important that this buffer not be used during the batch--i.e. as a displayed 
+buffer.) </p>
+<p class="note">NOTE: Failure during the performance of a batch will result in 
+an unknown state for all intermediate and destination buffers.&nbsp; Do not 
+assume that a given implementation&#39;s state in this case represents the state 
+which will be encountered for a different implementation.</p>
+<hr />
 <p class="Code_Header"><a name="bvcallbackerror">bvcallbackerror</a></p>
 <p class="code_block">struct bvcallbackerror {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int structsize;<br />
@@ -2099,7 +2310,7 @@ for(int i = 0; i &lt; NUMLIBS; i++)<br />
 &nbsp; bvlib[i].bv_unmap = (BVFN_BLT)dlsym(bvlib[i].handle, &quot;bv_unmap&quot;);<br />
 }<br />
 </p>
-<p>222.&nbsp; Clients then need to create a <span class="inline_code">
+<p>2.&nbsp; Clients then need to create a <span class="inline_code">
 
 <a href="#bvbuffdesc">bvbuffdesc</a></span> object for each buffer to be 
 accessed in BLTsville:</p>
@@ -2303,7 +2514,7 @@ right corner of a surface to the upper left:</p>
 bvbltparams), 0};<br />
 <br />
 bltparams.flags = BVFLAG_ROP;<br />
-bltparams.rop = 0xCCCC; /* SRCCOPY */<br />
+bltparams.op.rop = 0xCCCC; /* SRCCOPY */<br />
 bltparams.dstdesc = &amp;buff;<br />
 bltparams.dstgeom = &amp;geom;<br />
 
