@@ -11,34 +11,13 @@
 				color: #fff;
 				padding: 10px;
 }
-.code_block {
-				margin-left: 40px;
-				font-family: "Courier New", Courier, monospace;
-				font-size: small;
-}
-.indent1 {
-				margin-left: 40px;
-}
-.center {
-}
-.Header1 {
-				margin: 0px 0 0 0;
-				font-size: xx-large;
-				font-weight: bold;
-				text-align: left;
-				line-height: normal;
-				background-color: #E0E0E0;
-}
 .inline_code {
 				font-family: "Courier New", Courier, monospace;
 				font-size: small;
 }
-.strong_emphasis {
-				text-decoration: underline;
-				font-weight: bold;
-}
-.filename {
-				font-family: Arial, Helvetica, sans-serif;
+.code_block {
+				margin-left: 40px;
+				font-family: "Courier New", Courier, monospace;
 				font-size: small;
 }
 .small_code_block_in_table {
@@ -49,9 +28,6 @@
 				font-family: "Courier New", Courier, monospace;
 				font-size: x-small;
 				margin-left: 40px;
-}
-.underline {
-				text-decoration: underline;
 }
 .underline_code {
 				font-family: "Courier New", Courier, monospace;
@@ -75,6 +51,36 @@
 				font-weight: bold;
 				text-align: left;
 				font-family: "Courier New", Courier, monospace;
+}
+.indent1 {
+				margin-left: 40px;
+}
+.center {
+}
+.Header1 {
+				margin: 0px 0 0 0;
+				font-size: xx-large;
+				font-weight: bold;
+				text-align: left;
+				line-height: normal;
+				background-color: #E0E0E0;
+}
+.Header2 {
+				font-size: xx-large;
+				font-weight: bold;
+				margin: 0px;
+				line-height: 100%;
+}
+.strong_emphasis {
+				text-decoration: underline;
+				font-weight: bold;
+}
+.filename {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: small;
+}
+.underline {
+				text-decoration: underline;
 }
 .grn_left {
 				text-align: left;
@@ -148,23 +154,17 @@
 .dl_link {
 				float: right;
 }
-.small_note {
-				font-size: xx-small;
-				line-height: 100%;
-}
-.Header2 {
-				font-size: xx-large;
-				font-weight: bold;
-				margin: 0px;
-				line-height: 100%;
-}
-.ctr {
-				text-align: center;
-}
 .note {
 				font-family: Arial, Helvetica, sans-serif;
 				font-weight: bold;
 				margin-left: 40px;
+}
+.small_note {
+				font-size: xx-small;
+				line-height: 100%;
+}
+.ctr {
+				text-align: center;
 }
 .red {
 				color: #FF0000;
@@ -2250,15 +2250,27 @@ be linked.</p>
 <p>The fantastic thing about this approach is that an implementation without the 
 ability to blend 4 sources would perform the 3 blends separately, with the 
 identical result.</p>
-<p class="note">NOTE: Since a batch of BLTs may be serviced in any number of 
-ways, the client must not rely on any intermediate results.&nbsp; (In this 
+<p class="note">NOTE: A batch of BLTs may be serviced in any number of 
+ways.&nbsp; For example, one implementation may perform each BLT as it is 
+submitted, while another may take no action until the
+<a href="#BVFLAG_BATCH_END" class="inline_code">BVFLAG_BATCH_END</a> BLT is 
+encountered.&nbsp; As a result, the client must be careful not to rely on any intermediate results.&nbsp; (In this 
 example, the destination buffer may be used for intermediate results, so it is 
 important that this buffer not be used during the batch--i.e. as a displayed 
 buffer.) </p>
-<p class="note">NOTE: Failure during the performance of a batch will result in 
-an unknown state for all intermediate and destination buffers.&nbsp; Do not 
+<p class="note">NOTE: Failure during the performance of a batch (indicated by 
+the contents of the <a href="#bvcallbackerror" class="inline_code">
+bvcallbackerror</a> structure) will result in 
+an unknown state for all destination buffers.&nbsp; Do not 
 assume that a given implementation&#39;s state in this case represents the state 
 which will be encountered for a different implementation.</p>
+<p class="note">NOTE: Because of the indeterminate nature of the execution of a 
+batch of BLTs, a &quot;batch abort&quot; would not result in a known state either.&nbsp; 
+As stated above, a given implementation may have already performed earlier BLTs 
+in a batch as the batch is submitted.&nbsp; So errors encountered during the 
+submission of a batch must be handled by the client, and then the batch must be 
+terminated normally using <a href="#BVFLAG_BATCH_END" class="inline_code">
+BVFLAG_BATCH_END</a>.</p>
 <hr />
 <p class="Code_Header"><a name="bvcallbackerror">bvcallbackerror</a></p>
 <p class="code_block">struct bvcallbackerror {<br />
