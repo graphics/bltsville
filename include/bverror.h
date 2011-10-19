@@ -36,14 +36,16 @@ enum bverror {
 	BVERR_RSRC =		/* required resource unavailable */
 		BVERRDEF_VENDOR_ALL + 3,
 
-	BVERR_VIRTPTR =		/* virtptr is bad */
+	BVERR_VIRTADDR =	/* virtaddr is bad */
 		BVERRDEF_VENDOR_ALL + 1000,
+	BVERR_VIRTPTR =
+		BVERR_VIRTADDR,	/* for backwards compatibility*/
 
 	BVERR_BUFFERDESC =	/* invalid bvbufferdesc */
 		BVERRDEF_VENDOR_ALL + 10000,
 	BVERR_BUFFERDESC_VERS =	/* bvbufferdesc.structsize too small */
 		BVERRDEF_VENDOR_ALL + 11000,
-	BVERR_BUFFERDESC_VIRTADDR = /* bad bvbufferdesc.virtptr */
+	BVERR_BUFFERDESC_VIRTADDR = /* bad bvbufferdesc.virtaddr */
 		BVERRDEF_VENDOR_ALL + 12000,
 	BVERR_BUFFERDESC_LEN =	/* bvbufferdesc.length not supported */
 		BVERRDEF_VENDOR_ALL + 13000,
@@ -89,7 +91,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 26000,
 	BVERR_DSTDESC_VERS =	/* bvbufferdesc.structsize too small */
 		BVERRDEF_VENDOR_ALL + 26100,
-	BVERR_DSTDESC_VIRTADDR = /* bad bvbufferdesc.virtptr */
+	BVERR_DSTDESC_VIRTADDR = /* bad bvbufferdesc.virtaddr */
 		BVERRDEF_VENDOR_ALL + 26200,
 	BVERR_DSTDESC_LEN =	/* bvbufferdesc.length not supported */
 		BVERRDEF_VENDOR_ALL + 26300,
@@ -112,7 +114,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 29000,
 	BVERR_SRC1DESC_VERS =	/* bvbufferdesc.structsize too small */
 		BVERRDEF_VENDOR_ALL + 29100,
-	BVERR_SRC1DESC_VIRTADDR = /* bad bvbufferdesc.virtptr */
+	BVERR_SRC1DESC_VIRTADDR = /* bad bvbufferdesc.virtaddr */
 		BVERRDEF_VENDOR_ALL + 29200,
 	BVERR_SRC1DESC_LEN =	/* bvbufferdesc.length not supported */
 		BVERRDEF_VENDOR_ALL + 29300,
@@ -151,7 +153,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 33000,
 	BVERR_SRC2DESC_VERS =	/* bvbufferdesc.structsize too small */
 		BVERRDEF_VENDOR_ALL + 33100,
-	BVERR_SRC2DESC_VIRTADDR = /* bad bvbufferdesc.virtptr */
+	BVERR_SRC2DESC_VIRTADDR = /* bad bvbufferdesc.virtaddr */
 		BVERRDEF_VENDOR_ALL + 33200,
 	BVERR_SRC2DESC_LEN =	/* bvbufferdesc.length not supported */
 		BVERRDEF_VENDOR_ALL + 33300,
@@ -190,7 +192,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 37000,
 	BVERR_MASKDESC_VERS =	/* bvbufferdesc.structsize too small */
 		BVERRDEF_VENDOR_ALL + 37100,
-	BVERR_MASKDESC_VIRTADDR = /* bad bvbufferdesc.virtptr */
+	BVERR_MASKDESC_VIRTADDR = /* bad bvbufferdesc.virtaddr */
 		BVERRDEF_VENDOR_ALL + 37200,
 	BVERR_MASKDESC_LEN =	/* bvbufferdesc.length not supported */
 		BVERRDEF_VENDOR_ALL + 37300,
