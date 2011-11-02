@@ -71,6 +71,18 @@
 				margin: 0px;
 				line-height: 100%;
 }
+.Header3 {
+				font-size: x-large;
+				font-weight: bold;
+				margin: 0px;
+				line-height: 100%;
+}
+.Header4 {
+				font-size: large;
+				font-weight: bold;
+				margin: 0px;
+				line-height: 100%;
+}
 .strong_emphasis {
 				text-decoration: underline;
 				font-weight: bold;
@@ -1176,165 +1188,500 @@ notification when the BLT has completed.</p>
 <p><span class="inline_code"><a href="#bvblend">bvblend</a></span> is an enumeration assembled from sets of fields.&nbsp; 
 The values specified may be extended beyond those that are explicitly defined using the definitions in the
 <span class="filename">bvblend.h</span> header file.</p>
-<p>The first field is a 
-								format grouping.&nbsp; Currently two format groups are defined, but others can be added.&nbsp; 
+<p>The first 4 bits are the 
+								format.&nbsp; Currently two format groups are defined, but others can be added.&nbsp; 
 								The remainder of the bits are used as defined by the individual format:</p>
 								<table style="width: 100%">
 												<tr>
-																<td valign="top">1.</td>
-																<td><span class="inline_code"><strong>
-																<a name="BVBLENDDEF_FORMAT_CLASSIC0">BVBLENDDEF_FORMAT_CLASSIC</a></strong></span> 
-																- The classic blending equations are based on the 
-																Porter-Duff blending equations, with some additions:<br />
-																<br />
-																For <span class="inline_code">BVBLENDDEF_FORMAT_CLASSIC</span>, 
-																the specific blend operation is constructed using the 
-																definitions above. Following the format identifier, the 
-																remaining 28 bits are divided into four groups of 6 bits 
-																plus 4 modifier bits.<br />
-																<br />
-																Starting with the following equations:<br />
-&nbsp; Cd = K1 x C1 + K2 x C2<br />
-&nbsp; Ad = K3 x A1 + K4 x A2<br />
-																<br />
-																The four 6-bit fields are used to specify the values for 
-																the four constant (K) values.<br />
-																<br />
-																These 6-bit fields are further divided into 3 groups of 
-																2 bits each. The rightmost 2 groups specify parameters 
-																used as indicated by the leftmost group.<br />
-																<br />
-																Bits n through n+1 specify the second parameter:<br />
-&nbsp; 00b = 1-Cs<br />
-&nbsp; 01b = 1-As<br />
-&nbsp; 10b = 1-Cd<br />
-&nbsp; 11b = 1-Ad<br />
-																<br />
-																Bits n+2 through n+3 specify the first parameter:<br />
-&nbsp; 00b = Cs<br />
-&nbsp; 01b = As<br />
-&nbsp; 10b = Cd<br />
-&nbsp; 11b = Ad<br />
-																<br />
-																Bits n+4 through n+5 indicate how the two fields are 
-																used:<br />
-&nbsp; 00b = only the first parameter is used (special case for both 00b)<br />
-&nbsp; 01b = minimum of two fields<br />
-&nbsp; 10b = maximum of two fields<br />
-&nbsp; 11b = only the second parameter is used (special case for both 11b)<br />
-																<br />
-																Put together, these can define portions of the blend 
-																equations that can be put together in a variety of ways:<br />
-																<br />
-&nbsp; 00 00 00: 0<br />
-&nbsp; 00 00 11: C1<br />
-&nbsp; 00 01 11: A1<br />
-&nbsp; 00 10 11: C2<br />
-&nbsp; 00 11 11: A2<br />
-&nbsp; 11 00 00: 1-C1<br />
-&nbsp; 11 00 01: 1-A1<br />
-&nbsp; 11 00 10: 1-C2<br />
-&nbsp; 11 00 11: 1-A2<br />
-&nbsp; 11 11 11: 1<br />
-&nbsp; 01 01 11: min(A1,1-A2)<br />
-																<br />
-																Putting these together into the proper constants, the 
-																blending equations can be built for DirectFB or 
-																Porter-Duff:<br />
-																<br />
-																For Porter-Duff, the equations can be more specifically 
-																defined. For convenience, these are defined below. These 
-																utilize the local alpha as indicated. To use global or 
-																remote alpha, these enumerations need to be modified. 
-																For example, to include the global alpha in the 
-																Porter-Duff <span class="inline_code">BVBLEND_SRC1OVER</span> 
-																blend, the blend could be defined like this:<br />
-&nbsp; <span class="inline_code">params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_GLOBAL_UCHAR;</span><br />
-																<br />
-																To include the remote alpha, the blend could be defined 
-																like this:<br />
-&nbsp; <span class="inline_code">params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_REMOTE;</span><br />
-																<br />
-																And to include both:<br />
-&nbsp; <span class="inline_code">params.op.blend = BVBLEND_SRC1OVER + BVBLENDDEF_GLOBAL_UCHAR + BVBLENDDEF_REMOTE;</span><br />
-																<br />
-																Note that if the source color formats include local 
-																alphas, the local alphas, global alpha, and remote alpha 
-																will be used together.<br />
-																<br />
-																Note also that the equations assume the surfaces are 
-																premultiplied. So if the surface formats indicate that 
-																they are not premultiplied, the alpha multiplication of 
-																each color is done prior to using the surface values in 
-																the equations.&nbsp; For example,
-																<span class="inline_code">BVBLEND_SRC1OVER</span> 
-																specifies the equations:<br />
-&nbsp; Cd = C1 x 1 + C2 x (1 - A1)<br />
-&nbsp; Ad = A1 x 1 + A2 x (1 - A1)<br />
-																If the format of surface 1 is non-premultiplied, the 
-																equations are modified to include the multiplication 
-																explicitly:<br />
-&nbsp; Cd = C1 x A1 x 1 + C2 x (1 - A1)<br />
-&nbsp; Ad = A1 x 1 + A2 x (1 - A1)<br />
-																Likewise, if the format of surface 2 is non-premultiplied, 
-																the equations are modified for this:<br />
-&nbsp; Cd = C1 x 1 + C2 x A2 x (1 - A1)<br />
-&nbsp; Ad = A1 x 1 + A2 x (1 - A1)<br />
-																<br />
-																For DirectFB, the <span class="inline_code">
-																SetSrcBlendFunction()</span> and
-																<span class="inline_code">SetDstBlendFunction()</span> 
-																can specify 121 combinations of blends (11 x 11). It&#39;s 
-																impractical to specify these combinations individually. 
-																Instead, the settings indicated by each call should be 
-																bitwise OR&#39;d to make the proper single value used in 
-																BLTsville.<br />
-																<br />
-																<span class="inline_code">binary value &lt;- 
-																SetSrcBlendFunction()<br />
-																[--K1--] [--K2--] [--K3--] [--K4--]<br />
-																00000000 00 00 00 xx xx xx 00 00 00 xx xx xx &lt;- 
-																DSBF_ZERO<br />
-																00000000 11 11 11 xx xx xx 11 11 11 xx xx xx &lt;- DSBF_ONE<br />
-																00000000 00 00 11 xx xx xx 00 01 11 xx xx xx &lt;- 
-																DSBF_SRCCOLOR<br />
-																00000000 11 00 00 xx xx xx 11 00 01 xx xx xx &lt;- 
-																DSBF_INVSRCCOLOR<br />
-																00000000 00 01 11 xx xx xx 00 01 11 xx xx xx &lt;- 
-																DSBF_SRCALPHA<br />
-																00000000 11 00 01 xx xx xx 11 00 01 xx xx xx &lt;- 
-																DSBF_INVSRCALPHA<br />
-																00000000 00 11 11 xx xx xx 00 11 11 xx xx xx &lt;- 
-																DSBF_DESTALPHA<br />
-																00000000 11 00 11 xx xx xx 11 00 11 xx xx xx &lt;- 
-																DSBF_INVDESTALPHA<br />
-																00000000 00 10 11 xx xx xx 00 11 11 xx xx xx &lt;- 
-																DSBF_DESTCOLOR<br />
-																00000000 11 00 10 xx xx xx 11 00 11 xx xx xx &lt;- 
-																DSBF_INVDESTCOLOR<br />
-																00000000 01 01 11 xx xx xx 11 11 11 xx xx xx &lt;- 
-																DSBF_SRCALPHASAT<br />
-																</span><br />
-																<span class="inline_code">binary value &lt;- 
-																SetDstBlendFunction()<br />
-																00000000 xx xx xx 00 00 00 xx xx xx 00 00 00 &lt;- 
-																DSBF_ZERO<br />
-																00000000 xx xx xx 11 11 11 xx xx xx 11 11 11 &lt;- DSBF_ONE<br />
-																</span>etc.<br />
-																<br />
-																The following are modifiers of the classic blend 
-																equation:<br />
-&nbsp; <span class="inline_code">BVBLENDDEF_REMOTE</span> - mask surface provides alpha for source 1<br />
-																<br />
-&nbsp; <span class="inline_code">BVBLENDDEF_GLOBAL_NONE</span> - no global alpha in use<br />
-&nbsp; <span class="inline_code">BVBLENDDEF_GLOBAL_UCHAR</span> - global alpha is an 8-bit value from 0 (0.0) to 255 
-																(1.0) <br />
-&nbsp; <span class="inline_code">BVBLENDDEF_GLOBAL_FLOAT</span> - global alpha is a floating point value from 0.0 to 1.0<br />
-																</td>
+																<td valign="top">
+                                                                1.</td>
+																<td>
+                                                                <span class="Code_Header_3">
+                                                                BVBLENDDEF_FORMAT_CLASSIC</span><br />
+                                                                <br />
+                                                                The
+                                                                <span class="inline_code">
+                                                                BVBLENDDEF_FORMAT_CLASSIC</span> 
+                                                                is meant to 
+                                                                handle the 
+                                                                classic 
+                                                                Porter-Duff 
+                                                                equations. It 
+                                                                can also handle 
+                                                                the DirectFB 
+                                                                blending.<br />
+                                                                <br />
+                                                                <span class="inline_code">
+                                                                BVBLENDDEF_FORMAT_CLASSIC</span> 
+                                                                is based on the 
+                                                                following 
+                                                                equations:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>d</sub> = K<sub>1</sub>C<sub>1</sub> + K<sub>2</sub>C<sub>2</sub><br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp; A<sub>d</sub> = K<sub>3</sub>A<sub>1</sub> 
+                                                                + K<sub>4</sub>A<sub>2</sub><br />
+                                                                <br />
+                                                                where:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>d</sub>: destination color<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>1</sub>: source 1 color<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>2</sub>: source 2 color<br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>d</sub>: destination alpha<br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>1</sub>: source 1 alpha<br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>2</sub>: source 2 alpha<br />
+&nbsp;&nbsp;&nbsp;&nbsp; K<sub>#</sub>: one of the constants defined using the 
+                                                                bitfields below<br />
+                                                                <br />
+                                                                The 28 bits for
+                                                                <span class="inline_code">
+                                                                BVBLENDDEF_FORMAT_CLASSIC</span> 
+                                                                are divided into 
+                                                                5 sections.<br />
+                                                                <br />
+                                                                The most 
+                                                                significant 4 
+                                                                bits are 
+                                                                modifiers, used 
+                                                                to include 
+                                                                additional alpha 
+                                                                values from 
+                                                                global or remote 
+                                                                sources.<br />
+                                                                <br />
+                                                                [27] The most 
+                                                                significant bit 
+                                                                indicates that a 
+                                                                remote alpha is 
+                                                                to be included 
+                                                                in the blend. 
+                                                                The format of 
+                                                                this is defined 
+                                                                by
+                                                                <span class="inline_code">
+                                                                <a href="#maskgeom">
+                                                                bvbltparams.maskgeom.format</a></span>.<br />
+                                                                <br />
+                                                                [26] The next 
+                                                                bit is reserved.<br />
+                                                                <br />
+                                                                [25:24] The next 
+                                                                2 bits are used 
+                                                                to indicate that 
+                                                                a global alpha 
+                                                                is to be 
+                                                                included, and 
+                                                                what its format 
+                                                                is:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 00: no global included<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 01: global included; bvbltparams.globalalpha.size8 is 
+                                                                used (0 -&gt; 255)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 10: this value is reserved<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 11: global included; bvbltparams.flogalalpha.fp is used 
+                                                                (0.0 -&gt; 1.0)<br />
+                                                                <br />
+                                                                The remaining 
+                                                                bits are divided 
+                                                                into 4 sections, 
+                                                                one to define 
+                                                                each of the 
+                                                                constants:<br />
+                                                                <br />
+                                                                [23:18] - K1<br />
+                                                                [17:12] - K2<br />
+                                                                [11:6] - K3<br />
+                                                                [5:0] - K4<br />
+                                                                <br />
+                                                                The format is 
+                                                                the same for all 
+                                                                4 constant 
+                                                                fields:<br />
+                                                                <br />
+                                                                [5:4] The first 
+                                                                2 bits of each 
+                                                                field indicates 
+                                                                the way in which 
+                                                                the other 2 
+                                                                fields are 
+                                                                interpreted:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 00: only As: the other two fields contain only As; 
+                                                                there should be 
+                                                                only one valid A 
+                                                                value between 
+                                                                the two fields<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 01: minimum: the value of the constant is the minimum 
+                                                                of the two 
+                                                                fields<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 10: maximum: the value of the constant is the maximum 
+                                                                of the two 
+                                                                fields<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 11: only Cs: the other two fields contain only Cs; 
+                                                                there should be 
+                                                                only one valid C 
+                                                                value between 
+                                                                the two fields<br />
+                                                                <br />
+                                                                [3:2] The middle 
+                                                                2 bits of each 
+                                                                field contain 
+                                                                the inverse 
+                                                                field:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 00: 1-C1 (&quot;don&#39;t care&quot; for &quot;only As&quot;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 01: 1-A1 (&quot;don&#39;t care&quot; for &quot;only Cs&quot;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 10: 1-C2 (&quot;don&#39;t care&quot; for &quot;only As&quot;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 11: 1-A2 (&quot;don&#39;t care&quot; for &quot;only Cs&quot;)<br />
+                                                                <br />
+                                                                [1:0] The last 2 
+                                                                bits if each 
+                                                                field contain 
+                                                                the normal 
+                                                                field:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 00: C1 (&quot;don&#39;t care&quot; for &quot;only As&quot;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 01: A1 (&quot;don&#39;t care&quot; for &quot;only Cs&quot;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 10: C2 (&quot;don&#39;t care&quot; for &quot;only As&quot;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp; 11: A2 (&quot;don&#39;t care&quot; for &quot;only Cs&quot;)<br />
+                                                                <br />
+                                                                EXCEPTIONS:<br />
+                                                                <br />
+                                                                00 00 00 - The 
+                                                                value 00 00 00, 
+                                                                which normally 
+                                                                would indicate 
+                                                                &quot;only As&quot;<br />
+                                                                with two &quot;don&#39;t 
+                                                                care&quot; fields, is 
+                                                                interpreted as a 
+                                                                0.<br />
+                                                                <br />
+                                                                11 11 11 - The 
+                                                                value 11 11 11, 
+                                                                which normally 
+                                                                would indicate 
+                                                                &quot;only Cs&quot;<br />
+                                                                with two &quot;don&#39;t 
+                                                                care&quot; fields, is 
+                                                                interpreted as a 
+                                                                1.<br />
+                                                                <br />
+                                                                <span class="Header4">
+                                                                Common Constants</span><br />
+                                                                <br />
+                                                                Put together, 
+                                                                these can define 
+                                                                portions of the 
+                                                                blend equations 
+                                                                that can be put 
+                                                                together in a 
+                                                                variety of ways:<br />
+                                                                <br />
+                                                                00 00 00: 0<br />
+                                                                11 11 00: C1<br />
+                                                                00 00 01: A1<br />
+                                                                11 11 10: C2<br />
+                                                                00 00 11: A2<br />
+                                                                11 00 11: 1-C1<br />
+                                                                00 01 00: 1-A1<br />
+                                                                11 10 11: 1-C2<br />
+                                                                00 11 00: 1-A2<br />
+                                                                11 11 11: 1<br />
+                                                                01 11 01: 
+                                                                min(A1,1-A2)<br />
+                                                                <br />
+                                                                <span class="Header4">DirectFB</span><br />
+                                                                <br />
+                                                                Putting these 
+                                                                together into 
+                                                                the proper 
+                                                                constants, the 
+                                                                blending 
+                                                                equations can be 
+                                                                built for 
+                                                                DirectFB as 
+                                                                well:<br />
+                                                                <br />
+                                                                For DirectFB, 
+                                                                the 
+                                                                <a href="http://directfb.org/docs/DirectFB_Reference_1_2/IDirectFBSurface_SetSrcBlendFunction.html" class="inline_code">
+                                                                SetSrcBlendFunction()</a> 
+                                                                and  
+                                                                <a href="http://directfb.org/docs/DirectFB_Reference_1_2/IDirectFBSurface_SetDstBlendFunction.html" class="inline_code">
+                                                                SetDstBlendFunction()</a> 
+                                                                can specify 121 
+                                                                combinations of 
+                                                                blends (11 x 
+                                                                11). It&#39;s 
+                                                                impractical to 
+                                                                specify these 
+                                                                combinations 
+                                                                individually. 
+                                                                Instead, the 
+                                                                settings 
+                                                                indicated by 
+                                                                each call should 
+                                                                be bitwise OR&#39;d 
+                                                                to make the 
+                                                                proper single 
+                                                                value used in 
+                                                                BLTsville.<br />
+                                                                <br />
+                                                                binary value &lt;-
+                                                                <span class="inline_code">
+                                                                <a href="http://directfb.org/docs/DirectFB_Reference_1_2/IDirectFBSurface_SetSrcBlendFunction.html">
+                                                                SetSrcBlendFunction()</a></span><br />
+                                                                <span class="inline_code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                                [--K1--] 
+                                                                [--K2--] 
+                                                                [--K3--] 
+                                                                [--K4--]<br />
+                                                                0000 0000 00 00 
+                                                                00 xx xx xx 00 
+                                                                00 00 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_ZERO</a><br />
+                                                                0000 0000 11 11 
+                                                                11 xx xx xx 11 
+                                                                11 11 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_ONE</a><br />
+                                                                0000 0000 11 11 
+                                                                00 xx xx xx 00 
+                                                                00 01 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_SRCCOLOR</a><br />
+                                                                0000 0000 11 00 
+                                                                11 xx xx xx 00 
+                                                                01 00 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_INVSRCCOLOR</a><br />
+                                                                0000 0000 00 00 
+                                                                01 xx xx xx 00 
+                                                                00 01 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_SRCALPHA</a><br />
+                                                                0000 0000 00 01 
+                                                                00 xx xx xx 00 
+                                                                01 00 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_INVSRCALPHA</a><br />
+                                                                0000 0000 11 11 
+                                                                10 xx xx xx 00 
+                                                                00 11 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_DESTCOLOR</a><br />
+                                                                0000 0000 11 10 
+                                                                11 xx xx xx 00 
+                                                                11 00 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_INVDESTCOLOR</a><br />
+                                                                0000 0000 00 00 
+                                                                11 xx xx xx 00 
+                                                                00 11 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_DESTALPHA</a><br />
+                                                                0000 0000 00 11 
+                                                                00 xx xx xx 00 
+                                                                11 00 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_INVDESTALPHA</a><br />
+                                                                0000 0000 01 11 
+                                                                01 xx xx xx 11 
+                                                                11 11 xx xx xx 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_SRCALPHASAT</a><br />
+                                                                </span>
+                                                                <span class="code_block">
+                                                                <br />
+                                                                </span><br />
+                                                                binary value &lt;-
+                                                                <span class="inline_code">
+                                                                <a href="http://directfb.org/docs/DirectFB_Reference_1_2/IDirectFBSurface_SetDstBlendFunction.html">
+                                                                SetDstBlendFunction()</a></span><br />
+                                                                <span class="inline_code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                                [--K1--] 
+                                                                [--K2--] 
+                                                                [--K3--] 
+                                                                [--K4--]<br />
+                                                                0000 0000 xx xx 
+                                                                xx 00 00 00 xx 
+                                                                xx xx 00 00 00 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_ZERO</a><br />
+                                                                0000 0000 xx xx 
+                                                                xx 11 11 11 xx 
+                                                                xx xx 11 11 11 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_ONE</a><br />
+                                                                0000 0000 xx xx 
+                                                                xx 11 11 00 xx 
+                                                                xx xx 00 00 01 
+                                                                &lt;-
+                                                                <a href="http://www.directfb.org/docs/DirectFB_Reference_1_5/types.html#DFBSurfaceBlendFunction">
+                                                                DSBF_SRCCOLOR</a><br />
+                                                                </span>etc.<br />
+                                                                <br />
+                                                                <span class="Header4">Porter-Duff</span><br />
+                                                                <br />
+                                                                For Porter-Duff 
+                                                                blends, 
+                                                                the equations 
+                                                                can be more 
+                                                                specifically 
+                                                                defined. For
+                                                                convenience, 
+                                                                these are 
+                                                                enumerated 
+                                                                in the                                                                 <span class="inline_code">
+                                                                bvblend.h</span> 
+                                                                header. These 
+                                                                enumerations 
+                                                                utilize only the 
+                                                                local alpha in 
+                                                                the equations as
+                                                                indicated. To 
+                                                                use global or 
+                                                                remote alpha, 
+                                                                these 
+                                                                enumerations 
+                                                                need to be
+                                                                modified. For 
+                                                                example, to 
+                                                                include the 
+                                                                global alpha in 
+                                                                the Porter-Duff
+                                                                <span class="inline_code">BVBLEND_SRC1OVER</span> blend, 
+                                                                the blend could 
+                                                                be defined like 
+                                                                this:<br />
+                                                                <span class="inline_code">&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                params.op.blend 
+                                                                = 
+                                                                BVBLEND_SRC1OVER 
+                                                                +<br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                BVBLENDDEF_GLOBAL_UCHAR;</span><br />
+                                                                <br />
+                                                                To include the 
+                                                                remote alpha, 
+                                                                the blend could 
+                                                                be defined like 
+                                                                this:<br />
+                                                                <span class="inline_code">&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                params.op.blend 
+                                                                = 
+                                                                BVBLEND_SRC1OVER 
+                                                                +<br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                BVBLENDDEF_REMOTE;</span><br />
+                                                                <br />
+                                                                And to include 
+                                                                both:<br />
+                                                                <span class="inline_code">&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                params.op.blend 
+                                                                = 
+                                                                BVBLEND_SRC1OVER 
+                                                                +<br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                BVBLENDDEF_GLOBAL_UCHAR 
+                                                                +<br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                BVBLENDDEF_REMOTE;</span><br />
+                                                                <br />
+                                                                Note that if the 
+                                                                source color 
+                                                                formats include 
+                                                                local alphas, 
+                                                                the local
+                                                                alphas, global 
+                                                                alpha, and 
+                                                                remote alpha 
+                                                                will be used 
+                                                                together.<br />
+                                                                <br />
+                                                                Note also that 
+                                                                the equations 
+                                                                assume the 
+                                                                surfaces are 
+                                                                premultiplied. 
+                                                                So
+                                                                if the surface 
+                                                                formats indicate 
+                                                                that they are 
+                                                                not 
+                                                                premultiplied, 
+                                                                the
+                                                                alpha 
+                                                                multiplication 
+                                                                of each color is 
+                                                                done prior to 
+                                                                using the 
+                                                                surface
+                                                                values in the 
+                                                                equations.<br />
+                                                                <br />
+                                                                For example, 
+                                                                <span class="inline_code">BVBLEND_SRC1OVER</span> 
+                                                                specifies the 
+                                                                equations:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>d</sub> = C<sub>1</sub> + (1 - A<sub>1</sub>)C<sub>2</sub><br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>d</sub> = A<sub>1</sub> + (1 - A<sub>1</sub>)A<sub>2</sub><br />
+                                                                <br />
+                                                                If the format of 
+                                                                surface 1 is 
+                                                                non-premultiplied, 
+                                                                the equations
+                                                                are modified to 
+                                                                include the 
+                                                                multiplication 
+                                                                explicitly:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>d</sub> = A<sub>1</sub>C<sub>1</sub> + (1 - A<sub>1</sub>)C<sub>2</sub><br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>d</sub> = A<sub>1</sub> + (1 - A<sub>1</sub>)A<sub>2</sub><br />
+                                                                <br />
+                                                                Likewise, if the 
+                                                                format of 
+                                                                surface 2 is 
+                                                                non-premultiplied, 
+                                                                the
+                                                                equations are 
+                                                                modified for 
+                                                                this:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>d</sub> = C<sub>1</sub> + (1 - A<sub>1</sub>)A<sub>2</sub>C<sub>2</sub><br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>d</sub> = A<sub>1</sub> + (1 - A<sub>1</sub>)A<sub>2</sub><br />
+                                                                <br />
+                                                                When including 
+                                                                global or remote 
+                                                                alphas, these 
+                                                                values are used 
+                                                                to modify
+                                                                the source 1 
+                                                                value values 
+                                                                before being 
+                                                                used in the 
+                                                                blend equation:<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>1</sub> = A<sub>g</sub>C<sub>1</sub><br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>1</sub> = A<sub>g</sub>A<sub>1</sub><br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -or-<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>1</sub> = A<sub>r</sub>C<sub>1</sub><br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>1</sub> = A<sub>r</sub>A<sub>1</sub><br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -or-<br />
+&nbsp;&nbsp;&nbsp;&nbsp; C<sub>1</sub> = A<sub>r</sub>A<sub>g</sub>C<sub>1</sub><br />
+&nbsp;&nbsp;&nbsp;&nbsp; A<sub>1</sub> = A<sub>r</sub>A<sub>g</sub>A<sub>1<br />
+                                                                <br />
+                                                                </sub></td>
 												</tr>
 												<tr>
 																<td valign="top">2.</td>
-																<td><span class="inline_code">
+																<td>
+                                                                <span class="Code_Header_3">
 																<strong><a name="BVBLENDDEF_FORMAT_ESSENTIAL0">BVBLENDDEF_FORMAT_ESSENTIAL</a></strong></span><br />
 																<br />
 																The essential blending equations are based on the 
@@ -2034,7 +2381,8 @@ has changed.</p>
 indicates that the <span class="inline_code"><a href="#mask.tileparams">
 bvbltparams.mask.tileparams</a></span> has changed.</p>
 <p><span class="inline_code"><a name="BVBATCH_ENDNOP">BVBATCH_ENDNOP</a></span> 
-is a special flag used for clients that do not have information that a batch is 
+is a special flag used with <span class="inline_code"><a href="#batch_end">
+BVFLAG_BATCH_END</a></span>, for clients that do not have information that a batch is 
 ending until after the last BLT has been issued.&nbsp; When this flag is set, no 
 BLT is done, but the batch is ended.</p>
 <p class="Code_Header_2"><a name="batch">bvbltparams.batch</a></p>
@@ -2288,7 +2636,7 @@ bvcallbackerror.structsize</a></p>
 bvcallbackerror.errdesc</a></p>
 <p>&nbsp;</p>
 <hr />
-<p class="Header1">Where to Start</p>
+<p class="Header1"><a name="start">Where to Start</a></p>
 <p><em>(Note that error checking is omitted in all the examples below for 
 clarity.)</em>&nbsp;</p>
 <p>1.&nbsp; Clients begin by opening one or more BLTsville implementations 
@@ -2367,7 +2715,7 @@ a chance to associate any necessary resources&nbsp;with the buffer:</p>
 								</td>
 								<td style="width: 30px" class="center">or</td>
 								<td valign="top">
-								<p class="small_code_block_in_table">bvlib[0].bv_map(&amp;buff)&nbsp;</p>
+								<p class="small_code_block_in_table">bvlib[0].bv_map(&amp;buff);&nbsp;</p>
 
 								</td>
 								<td style="width: 30px" class="center">or</td>
