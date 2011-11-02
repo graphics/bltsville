@@ -109,6 +109,7 @@ struct bvbuffdesc {
 #define BVFLAG_BATCH_SHIFT	12
 #define BVFLAG_BATCH_MASK	(3 << BVFLAG_BATCH_SHIFT)
 
+#define BVFLAG_BATCH_NONE	(0 << BVFLAG_BATCH_SHIFT) /* not batched */
 #define BVFLAG_BATCH_BEGIN	(1 << BVFLAG_BATCH_SHIFT) /* begin batch */
 #define BVFLAG_BATCH_CONTINUE	(2 << BVFLAG_BATCH_SHIFT) /* continue batch */
 #define BVFLAG_BATCH_END	(3 << BVFLAG_BATCH_SHIFT) /* end batch */
@@ -501,7 +502,8 @@ struct bvtileparams {
 #define BVBATCH_TILE_SRC2	0x00800000 /* tile params for src 2 changed */
 #define BVBATCH_TILE_MASK	0x00100000 /* tile params for mask changed */
 /* Bits 30-21 reserved */
-#define BVBATCH_ENDNOP		0x80000000 /* just end batch, don't do BLT */
+#define BVBATCH_ENDNOP		0x80000000 /* just end batch, don't do BLT;
+					      only with BVFLAG_BATCH_END */
 
 /*
  * bvcallbackerror - This structure is passed into the callback function
@@ -582,8 +584,9 @@ struct bvbltparams {
 	struct bvrect cliprect;		/* (i) dest clipping rect when
 					       BVFLAG_CLIP flag set */
 
-	unsigned long batchflags;	/* (i) flags used to indicate params
-					       changed between batch BLTs */
+	unsigned long batchflags;	/* (i) BVBATCH_* flags used to
+					       indicate params changed between
+					       batch BLTs */
 	struct bvbatch *batch;		/* (i/o) handle for associated batch;
 						 returned when
 						 BVFLAG_BATCH_BEGIN set;
