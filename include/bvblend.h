@@ -131,17 +131,73 @@
  * Put together, these can define portions of the blend equations that can be
  * put together in a variety of ways:
  *
- *   00 00 00: 0
- *   11 11 00: C1
- *   00 00 01: A1
- *   11 11 10: C2
- *   00 00 11: A2
- *   11 00 11: 1-C1
- *   00 01 00: 1-A1
- *   11 10 11: 1-C2
- *   00 11 00: 1-A2
- *   11 11 11: 1
+ *   00 00 00: undefined -> zero
+ *   00 00 01: A1 (preferred)
+ *   00 00 10: undefined
+ *   00 00 11: A2 (preferred)
+ *   00 01 00: 1-A1 (preferred)
+ *   00 01 01: undefined
+ *   00 01 10: 1-A1 (use 00 01 00)
+ *   00 01 11: undefined
+ *   00 10 00: undefined
+ *   00 10 01: A1 (use 00 00 01)
+ *   00 10 10: undefined
+ *   00 10 11: A2 (use 00 00 11)
+ *   00 11 00: 1-A2 (preferred)
+ *   00 11 01: undefined
+ *   00 11 10: 1-A2 (use 00 11 00)
+ *   00 11 11: undefined
+ *
+ *   01 00 00: min(C1,1-C1)
+ *   01 00 01: min(A1,1-C1)
+ *   01 00 10: min(C2,1-C1)
+ *   01 00 11: min(A2,1-C1)
+ *   01 01 00: min(C1,1-A1)
+ *   01 01 01: min(A1,1-A1)
+ *   01 01 10: min(C2,1-A1)
+ *   01 01 11: min(A2,1-A1)
+ *   01 10 00: min(C1,1-C2)
+ *   01 10 01: min(A1,1-C2)
+ *   01 10 10: min(C2,1-C2)
+ *   01 10 11: min(A2,1-C2)
+ *   01 11 00: min(C1,1-A2)
  *   01 11 01: min(A1,1-A2)
+ *   01 11 10: min(C2,1-A2)
+ *   01 11 11: min(A2,1-A2)
+ *
+ *   10 00 00: max(C1,1-C1)
+ *   10 00 01: max(A1,1-C1)
+ *   10 00 10: max(C2,1-C1)
+ *   10 00 11: max(A2,1-C1)
+ *   10 01 00: max(C1,1-A1)
+ *   10 01 01: max(A1,1-A1)
+ *   10 01 10: max(C2,1-A1)
+ *   10 01 11: max(A2,1-A1)
+ *   10 10 00: max(C1,1-C2)
+ *   10 10 01: max(A1,1-C2)
+ *   10 10 10: max(C2,1-C2)
+ *   10 10 11: max(A2,1-C2)
+ *   10 11 00: max(C1,1-A2)
+ *   10 11 01: max(A1,1-A2)
+ *   10 11 10: max(C2,1-A2)
+ *   10 11 11: max(A2,1-A2)
+ *
+ *   11 00 00: undefined
+ *   11 00 01: 1-C1 (use 11 00 11)
+ *   11 00 10: undefined
+ *   11 00 11: 1-C1 (preferred)
+ *   11 01 00: C1 (use 11 11 00)
+ *   11 01 01: undefined
+ *   11 01 10: C2 (use 11 11 10)
+ *   11 01 11: undefined
+ *   11 10 00: undefined
+ *   11 10 01: 1-C2 (use 11 10 11)
+ *   11 10 10: undefined
+ *   11 10 11: 1-C2 (preferred)
+ *   11 11 00: C1 (preferred)
+ *   11 11 01: undefined
+ *   11 11 10: C2 (preferred)
+ *   11 11 11: undefined -> one
  *
  * ==========================================================================
  * DirectFB
@@ -305,6 +361,19 @@
 #define BVBLENDDEF_K2_SHIFT 12
 #define BVBLENDDEF_K3_SHIFT 6
 #define BVBLENDDEF_K4_SHIFT 0
+
+#define BVBLENDDEF_K_MASK \
+	((BVBLENDDEF_MODE_MASK << BVBLENDDEF_MODE_SHIFT) | \
+	 (BVBLENDDEF_INV_MASK << BVBLENDDEF_INV_SHIFT) | \
+	 (BVBLENDDEF_NORM_MASK << BVBLENDDEF_NORM_SHIFT))
+#define BVBLENDDEF_K1_MASK \
+	(BVBLENDDEF_K_MASK << BVBLENDDEF_K1_SHIFT)
+#define BVBLENDDEF_K2_MASK \
+	(BVBLENDDEF_K_MASK << BVBLENDDEF_K2_SHIFT)
+#define BVBLENDDEF_K3_MASK \
+	(BVBLENDDEF_K_MASK << BVBLENDDEF_K3_SHIFT)
+#define BVBLENDDEF_K4_MASK \
+	(BVBLENDDEF_K_MASK << BVBLENDDEF_K4_SHIFT)
 
 #define BVBLENDDEF_CLASSIC_EQUATION_MASK 0x00FFFFFF
 
