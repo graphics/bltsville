@@ -156,6 +156,7 @@ struct bvbuffdesc {
 #define BVSCALEDEF_IMPLICIT	(0 << BVSCALEDEF_CLASS_SHIFT)
 #define BVSCALEDEF_EXPLICIT	(1 << BVSCALEDEF_CLASS_SHIFT)
 /* 2-3 reserved */
+#define BVSCALEDEF_CLASS_MASK	(3 << BVSCALEDEF_CLASS_MASK)
 
 /**** IMPLICIT definitions ****/
 /*** Bits 21-16 indicate the quality (speed) desired ***/
@@ -164,6 +165,7 @@ struct bvbuffdesc {
 #define BVSCALEDEF_GOOD		(0x15 << BVSCALEDEF_QUALITY_SHIFT)
 #define BVSCALEDEF_BETTER	(0x2A << BVSCALEDEF_QUALITY_SHIFT)
 #define BVSCALEDEF_BEST		(0x3F << BVSCALEDEF_QUALITY_SHIFT)
+#define BVSCALEDEF_QUALITY_MASK	(0x3F << BVSCALEDEF_QUALITY_MASK)
 /* Bits 15-12 are reserved */
 /*** Bits 11-8 indicate the desired technique ***/
 #define BVSCALEDEF_TECHNIQUE_SHIFT 8
@@ -171,6 +173,7 @@ struct bvbuffdesc {
 #define BVSCALEDEF_NOT_NEAREST_NEIGHBOR	(0x1 << BVSCALEDEF_TECHNIQUE_SHIFT)
 #define BVSCALEDEF_POINT_SAMPLE	(0x2 << BVSCALEDEF_TECHNIQUE_SHIFT)
 #define BVSCALEDEF_INTERPOLATED	(0x3 << BVSCALEDEF_TECHNIQUE_SHIFT)
+#define BVSCALEDEF_TECHNIQUE_MASK	(0xF << BVSCALEDEF_TECHNIQUE_SHIFT)
 /* Bits 7-2 reserved */
 /*** Bits 1-0 indicate the type of image ***/
 #define BVSCALEDEF_TYPE_SHIFT 0
@@ -178,6 +181,7 @@ struct bvbuffdesc {
 #define BVSCALEDEF_PHOTO	(1 << BVSCALEDEF_TYPE_SHIFT)
 #define BVSCALEDEF_DRAWING	(2 << BVSCALEDEF_TYPE_SHIFT)
 /* 3 reserved */
+#define BVSCALEDEF_TYPE_MASK	(3 << BVSCALEDEF_TYPE_MASK)
 
 /**** EXPLICIT definitions ****/
 /* Bits 21-16 reserved */
