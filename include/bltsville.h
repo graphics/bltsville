@@ -527,6 +527,9 @@ struct bvcallbackerror {
  */
 struct bvbatch;
 
+/*
+ * bvinbuff - provides the buffer in bvbltparams 
+ */
 union bvinbuff {
 	struct bvbuffdesc *desc;	 /* buffer description when
 					    associated BVFLAG_TILE_*
@@ -534,6 +537,17 @@ union bvinbuff {
 	struct bvtileparams *tileparams; /* tile params when associated
 					    BVFLAG_TILE_* flag is set */
 };
+
+/*
+ * bvop - used to hold the operation in bvbltparams
+ */
+union bvop
+{
+	unsigned short rop;		/* when BVFLAG_ROP set */
+	enum bvblend blend;		/* when BVFLAG_BLEND set */
+	struct bvfilter *filter;	/* when BVFLAG_FILTER set */
+};
+
 
 /*
  * bvbltparams - This structure is passed into bv_blt() to specify the
@@ -549,11 +563,8 @@ struct bvbltparams {
 
 	unsigned long flags;		/* (i) see BVFLAG_* above */
 
-	union {				/* (i) params for ops */
-		unsigned short rop;		/* when BVFLAG_ROP set */
-		enum bvblend blend;		/* when BVFLAG_BLEND set */
-		struct bvfilter *filter;	/* when BVFLAG_FILTER set */
-	} op;
+	union bvop op;			/* (i) operation; determined by
+					       BVFLAG_OP_MASK bits in flags */
 
 	void *colorkey;			/* (i) pointer to color key pixel
 					       matching non-SUBSAMPLE format
