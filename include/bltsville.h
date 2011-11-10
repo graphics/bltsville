@@ -20,6 +20,8 @@
 #include "bverror.h"
 #include "bvblend.h"
 #include "bvfilter.h"
+#include "bvbuffdesc.h"
+#include "bventry.h"
 
 /*
  * bvrect - This structure is used to specify rectangles in BLTsville.
@@ -52,25 +54,6 @@ struct bvsurfgeom {
 					   paletteformat; only valid when
 					   format includes BVFMTDEF_LUT;
 					   number of entries is 2^bpp. */
-};
-
-/*
- * bvbuffmap - This is a private structure used by BLTsville
- * implementations to manage resources associated with a buffer.  A pointer
- * to this is returned from bv_map() and used in subsequent bv_blt() and
- * bv_unmap() calls.
- */
-struct bvbuffmap;
-
-/*
- * bvbuffdesc - This structure is used to specify the buffer parameters
- * in a call to bv_map().
- */
-struct bvbuffdesc {
-	unsigned int structsize;	/* used to identify struct version */
-	void *virtaddr;			/* virtual ptr to start of buffer */
-	unsigned long length;		/* length of the buffer in bytes */
-	struct bvbuffmap *map;	/* resource(s) associated w/buffer */
 };
 
 /*
@@ -617,13 +600,5 @@ struct bvbltparams {
 							 callbackdata below */
 	unsigned long callbackdata;	/* (i) callback data */
 };
-
-/*
- * bv_*() - These are the API calls for BLTsville.  The client needs to
- * import these from the shared library.
- */
-typedef enum bverror (*BVFN_MAP)(struct bvbuffdesc *buffdesc);
-typedef enum bverror (*BVFN_BLT)(struct bvbltparams *bltparms);
-typedef enum bverror (*BVFN_UNMAP)(struct bvbuffdesc *buffdesc);
 
 #endif /* BLTSVILLE_H */
