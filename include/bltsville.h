@@ -541,8 +541,7 @@ union bvinbuff {
 /*
  * bvop - used to hold the operation in bvbltparams
  */
-union bvop
-{
+union bvop {
 	unsigned short rop;		/* when BVFLAG_ROP set */
 	enum bvblend blend;		/* when BVFLAG_BLEND set */
 	struct bvfilter *filter;	/* when BVFLAG_FILTER set */
