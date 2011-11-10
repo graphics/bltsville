@@ -16,10 +16,10 @@
 #ifndef BLTSVILLE_H
 #define BLTSVILLE_H
 
-#include <ocd.h>
-#include <bverror.h>
-#include <bvblend.h>
-#include <bvfilter.h>
+#include "ocd.h"
+#include "bverror.h"
+#include "bvblend.h"
+#include "bvfilter.h"
 
 /*
  * bvrect - This structure is used to specify rectangles in BLTsville.
@@ -435,7 +435,8 @@ enum bvdithermode {
 	BVDITHER_NONE =		BVDITHERDEF_VENDOR_GENERIC + 0,
 	BVDITHER_ORDERED_2x2 =	BVDITHERDEF_VENDOR_GENERIC + 4,
 	BVDITHER_ORDERED_4x4 =	BVDITHERDEF_VENDOR_GENERIC + 16,
-	BVDITHER_ORDERED_2x2_4x4 = BVDITHERDEF_VENDOR_GENERIC + 4 + 16,	/* 2x2 for 6->8, 4x4 for 5->8 */
+	BVDITHER_ORDERED_2x2_4x4 = BVDITHERDEF_VENDOR_GENERIC + 4 + 16,
+					/* 2x2 for 6->8, 4x4 for 5->8 */
 
 #ifdef BVDITHER_EXTERNAL_INCLUDE
 #include BVDITHER_EXTERNAL_INCLUDE
@@ -516,7 +517,7 @@ struct bvtileparams {
 struct bvcallbackerror {
 	unsigned int structsize;	/* used to ID structure version */
 	enum bverror error;		/* error during async BLT */
-	char* errdesc;			/* 0-terminated ASCII string
+	char *errdesc;			/* 0-terminated ASCII string
 					   with extended error info (not
 					   for end users) */
 };
@@ -607,13 +608,13 @@ struct bvbltparams {
 						 provided to subsequent BLTs
 						 with BVFLAG_BATCH_CONTINUE */
 
-	void (*callbackfn)(struct bvcallbackerror* err,
+	void (*callbackfn)(struct bvcallbackerror *err,
 			   unsigned long callbackdata); /* (i) callback
 							 function when
-						         BVFLAG_ASYNC is set -
-						         err is 0 when no
-						         error; handle contains
-						         callbackdata below */
+							 BVFLAG_ASYNC is set -
+							 err is 0 when no
+							 error; handle contains
+							 callbackdata below */
 	unsigned long callbackdata;	/* (i) callback data */
 };
 

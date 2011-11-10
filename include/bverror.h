@@ -137,7 +137,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 31100,
 	BVERR_SRC1_VERTSCALE =	/* vert scale for src1->dst not supported */
 		BVERRDEF_VENDOR_ALL + 31200,
-	BVERR_SRC1_ROT = 	/* src1->dst rotation angle not supported */
+	BVERR_SRC1_ROT =	/* src1->dst rotation angle not supported */
 		BVERRDEF_VENDOR_ALL + 31300,
 
 	BVERR_SRC1_TILE_VERS =	/* src1.tileparams.structsize too small */
@@ -176,7 +176,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 35100,
 	BVERR_SRC2_VERTSCALE =	/* vert scale for src2->dst not supported */
 		BVERRDEF_VENDOR_ALL + 35200,
-	BVERR_SRC2_ROT = 	/* src2->dst rotation angle not supported */
+	BVERR_SRC2_ROT =	/* src2->dst rotation angle not supported */
 		BVERRDEF_VENDOR_ALL + 35300,
 
 	BVERR_SRC2_TILE_VERS =	/* src2.tileparams.structsize too small */
@@ -215,7 +215,7 @@ enum bverror {
 		BVERRDEF_VENDOR_ALL + 39100,
 	BVERR_MASK_VERTSCALE =	/* vert scale for mask->dst not supported */
 		BVERRDEF_VENDOR_ALL + 39200,
-	BVERR_MASK_ROT = 	/* mask->dst rotation angle not supported */
+	BVERR_MASK_ROT =	/* mask->dst rotation angle not supported */
 		BVERRDEF_VENDOR_ALL + 39300,
 
 	BVERR_MASK_TILE_VERS =	/* mask.tileparams.structsize too small */
