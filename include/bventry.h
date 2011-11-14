@@ -1,5 +1,5 @@
 /*
- * bvbuffdesc.h
+ * bventry.h
  *
  * Copyright (C) 2011 Texas Instruments, Inc.
  *
