@@ -22,6 +22,7 @@
 #include "bvfilter.h"
 #include "bvbuffdesc.h"
 #include "bventry.h"
+#include "bvsurfgeom.h"
 
 /*
  * bvrect - This structure is used to specify rectangles in BLTsville.
@@ -33,28 +34,6 @@ struct bvrect {
 	unsigned int height;
 };
 
-
-/*
- * bvsurfdesc - This structure specifies the way a buffer should be used in a
- * 2-D context.
- */
-
-struct bvsurfgeom {
-	unsigned int structsize;	/* used to identify struct version */
-	enum ocdformat format;		/* color format of surface */
-	unsigned int width;		/* width of the surface in pixels */
-	unsigned int height;		/* height of the surface in lines */
-	int orientation;		/* angle of the surface in degrees
-					   (multiple of 90 only) */
-	long virtstride;		/* distance from one pixel to the
-					   pixel immediately below it in
-					   virtual space */
-	enum ocdformat paletteformat;	/* format of palette */
-	void *palette;			/* array of palette entries of
-					   paletteformat; only valid when
-					   format includes BVFMTDEF_LUT;
-					   number of entries is 2^bpp. */
-};
 
 /*
  * BVFLAG_* - These define the type of BLT to be performed and are placed in
