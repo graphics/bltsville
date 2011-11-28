@@ -36,7 +36,7 @@ struct bvbuffmap {
 	unsigned int structsize; /* used to ID structure ver */
 
 	/* function to unmap this resource */
-	BVFN_MAP bv_unmap;
+	BVFN_UNMAP bv_unmap;
 
 	unsigned long handle;	 /* resource-specific info */
 
