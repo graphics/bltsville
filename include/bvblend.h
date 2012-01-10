@@ -357,15 +357,16 @@
 	 BVBLENDDEF_ONLY_C_NORM_xx | \
 	 BVBLENDDEF_ONLY_C_INV_xx)
 
+#define BVBLENDDEF_K_MASK \
+	(BVBLENDDEF_MODE_MASK | \
+	 BVBLENDDEF_INV_MASK  | \
+	 BVBLENDDEF_NORM_MASK)
+
 #define BVBLENDDEF_K1_SHIFT 18
 #define BVBLENDDEF_K2_SHIFT 12
 #define BVBLENDDEF_K3_SHIFT 6
 #define BVBLENDDEF_K4_SHIFT 0
 
-#define BVBLENDDEF_K_MASK \
-	((BVBLENDDEF_MODE_MASK << BVBLENDDEF_MODE_SHIFT) | \
-	 (BVBLENDDEF_INV_MASK << BVBLENDDEF_INV_SHIFT) | \
-	 (BVBLENDDEF_NORM_MASK << BVBLENDDEF_NORM_SHIFT))
 #define BVBLENDDEF_K1_MASK \
 	(BVBLENDDEF_K_MASK << BVBLENDDEF_K1_SHIFT)
 #define BVBLENDDEF_K2_MASK \
@@ -399,11 +400,6 @@ union bvalpha {
 	float fp;		/* btwn 0.0 and 1.0 */
 };
 
-
-/*
- * For FORMAT_ESSENTIAL, the variety of well-known blending functions from
- * popular image manipulation programs are specified.
- */
 
 enum bvblend {
   /* Porter-Duff blending equations */
@@ -472,6 +468,11 @@ enum bvblend {
 			(BVBLENDDEF_ONE << BVBLENDDEF_K2_SHIFT) |
 			(BVBLENDDEF_ONE << BVBLENDDEF_K3_SHIFT) |
 			(BVBLENDDEF_ONE << BVBLENDDEF_K4_SHIFT),
+
+/*
+ * For FORMAT_ESSENTIAL, the variety of well-known blending functions from
+ * popular image manipulation programs are specified.
+ */
 
 	BVBLEND_NORMAL = BVBLENDDEF_FORMAT_ESSENTIAL + 0,
 	BVBLEND_LIGHTEN = BVBLENDDEF_FORMAT_ESSENTIAL + 1,
