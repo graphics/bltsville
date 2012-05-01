@@ -19,7 +19,7 @@
 /* Forward declarations */
 struct bvbuffdesc;
 struct bvbltparams;
-
+struct bvcopparams;
 /*
  * bv_*() - These are the API calls for BLTsville.  The client needs to
  * import these from the shared library.
@@ -27,5 +27,6 @@ struct bvbltparams;
 typedef enum bverror (*BVFN_MAP)(struct bvbuffdesc *buffdesc);
 typedef enum bverror (*BVFN_BLT)(struct bvbltparams *bltparms);
 typedef enum bverror (*BVFN_UNMAP)(struct bvbuffdesc *buffdesc);
+typedef enum bverror (*BVFN_CACHE)(struct bvcopparams *copparams);
 
 #endif /* BVENTRY_H */

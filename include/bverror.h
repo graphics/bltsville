@@ -293,6 +293,9 @@ enum bverror {
 	BVERR_MEMORY_ERROR =	/* async operation triggered memory error */
 		BVERRDEF_VENDOR_ALL + 51000,
 
+        BVERR_FORMAT =          /* unsupported format */
+                BVERRDEF_VENDOR_ALL + 52000,
+
 #ifdef BVERR_EXTERNAL_INCLUDE
 #include BVERR_EXTERNAL_INCLUDE
 #endif

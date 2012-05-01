@@ -24,6 +24,24 @@
  */
 struct bvbuffmap;
 
+#define BVATDEF_VENDOR_SHIFT	24
+#define BVATDEF_VENDOR_MASK	(0xFF << BVATDEF_VENDOR_SHIFT)
+
+/* Common aux type */
+#define BVATDEF_VENDOR_ALL	(0x00 << BVATDEF_VENDOR_SHIFT)
+
+/* Texas Instruments, Inc. */
+#define BVATDEF_VENDOR_TI	(0x01 << BVATDEF_VENDOR_SHIFT)
+
+enum bvauxtype {
+	BVAT_NONE = 0,	/* auxptr not used */
+	BVAT_reserved1 = /* reserved */
+		BVATDEF_VENDOR_ALL + 1,
+#ifdef BVAT_EXTERNAL_INCLUDE
+#include BVAT_EXTERNAL_INCLUDE
+#endif
+};
+
 /*
  * bvbuffdesc - This structure is used to specify the buffer parameters
  * in a call to bv_map().
@@ -32,7 +50,11 @@ struct bvbuffdesc {
 	unsigned int structsize;	/* used to identify struct version */
 	void *virtaddr;			/* virtual ptr to start of buffer */
 	unsigned long length;		/* length of the buffer in bytes */
-	struct bvbuffmap *map;	/* resource(s) associated w/buffer */
+	struct bvbuffmap *map;		/* resource(s) associated w/buffer */
+	enum bvauxtype auxtype;		/* type of auxptr */
+	void *auxptr;			/* additional buffer description data;
+					type depends on auxtype */
 };
+
 
 #endif /* BVBUFFDESC_H */
