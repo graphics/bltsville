@@ -2615,7 +2615,8 @@ implementations will not be consistent.</p>
 <a href="#callbackdata">callbackdata</a>);</p>
 <p>This member is a pointer to a client-supplied function which is called by the implementation when
 <span class="inline_code"><a href="#BVFLAG_ASYNC">BVFLAG_ASYNC</a></span> is set and the BLT is complete.&nbsp; If this 
-member is NULL, no callback is performed.</p>
+member is NULL, no callback is performed.&nbsp; When there is no error, the <span class="inline_code">err</span> 
+parameter will be set to 0;</p>
 <p class="note">NOTE:&nbsp; This function <span class="underline">can be called</span> before the
 <span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> call has returned.</p>
 <p class="Code_Header_2"><a name="callbackdata">bvbltparams.callbackdata</a></p>
