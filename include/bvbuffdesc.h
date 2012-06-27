@@ -3,14 +3,13 @@
  *
  * Copyright (C) 2011 Texas Instruments, Inc.
  *
- * This file is part of BLTsville, an open application programming interface
- * (API) for accessing 2-D software or hardware implementations.
+ * This package is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
  *
- * This work is licensed under the Creative Commons Attribution-NoDerivs 3.0
- * Unported License. To view a copy of this license, visit
- * http://creativecommons.org/licenses/by-nd/3.0/ or send a letter to
- * Creative Commons, 444 Castro Street, Suite 900, Mountain View, California,
- * 94041, USA.
+ * THIS PACKAGE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
 #ifndef BVBUFFDESC_H
@@ -35,13 +34,22 @@ struct bvbuffmap;
 
 enum bvauxtype {
 	BVAT_NONE = 0,	/* auxptr not used */
-	BVAT_reserved1 = /* reserved */
+	BVAT_PHYSDESC =	/* auxptr points to bvphysdesc struct */
 		BVATDEF_VENDOR_ALL + 1,
-	BVAT_reserved2 = /* reserved */
+	BVAT_PHYSADDR = /* auxptr is physical address of buffer */
 		BVATDEF_VENDOR_ALL + 2,
 #ifdef BVAT_EXTERNAL_INCLUDE
 #include BVAT_EXTERNAL_INCLUDE
 #endif
+};
+
+
+struct bvphysdesc {
+	unsigned int structsize;	/* used to identify struct version */
+	unsigned long pagesize;		/* page size in bytes */
+	unsigned long *pagearray;	/* array of physical pages */
+	unsigned int pagecount;		/* number of pages in the pagearray */
+	unsigned long pageoffset;	/* page offset in bytes */
 };
 
 /*
@@ -57,6 +65,5 @@ struct bvbuffdesc {
 	void *auxptr;			/* additional buffer description data;
 					type depends on auxtype */
 };
-
 
 #endif /* BVBUFFDESC_H */
