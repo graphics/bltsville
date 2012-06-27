@@ -3,14 +3,13 @@
  *
  * Copyright (C) 2011 Texas Instruments, Inc.
  *
- * This file is part of BLTsville, an open application programming interface
- * (API) for accessing 2-D software or hardware implementations.
+ * This package is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
  *
- * This work is licensed under the Creative Commons Attribution-NoDerivs 3.0
- * Unported License. To view a copy of this license, visit
- * http://creativecommons.org/licenses/by-nd/3.0/ or send a letter to
- * Creative Commons, 444 Castro Street, Suite 900, Mountain View, California,
- * 94041, USA.
+ * THIS PACKAGE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
 #ifndef BLTSVILLE_H
@@ -505,7 +504,7 @@ struct bvcallbackerror {
 struct bvbatch;
 
 /*
- * bvinbuff - provides the buffer in bvbltparams 
+ * bvinbuff - provides the buffer in bvbltparams
  */
 union bvinbuff {
 	struct bvbuffdesc *desc;	 /* buffer description when
