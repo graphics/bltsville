@@ -37,6 +37,8 @@ enum bvauxtype {
 	BVAT_NONE = 0,	/* auxptr not used */
 	BVAT_reserved1 = /* reserved */
 		BVATDEF_VENDOR_ALL + 1,
+	BVAT_reserved2 = /* reserved */
+		BVATDEF_VENDOR_ALL + 2,
 #ifdef BVAT_EXTERNAL_INCLUDE
 #include BVAT_EXTERNAL_INCLUDE
 #endif
