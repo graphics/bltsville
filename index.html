@@ -177,7 +177,7 @@
 	font-size: xx-small;
 	line-height: 100%;
 }
-.center {
+.ctr {
 	text-align: center;
 }
 .glyph_cache {
@@ -186,6 +186,8 @@
 	font-weight: normal;
 	font-style: normal;
 	margin-left: 40px;
+	background-color: #000000;
+	color: #FFFFFF;
 }
 .example {
 	border-style: solid;
@@ -200,7 +202,7 @@
 .indent {
 	margin-left: 40px;
 }
-.center_thin_bord {
+.ctr_thin_bord {
 	border-style: solid;
 	border-width: 1px;
 	text-align: center;
@@ -213,6 +215,12 @@
 .bold_sans {
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bold;
+}
+.nowrap {
+	border-style: solid;
+	border-width: 1px;
+	white-space: nowrap;
+	font-size: small;
 }
 </style>
 </head>
@@ -234,7 +242,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="center"><span class="Header2">Version 2.1</span></td>
+				<td class="ctr"><span class="Header2">Version 2.2</span></td>
 			</tr>
 		</table>
 		</td>
@@ -444,29 +452,29 @@ Details of the changes are below with their compatibility matrices.</p>
 <table class="indent_thin_bord">
 	<tr>
 		<td class="thin_bord">&nbsp;</td>
-		<td class="center_thin_bord"><strong>2.0 Client</strong></td>
-		<td class="center_thin_bord"><strong>2.0 Client</strong><br />
+		<td class="ctr_thin_bord"><strong>2.0 Client</strong></td>
+		<td class="ctr_thin_bord"><strong>2.0 Client</strong><br />
 		(w/2.1 Headers)</td>
-		<td class="center_thin_bord"><strong>2.1 Client</strong></td>
+		<td class="ctr_thin_bord"><strong>2.1 Client</strong></td>
 	</tr>
 	<tr>
 		<td class="thin_bord"><strong>2.0 Implementation</strong></td>
-		<td class="center_thin_bord">compatible</td>
-		<td class="center_thin_bord">New function and structure definitions have no effect.</td>
-		<td class="center_thin_bord">Client must deal with lack of <span class="inline_code"><a href="#bv_cache">bv_cache()</a></span>.</td>
+		<td class="ctr_thin_bord">compatible</td>
+		<td class="ctr_thin_bord">New function and structure definitions have no effect.</td>
+		<td class="ctr_thin_bord">Client must deal with lack of <span class="inline_code"><a href="#bv_cache">bv_cache()</a></span>.</td>
 	</tr>
 	<tr>
 		<td class="thin_bord"><strong>2.0 Implementation</strong><br />
 		(w/2.1 Headers)</td>
-		<td class="center_thin_bord">New function and structure definitions have no effect.</td>
-		<td class="center_thin_bord">New function and structure definitions have no effect.</td>
-		<td class="center_thin_bord">Client must deal with lack of <span class="inline_code"><a href="#bv_cache">bv_cache()</a></span>.</td>
+		<td class="ctr_thin_bord">New function and structure definitions have no effect.</td>
+		<td class="ctr_thin_bord">New function and structure definitions have no effect.</td>
+		<td class="ctr_thin_bord">Client must deal with lack of <span class="inline_code"><a href="#bv_cache">bv_cache()</a></span>.</td>
 	</tr>
 	<tr>
 		<td class="thin_bord"><strong>2.1 Implementation</strong></td>
-		<td class="center_thin_bord">New function and structures have no effect.</td>
-		<td class="center_thin_bord">New function and structures have no effect.</td>
-		<td class="center_thin_bord">compatible</td>
+		<td class="ctr_thin_bord">New function and structures have no effect.</td>
+		<td class="ctr_thin_bord">New function and structures have no effect.</td>
+		<td class="ctr_thin_bord">compatible</td>
 	</tr>
 </table>
 <ul>
@@ -481,40 +489,80 @@ Details of the changes are below with their compatibility matrices.</p>
 <table class="indent_thin_bord">
 	<tr>
 		<td class="thin_bord">&nbsp;</td>
-		<td class="center_thin_bord"><strong>2.0 Client</strong></td>
-		<td class="center_thin_bord"><strong>2.0 Client</strong><br />
+		<td class="ctr_thin_bord"><strong>2.0 Client</strong></td>
+		<td class="ctr_thin_bord"><strong>2.0 Client</strong><br />
 		(w/2.1 Headers)</td>
-		<td class="center_thin_bord"><strong>2.1 Client</strong></td>
+		<td class="ctr_thin_bord"><strong>2.1 Client</strong></td>
 	</tr>
 	<tr>
 		<td class="thin_bord"><strong>2.0 Implementation</strong></td>
-		<td class="center_thin_bord">compatible</td>
-		<td class="center_thin_bord">Client must clear <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> 
+		<td class="ctr_thin_bord">compatible</td>
+		<td class="ctr_thin_bord">Client must clear <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> 
 		using <span class="inline_code"><span style="white-space: nowrap">sizeof(<a href="#bvbuffdesc">bvbuffdesc</a>)</span></span>.</td>
-		<td class="center_thin_bord">Implementation must handle <span class="inline_code">
+		<td class="ctr_thin_bord">Implementation must handle <span class="inline_code">
 		<a href="#bvbuffdesc.structsize">bvbuffdesc.structsize</a> &gt; <span style="white-space: nowrap">sizeof(<a href="#bvbuffdesc">bvbuffdesc</a>)</span></span>.</td>
 	</tr>
 	<tr>
 		<td class="thin_bord"><strong>2.0 Implementation</strong><br />
 		(w/2.1 Headers)</td>
-		<td class="center_thin_bord">Implementation must handle <span class="inline_code">
+		<td class="ctr_thin_bord">Implementation must handle <span class="inline_code">
 		<a href="#bvbuffdesc.structsize">bvbuffdesc.structsize</a> &lt; <span style="white-space: nowrap">sizeof(<a href="#bvbuffdesc">bvbuffdesc</a>)</span></span>.</td>
-		<td class="center_thin_bord">Client must clear <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> 
+		<td class="ctr_thin_bord">Client must clear <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> 
 		using <span class="inline_code"><span style="white-space: nowrap">sizeof(<a href="#bvbuffdesc">bvbuffdesc</a>)</span></span>.</td>
-		<td class="center_thin_bord">Client must deal with implementation that uses <span class="inline_code">
+		<td class="ctr_thin_bord">Client must deal with implementation that uses <span class="inline_code">
 		<a href="#bvbuffdesc.virtaddr">bvbuffdesc.virtaddr</a></span> or returns error if <span class="inline_code">
 		<a href="#bvbuffdesc.virtaddr">bvbuffdesc.virtaddr</a></span> is 0.</td>
 	</tr>
 	<tr>
 		<td class="thin_bord"><strong>2.1 Implementation</strong></td>
-		<td class="center_thin_bord">Implementation must handle <span class="inline_code">
-		<a href="#bvbuffdesc.structsize">bvbuffdesc.structsize</a> &lt; <span style="white-space: nowrap">sizeof(bvbuffdesc)</span></span>.</td>
-		<td class="center_thin_bord">Client must clear <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> 
+		<td class="ctr_thin_bord">Implementation must handle <span class="inline_code">
+		<a href="#bvbuffdesc.structsize">bvbuffdesc.structsize</a> &lt; <span style="white-space: nowrap">sizeof(<a href="#bvbuffdesc">bvbuffdesc</a>)</span></span>.</td>
+		<td class="ctr_thin_bord">Client must clear <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> 
 		using <span class="inline_code"><span style="white-space: nowrap">sizeof(<a href="#bvbuffdesc">bvbuffdesc</a>)</span></span>.</td>
-		<td class="center_thin_bord">compatible</td>
+		<td class="ctr_thin_bord">compatible</td>
 	</tr>
 </table>
-<br />
+<ul>
+	<li>Added documentation of <a href="#NOP">NOP BLT</a> used as synchronization mechanism for <a href="#BVFLAG_ASYNC">
+	asynchronous BLTs</a>.<ul>
+		<li>Clients that do not use <a href="#BVFLAG_ASYNC">asynchronous BLTs</a> or the <a href="#NOP">NOP BLT</a> will 
+		not be affected.</li>
+		<li>Implementations that do not support the NOP BLT will return an error.&nbsp; This will not cause a problem 
+		for clients when using implementations which are actually synchronous.&nbsp; For clients using asynchronous 
+		implementations, an alternate supported but innocuous BLT will be necessary (e.g. copying a pixel to itself).</li>
+	</ul>
+	</li>
+</ul>
+<p class="Header4">Version 2.2</p>
+<p>This is a minor update which includes the following:</p>
+<ul>
+	<li>Addition of the <span class="inline_code"><a href="#src2auxdstrect">src2auxdstrect</a></span> and
+	<span class="inline_code"><a href="#maskauxdstrect">maskauxdstrect</a></span> members to <span class="inline_code">
+	<a href="#bvbltparams">bvbltparams</a></span> with example.</li>
+	<li>Addition of <span class="inline_code"><a href="#BVFLAG_SRC2_AUXDSTRECT">BVFLAG_SRC2_AUXDSTRECT</a></span> and <span class="inline_code">
+	<a href="#BVFLAG_MASK_AUXDSTRECT">BVFLAG_MASK_AUXDSTRECT</a></span> flags.</li>
+	<li>Added <span class="inline_code"><a href="#BVAT_PHYSADDR">BVAT_PHYSADDR</a></span> to the kernel mode
+	<span class="inline_code"><a href="#bvbuffdesc.auxtype">bvbuffdesc.auxtype</a></span> enumerations.</li>
+	<li>Added clarification to the <span class="inline_code"><a href="#bvphysdesc">bvphysdesc</a></span> documentation.</li>
+</ul>
+<p>Compatibility</p>
+<ul>
+	<li>Clients that do not use the <span class="inline_code"><a href="#BVFLAG_SRC1_AUXDSTRECT">BVFLAG_*_AUXDSTRECT</a></span> 
+	flags will not be affected.</li>
+	<li>Clients using the new (long) <span class="inline_code"><a href="#bvbltparams">bvbltparams</a></span> will work with 
+	older implementations.&nbsp; If the clients set the <span class="inline_code"><a href="#BVFLAG_SRC2_AUXDSTRECT">
+	BVFLAG_*_AUXDSTRECT</a></span> flags, the implementations will return <span class="inline_code">BVERR_FLAGS</span>, 
+	indicating the lack of support for this feature.</li>
+	<li>Implementations supporting the new <span class="inline_code"><a href="#bvbltparams">bvbltparams</a></span> will 
+	accept the older (smaller) version, distinguished by the <span class="inline_code">
+	<a href="#bvbltparams.structsize">structsize</a></span> member.&nbsp; Clients using the older versions will not set 
+	the <span class="inline_code"><a href="#BVFLAG_SRC2_AUXDSTRECT">BVFLAG_*_AUXDSTRECT</a></span> flags, so the new 
+	members will not be utilized.</li>
+	<li>Clients using <span class="inline_code"><a href="#BVAT_PHYSADDR">BVAT_PHYSADDR</a></span> will get an error from 
+	implementations that do not support this enumeration.&nbsp; The <span class="inline_code"><a href="#BVAT_PHYSDESC">
+	BVAT_PHYSDESC</a></span> may be used if supported by the implementation, but care must be taken to ensure the buffer 
+	is defined properly.&nbsp; See <span class="inline_code"><a href="#bvphysdesc">bvphysdesc</a></span> for details.</li>
+</ul>
 <hr />
 <p class="Header1">BLTsville Neighborhoods</p>
 <p>Implementations may be software (CPU) or 2-D hardware, and many may coexist.&nbsp; Each implementation will have an individual 
@@ -576,7 +624,7 @@ function.&nbsp; Failure is likewise indicated by returning the <span class="inli
 <strong>NOTE:&nbsp; Be careful not to repeatedly attempt initialization when a failure is encountered.&nbsp; Some 
 initializations, and especially initialization failures, can take a long time.&nbsp; This means clients trying to call
 </strong><span class="inline_code"><strong>bv_*()</strong></span><strong> functions (presumably before falling back to 
-alternatatives) will be repeatedly penalized if the library can&#39;t initialize.&nbsp; Instead, attempt initialization 
+alternatives) will be repeatedly penalized if the library can&#39;t initialize.&nbsp; Instead, attempt initialization 
 once, and from them on return <span class="inline_code">BVERR_RSRC</span>.</strong></p>
 <p class="Header2">Kernel Mode Interface</p>
 <p>For most kernel space BLTsville clients, only a 2-D hardware implementation will be used.&nbsp; However, both types of 
@@ -612,7 +660,7 @@ client at run time:</p>
 	<li><span class="inline_code"><a href="#bv_map">bv_map()</a></span></li>
 	<li><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></li>
 	<li><span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span></li>
-	<li><span class="inline_code"><a href="#bv_cache">bv_cache()</a></span>(optional)</li>
+	<li><span class="inline_code"><a href="#bv_cache">bv_cache()</a></span> (optional)</li>
 </ul>
 <p class="note">NOTE:&nbsp; If the library failed to initialize, these functions will return <span class="inline_code">
 BVERR_RSRC</span>, indicating that a required resource was not obtained.</p>
@@ -653,26 +701,26 @@ the memory and return an error if it does not meet the necessary criteria.</p>
 <p>To clarify, here are some function sequences and the operations associated with them:</p>
 <table class="indent">
 	<tr>
-		<td class="center_thin_bord"><strong>Implementation</strong></td>
-		<td class="center_thin_bord"><strong>Function</strong></td>
-		<td class="center_thin_bord"><strong>Operation</strong></td>
+		<td class="ctr_thin_bord"><strong>Implementation</strong></td>
+		<td class="ctr_thin_bord"><strong>Function</strong></td>
+		<td class="ctr_thin_bord"><strong>Operation</strong></td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">map A<br />
 		BLT A<br />
 		unmap A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">map A<br />
 		BLT A<br />
 		unmap A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">B</td>
+		<td class="ctr_thin_bord">B</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">map B<br />
 		BLT B<br />
@@ -682,27 +730,27 @@ the memory and return an error if it does not meet the necessary criteria.</p>
 <br />
 <table class="indent">
 	<tr>
-		<td class="center_thin_bord"><strong>Implementation</strong></td>
-		<td class="center_thin_bord"><strong>Function</strong></td>
-		<td class="center_thin_bord"><strong>Operation</strong></td>
+		<td class="ctr_thin_bord"><strong>Implementation</strong></td>
+		<td class="ctr_thin_bord"><strong>Function</strong></td>
+		<td class="ctr_thin_bord"><strong>Operation</strong></td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_map">bv_map()</a></span></td>
 		<td class="thin_bord">map A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">BLT A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">BLT A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span></td>
 		<td class="thin_bord">unmap A</td>
 	</tr>
@@ -710,37 +758,37 @@ the memory and return an error if it does not meet the necessary criteria.</p>
 <br />
 <table class="indent">
 	<tr>
-		<td class="center_thin_bord"><strong>Implementation</strong></td>
-		<td class="center_thin_bord"><strong>Function</strong></td>
-		<td class="center_thin_bord"><strong>Operation</strong></td>
+		<td class="ctr_thin_bord"><strong>Implementation</strong></td>
+		<td class="ctr_thin_bord"><strong>Function</strong></td>
+		<td class="ctr_thin_bord"><strong>Operation</strong></td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_map">bv_map()</a></span></td>
 		<td class="thin_bord">map A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">B</td>
+		<td class="ctr_thin_bord">B</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_map">bv_map()</a></span></td>
 		<td class="thin_bord">map B</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">BLT A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">B</td>
+		<td class="ctr_thin_bord">B</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">BLT B</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span></td>
 		<td class="thin_bord">unmap A</td>
 	</tr>
 	<tr>
-		<td class="center_thin_bord">B</td>
+		<td class="ctr_thin_bord">B</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span></td>
 		<td class="thin_bord">unmap B</td>
 	</tr>
@@ -748,33 +796,43 @@ the memory and return an error if it does not meet the necessary criteria.</p>
 <br />
 <table class="indent">
 	<tr>
-		<td class="center_thin_bord"><strong>Implementation</strong></td>
-		<td class="center_thin_bord"><strong>Function</strong></td>
-		<td class="center_thin_bord"><strong>Operation</strong></td>
+		<td class="ctr_thin_bord"><strong>Implementation</strong></td>
+		<td class="ctr_thin_bord"><strong>Function</strong></td>
+		<td class="ctr_thin_bord"><strong>Operation</strong></td>
 	</tr>
 	<tr>
-		<td class="thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_map">bv_map()</a></span></td>
 		<td class="thin_bord">map A</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">B</td>
+		<td class="ctr_thin_bord">B</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">map B<br />
 		BLT B</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">B</td>
+		<td class="ctr_thin_bord">B</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_blt">bv_blt()</a></span></td>
 		<td class="thin_bord">BLT B</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">A</td>
+		<td class="ctr_thin_bord">A</td>
 		<td class="thin_bord"><span class="inline_code"><a href="#bv_unmap">bv_unmap()</a></span></td>
 		<td class="thin_bord">unmap A<br />
 		unmap B</td>
 	</tr>
 </table>
+<br />
+<div class="note">
+	NOTE:&nbsp; Calling <span class="inline_code">bv_map()</span> and <span class="inline_code"><a href="#bv_unmap">
+	bv_unmap()</a></span> with the same <span class="inline_code"><a href="#bvbuffdesc">bvbuffdesc</a></span> from 
+	different, unsynchronized threads, even (especially) from different implementations, will result in undefined 
+	behavior.&nbsp; This is similar to calling <span class="inline_code">malloc()</span> and <span class="inline_code">
+	free()</span> using the same buffer pointer in different, unsynchronized threads.&nbsp; While this may work 
+	sometimes and for some implementations and combinations of implementations, BLTsville does not provide any 
+	synchronization mechanism to make this safe.&nbsp; Clients must ensure that these calls are synchronized in cases 
+	where such behavior appears to be necessary.</div>
 <br />
 <a name="bv_blt" class="Code_Header">bv_blt()</a>
 <p class="code_block">enum bverror bv_blt(<a href="#bvbltparams">struct bvbltparams* bltparams</a>);</p>
@@ -896,21 +954,21 @@ struct bvbltparams {<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvbuffdesc">struct bvbuffdesc</a> *<a href="#dstdesc">dstdesc</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvsurfgeom">struct bvsurfgeom</a> *<a href="#dstgeom">dstgeom</a>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvrect <a href="#dstrect">dstrect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#dstrect">dstrect</a>;<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; union bvinbuff <a href="#src1">src1</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvsurfgeom">struct bvsurfgeom</a> *<a href="#src1geom">src1geom</a>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvrect <a href="#src1rect">src1rect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#src1rect">src1rect</a>;<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; union bvinbuff <a href="#src2">src2</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvsurfgeom">struct bvsurfgeom</a> *<a href="#src2geom">src2geom</a>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvrect <a href="#src2rect">src2rect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#src2rect">src2rect</a>;<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; union bvinbuff <a href="#mask">mask</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvsurfgeom">struct bvsurfgeom</a> *<a href="#maskgeom">maskgeom</a>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvrect <a href="#maskrect">maskrect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#maskrect">maskrect</a>;<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvrect <a href="#cliprect">cliprect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#cliprect">cliprect</a>;<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long <a href="#batchflags">batchflags</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvbatch *<a href="#batch">batch</a>;<br />
@@ -920,6 +978,9 @@ bvcallbackerror</a> *err,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 unsigned long callbackdata);<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long <a href="#callbackdata">callbackdata</a>;<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#src2auxdstrect">src2auxdstrect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a> <a href="#maskauxdstrect">maskauxdstrect</a>;<br />
 };</p>
 <a name="bvbltparams.structsize" class="Code_Header_2">bvbltparams.structsize</a>
 <p><span class="code_block">unsigned long structsize; /* input */</span></p>
@@ -947,7 +1008,7 @@ a <span class="inline_code"><a href="#BVERR_BLTPARAMS_VERS">BVERR_BLTPARAMS_VERS
 <p><span class="inline_code">errdesc</span> is optionally used by implementations to pass a 0-terminated string with additional 
 debugging information back to clients for debugging purposes.&nbsp; <span class="inline_code">errdesc</span> is not localized 
 or otherwise meant to provide information that is displayed to users.</p>
-<p class="Code_Header_2"><a name="bvbltparams.implementation">bvbltparams.implementation</a></p>
+<p class="Code_Header_2"><a name="implementation">bvbltparams.implementation</a></p>
 <p class="code_block">unsigned long implementation; /* input */</p>
 <p>Multiple implementations of BLTsville can be combined under managers which can distribute the BLT requests to the implementations 
 based on whatever criteria the manager chooses.&nbsp; This might include availability of the operation, performance, loading, 
@@ -1047,7 +1108,23 @@ the <span class="inline_code"><a href="#bv_blt">bv_blt()</a></span> returns, the
 and <span class="inline_code"><a href="#callbackdata">bvbltparams.callbackdata</a></span> members to receive a notification 
 when the BLT has completed.</p>
 <p class="note">NOTE:&nbsp; Asynchronous BLTs are performed in the order in which they are submitted within an implementation.&nbsp; 
+This was done to provide a simple dependency mechanism.&nbsp; 
 However, synchronization between implementations must be handled by the client, using the callback mechanism.</p>
+<p class="note">NOTE:&nbsp; Since asynchronous BLTs are performed in the order in which they are submitted, it follows 
+that a synchronized BLT after a set of asynchronous BLTs may be used as synchronization as well.</p>
+<p class="note"><a name="NOP">NOTE</a>:&nbsp; Certain situations may require manual synchronization without an associated BLT.&nbsp; 
+Rather than introduce an additional BLTsville function call, the method of handling this will be via a NOP BLT.&nbsp; To 
+accomplish a NOP BLT, the client should issue a BLT using the <span class="inline_code"><a href="#rop">
+bvbltparams.op.rop</a></span> code of <span class="inline_code">0xAAAA</span> (copy destination to destination), and 
+with the <span class="inline_code">BVFLAG_ASYNC</span> flag <span class="underline">not</span> set.&nbsp; Alternatively, the NOP BLT may set the
+<span class="inline_code">BVFLAG_ASYNC</span> and provide a <span class="inline_code"><a href="#callbackfn">
+bvbltparams.callbackfn</a></span>.&nbsp; <em>To facilitate implementations, a valid destination surface should be 
+specified.</em></p>
+<p class="imponly"><strong>Implementations Only<br />
+<br />
+</strong>In general, this BLTsville specification has avoided placing any requirement on implementations for specific 
+operations.&nbsp; However, in support of this special case, support for these NOP BLTs will need to be an implementation
+<span class="underline"><strong>requirement</strong></span>. </p>
 <p class="Code_Header_3">bvbltparams.flags - BVFLAG_BATCH_BEGIN/CONTINUE/END</p>
 <p>These flags are used to control batching of BLTs for two main reasons:</p>
 <ol>
@@ -1056,8 +1133,12 @@ However, synchronization between implementations must be handled by the client, 
 	<li>To group related BLTs, which may allow an implementation to perform a more efficient, but equivalent set of operations.</li>
 </ol>
 <p>See <a href="#batching">Batching</a> for details.</p>
+<p class="Code_Header_3">bvbltparams.flags - <a name="BVFLAG_SRC2_AUXDSTRECT">BVFLAG_SRC2</a>/<a name="BVFLAG_MASK_AUXDSTRECT">MASK_AUXDSTRECT</a></p>
+<p>These flags are used to indicate that the bvbltparams.src2auxdstrect and bvbltparams.maskauxdstrect are to be used.&nbsp; 
+See these entries below for details. These flags are likely to be ignored except for the special case explained below, 
+so they should be used only when necessary.</p>
 <p class="Code_Header_2"><a name="rop">bvbltparams.op.rop</a></p>
-<p class="code_block">unsigned short rop; /* input */</p>
+<p class="code_block">unsigned short op; /* input */ </p>
 <p>When <span class="inline_code"><a href="#BVFLAG_ROP">BVFLAG_ROP</a></span> is set in the <span class="inline_code">
 <a href="#flags">bvbltparams.flags</a></span> member, the <span class="inline_code"><a href="#op">bvbltparams.op</a></span> 
 union is treated as <span class="inline_code">rop</span>.&nbsp; Raster OPerations are binary operations performed on the 
@@ -1085,98 +1166,98 @@ By far the most common ROP used will be 0xCCCC, which indicates a simple copy fr
 <table class="indent">
 	<tr>
 		<td>Mask</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">1</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
-		<td class="center" style="width: 20px">0</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;1&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
+		<td class="ctr">&nbsp;0&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="red_left">Source 2 </td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">1</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">0</td>
-		<td class="red_center" style="width: 20px">0</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;1&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
+		<td class="red_center">&nbsp;0&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="grn_left">Source 1 </td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">1</td>
-		<td class="grn_center" style="width: 20px">0</td>
-		<td class="grn_center" style="width: 20px">0</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;1&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
+		<td class="grn_center">&nbsp;0&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="blue_left_botbord">Destination </td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
-		<td class="blue_center_botbord" style="width: 20px">1</td>
-		<td class="blue_center_botbord" style="width: 20px">0</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;1&nbsp;</td>
+		<td class="blue_center_botbord">&nbsp;0&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="left_topbord">Raster Operation </td>
-		<td class="center_topbord" style="width: 20px">15</td>
-		<td class="center_topbord" style="width: 20px">14</td>
-		<td class="center_topbord" style="width: 20px">13</td>
-		<td class="center_topbord" style="width: 20px">12</td>
-		<td class="center_topbord" style="width: 20px">11</td>
-		<td class="center_topbord" style="width: 20px">10</td>
-		<td class="center_topbord" style="width: 20px">9</td>
-		<td class="center_topbord" style="width: 20px">8</td>
-		<td class="center_topbord" style="width: 20px">7</td>
-		<td class="center_topbord" style="width: 20px">6</td>
-		<td class="center_topbord" style="width: 20px">5</td>
-		<td class="center_topbord" style="width: 20px">4</td>
-		<td class="center_topbord" style="width: 20px">3</td>
-		<td class="center_topbord" style="width: 20px">2</td>
-		<td class="center_topbord" style="width: 20px">1</td>
-		<td class="center_topbord" style="width: 20px">0</td>
+		<td class="center_topbord">&nbsp;15&nbsp;</td>
+		<td class="center_topbord">&nbsp;14&nbsp;</td>
+		<td class="center_topbord">&nbsp;13&nbsp;</td>
+		<td class="center_topbord">&nbsp;12&nbsp;</td>
+		<td class="center_topbord">&nbsp;11&nbsp;</td>
+		<td class="center_topbord">&nbsp;10&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;9&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;8&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;7&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;6&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;5&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;4&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;3&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;2&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;1&nbsp;</td>
+		<td class="center_topbord">&nbsp;&nbsp;0&nbsp;</td>
 	</tr>
 </table>
 <br />
@@ -1189,22 +1270,22 @@ mask is 0 (the last eight columns), the <span class="inline_code">rop</span> mat
 <table class="indent">
 	<tr>
 		<td class="left_topbord">Raster Operation </td>
-		<td class="red_center_topbord" style="width: 20px">1</td>
-		<td class="red_center_topbord" style="width: 20px">1</td>
-		<td class="red_center_topbord" style="width: 20px">1</td>
-		<td class="red_center_topbord" style="width: 20px">1</td>
-		<td class="red_center_topbord" style="width: 20px">0</td>
-		<td class="red_center_topbord" style="width: 20px">0</td>
-		<td class="red_center_topbord" style="width: 20px">0</td>
-		<td class="red_center_topbord" style="width: 20px">0</td>
-		<td class="blu_center_topbord" style="width: 20px">1</td>
-		<td class="blu_center_topbord" style="width: 20px">0</td>
-		<td class="blu_center_topbord" style="width: 20px">1</td>
-		<td class="blu_center_topbord" style="width: 20px">0</td>
-		<td class="blu_center_topbord" style="width: 20px">1</td>
-		<td class="blu_center_topbord" style="width: 20px">0</td>
-		<td class="blu_center_topbord" style="width: 20px">1</td>
-		<td class="blu_center_topbord" style="width: 20px">0</td>
+		<td class="red_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="red_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;0&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;1&nbsp;</td>
+		<td class="blu_center_topbord">&nbsp;0&nbsp;</td>
 	</tr>
 </table>
 <br />
@@ -1224,19 +1305,9 @@ Here is a list of some commonly used raster operations that have been given name
 		<td class="thin_bord">Set all destination bits to black (0).&nbsp; Dest = 0</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">DSTINVERT</td>
-		<td class="thin_bord">0x5555</td>
-		<td class="thin_bord">Invert (NOT) the destination bits.&nbsp; Dest = ~Dest</td>
-	</tr>
-	<tr>
-		<td class="thin_bord">MERGECOPY</td>
-		<td class="thin_bord">0xC0C0</td>
-		<td class="thin_bord">Dest = Src1 &amp; Src2</td>
-	</tr>
-	<tr>
-		<td class="thin_bord">MERGEPAINT</td>
-		<td class="thin_bord">0xBBBB</td>
-		<td class="thin_bord">Dest = ~Src1 | Dest</td>
+		<td class="thin_bord">NOTSRCERASE</td>
+		<td class="thin_bord">0x1111</td>
+		<td class="thin_bord">Dest = ~Src1 &amp; ~Dest = ~(Src1 | Dest)</td>
 	</tr>
 	<tr>
 		<td class="thin_bord">NOTSRCCOPY</td>
@@ -1244,14 +1315,14 @@ Here is a list of some commonly used raster operations that have been given name
 		<td class="thin_bord">Dest = ~Src1</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">NOTSRCERASE</td>
-		<td class="thin_bord">0x1111</td>
-		<td class="thin_bord">Dest = ~Src1 &amp; ~Dest = ~(Src1 | Dest)</td>
+		<td class="thin_bord">SRCERASE</td>
+		<td class="thin_bord">0x4444</td>
+		<td class="thin_bord">Dest = Src1 &amp; ~Dest</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">PATCOPY</td>
-		<td class="thin_bord">0xF0F0</td>
-		<td class="thin_bord">Copy source 2 to destination.&nbsp; Dest = Src2</td>
+		<td class="thin_bord">DSTINVERT</td>
+		<td class="thin_bord">0x5555</td>
+		<td class="thin_bord">Invert (NOT) the destination bits.&nbsp; Dest = ~Dest</td>
 	</tr>
 	<tr>
 		<td class="thin_bord">PATINVERT</td>
@@ -1259,9 +1330,9 @@ Here is a list of some commonly used raster operations that have been given name
 		<td class="thin_bord">XOR with Src2.&nbsp; Dest = Src2 ^ Dest</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">PATPAINT</td>
-		<td class="thin_bord">0xFBFB</td>
-		<td class="thin_bord">Dest =&nbsp; ~Src1 | Src2 | Dest</td>
+		<td class="thin_bord">SRCINVERT</td>
+		<td class="thin_bord">0x6666</td>
+		<td class="thin_bord">XOR with Src1.&nbsp; Dest = Src1 ^ Dest</td>
 	</tr>
 	<tr>
 		<td class="thin_bord">SRCAND</td>
@@ -1269,24 +1340,39 @@ Here is a list of some commonly used raster operations that have been given name
 		<td class="thin_bord">Dest = Src1 &amp; Dest</td>
 	</tr>
 	<tr>
-		<td>SRCCOPY</td>
-		<td>0xCCCC</td>
-		<td>Dest = Src1</td>
+		<td class="thin_bord">NOP</td>
+		<td class="thin_bord">0xAAAA</td>
+		<td class="thin_bord">Dest = Dest</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">SRCERASE</td>
-		<td class="thin_bord">0x4444</td>
-		<td class="thin_bord">Dest = Src1 &amp; ~Dest</td>
+		<td class="thin_bord">MERGEPAINT</td>
+		<td class="thin_bord">0xBBBB</td>
+		<td class="thin_bord">Dest = ~Src1 | Dest</td>
 	</tr>
 	<tr>
-		<td class="thin_bord">SRCINVERT</td>
-		<td class="thin_bord">0x6666</td>
-		<td class="thin_bord">XOR with Src1.&nbsp; Dest = Src1 ^ Dest</td>
+		<td class="thin_bord">MERGECOPY</td>
+		<td class="thin_bord">0xC0C0</td>
+		<td class="thin_bord">Dest = Src1 &amp; Src2</td>
+	</tr>
+	<tr>
+		<td class="thin_bord">SRCCOPY</td>
+		<td class="thin_bord">0xCCCC</td>
+		<td class="thin_bord">Dest = Src1</td>
 	</tr>
 	<tr>
 		<td class="thin_bord">SRCPAINT</td>
 		<td class="thin_bord">0xEEEE</td>
 		<td class="thin_bord">OR with Src1.&nbsp; Dest = Src1 | Dest</td>
+	</tr>
+	<tr>
+		<td class="thin_bord">PATCOPY</td>
+		<td class="thin_bord">0xF0F0</td>
+		<td class="thin_bord">Copy source 2 to destination.&nbsp; Dest = Src2</td>
+	</tr>
+	<tr>
+		<td class="thin_bord">PATPAINT</td>
+		<td class="thin_bord">0xFBFB</td>
+		<td class="thin_bord">Dest =&nbsp; ~Src1 | Src2 | Dest</td>
 	</tr>
 	<tr>
 		<td class="thin_bord">WHITENESS</td>
@@ -1681,152 +1767,152 @@ of the bits are used as defined by the individual format:</p>
 		<br />
 		<table class="code_block">
 			<tr>
-				<td class="center">&nbsp;</td>
-				<td colspan="5" class="center"><strong>32-bit Binary Value</strong></td>
+				<td class="ctr">&nbsp;</td>
+				<td colspan="5" class="ctr"><strong>32-bit Binary Value</strong></td>
 			</tr>
 			<tr>
 				<td><strong>
 				<a href="http://directfb.org/docs/DirectFB_Reference_1_2/IDirectFBSurface_SetSrcBlendFunction.html">SetSrcBlendFunction()</a></strong></td>
-				<td class="center"><strong>[VendorID]</strong></td>
-				<td class="center"><strong>&nbsp;[--K1--] </strong></td>
-				<td class="center"><strong>&nbsp;[--K2--] </strong></td>
-				<td class="center"><strong>&nbsp;[--K3--] </strong></td>
-				<td class="center"><strong>&nbsp;[--K4--] </strong></td>
+				<td class="ctr"><strong>[VendorID]</strong></td>
+				<td class="ctr"><strong>&nbsp;[--K1--] </strong></td>
+				<td class="ctr"><strong>&nbsp;[--K2--] </strong></td>
+				<td class="ctr"><strong>&nbsp;[--K3--] </strong></td>
+				<td class="ctr"><strong>&nbsp;[--K4--] </strong></td>
 			</tr>
 			<tr>
 				<td>DSBF_ZERO</td>
-				<td class="center">0000 0000</td>
-				<td class="center">00 00 00</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 00</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">00 00 00</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 00</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_ONE</td>
-				<td class="center">0000 0000</td>
-				<td class="center">11 11 11</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">11 11 11</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">11 11 11</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">11 11 11</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_SRCCOLOR</td>
-				<td class="center">0000 0000</td>
-				<td class="center">11 11 00</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 01</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">11 11 00</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 01</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_INVSRCCOLOR</td>
-				<td class="center">0000 0000</td>
-				<td class="center">11 00 11</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 01 00</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">11 00 11</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 01 00</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_SRCALPHA</td>
-				<td class="center">0000 0000</td>
-				<td class="center">00 00 01</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 01</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">00 00 01</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 01</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_INVSRCALPHA</td>
-				<td class="center">0000 0000</td>
-				<td class="center">00 01 00</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 01 00</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">00 01 00</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 01 00</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_DESTCOLOR</td>
-				<td class="center">0000 0000</td>
-				<td class="center">11 11 10</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 11</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">11 11 10</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 11</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_INVDESTCOLOR</td>
-				<td class="center">0000 0000</td>
-				<td class="center">11 10 11</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 11 00</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">11 10 11</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 11 00</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_DESTALPHA</td>
-				<td class="center">0000 0000</td>
-				<td class="center">00 00 11</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 11</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">00 00 11</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 11</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_INVDESTALPHA</td>
-				<td class="center">0000 0000</td>
-				<td class="center">00 11 00</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 11 00</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">00 11 00</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 11 00</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 			<tr>
 				<td>DSBF_SRCALPHASAT</td>
-				<td class="center">0000 0000</td>
-				<td class="center">01 11 01</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">11 11 11</td>
-				<td class="center">xx xx xx</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">01 11 01</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">11 11 11</td>
+				<td class="ctr">xx xx xx</td>
 			</tr>
 		</table>
 		<br />
 		<table class="code_block">
 			<tr>
-				<td class="center">&nbsp;</td>
-				<td colspan="5" class="center"><strong>32-bit Binary Value</strong></td>
+				<td class="ctr">&nbsp;</td>
+				<td colspan="5" class="ctr"><strong>32-bit Binary Value</strong></td>
 			</tr>
 			<tr>
 				<td><strong>
 				<a href="http://directfb.org/docs/DirectFB_Reference_1_2/IDirectFBSurface_SetDstBlendFunction.html">SetDstBlendFunction()</a></strong></td>
-				<td class="center"><strong>[VendorID]</strong></td>
-				<td class="center"><strong>&nbsp;[--K1--] </strong></td>
-				<td class="center"><strong>&nbsp;[--K2--] </strong></td>
-				<td class="center"><strong>&nbsp;[--K3--] </strong></td>
-				<td class="center"><strong>&nbsp;[--K4--] </strong></td>
+				<td class="ctr"><strong>[VendorID]</strong></td>
+				<td class="ctr"><strong>&nbsp;[--K1--] </strong></td>
+				<td class="ctr"><strong>&nbsp;[--K2--] </strong></td>
+				<td class="ctr"><strong>&nbsp;[--K3--] </strong></td>
+				<td class="ctr"><strong>&nbsp;[--K4--] </strong></td>
 			</tr>
 			<tr>
 				<td>DSBF_ZERO</td>
-				<td class="center">0000 0000</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 00</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 00</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 00</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 00</td>
 			</tr>
 			<tr>
 				<td>DSBF_ONE</td>
-				<td class="center">0000 0000</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">11 11 11</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">11 11 11</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">11 11 11</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">11 11 11</td>
 			</tr>
 			<tr>
 				<td>DSBF_SRCCOLOR</td>
-				<td class="center">0000 0000</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">11 11 00</td>
-				<td class="center">xx xx xx</td>
-				<td class="center">00 00 01</td>
+				<td class="ctr">0000 0000</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">11 11 00</td>
+				<td class="ctr">xx xx xx</td>
+				<td class="ctr">00 00 01</td>
 			</tr>
 			<tr>
 				<td>etc.</td>
-				<td class="center">&nbsp;</td>
-				<td class="center">&nbsp;</td>
-				<td class="center">&nbsp;</td>
-				<td class="center">&nbsp;</td>
+				<td class="ctr">&nbsp;</td>
+				<td class="ctr">&nbsp;</td>
+				<td class="ctr">&nbsp;</td>
+				<td class="ctr">&nbsp;</td>
 				<td>&nbsp;</td>
 			</tr>
 		</table>
@@ -1914,13 +2000,13 @@ of the bits are used as defined by the individual format:</p>
 		<br />
 		<table class="indent">
 			<tr>
-				<td class="center">C<sub>1</sub> = A<sub>g</sub>C<sub>1</sub><br />
+				<td class="ctr">C<sub>1</sub> = A<sub>g</sub>C<sub>1</sub><br />
 				A<sub>1</sub> = A<sub>g</sub>A<sub>1</sub></td>
-				<td style="width: 20%" class="center">-or-</td>
-				<td class="center">C<sub>1</sub> = A<sub>r</sub>C<sub>1</sub><br />
+				<td style="width: 20%" class="ctr">-or-</td>
+				<td class="ctr">C<sub>1</sub> = A<sub>r</sub>C<sub>1</sub><br />
 				A<sub>1</sub> = A<sub>r</sub>A<sub>1</sub></td>
-				<td class="center">-or-</td>
-				<td class="center">C<sub>1</sub> = A<sub>r</sub>A<sub>g</sub>C<sub>1</sub><br />
+				<td class="ctr">-or-</td>
+				<td class="ctr">C<sub>1</sub> = A<sub>r</sub>A<sub>g</sub>C<sub>1</sub><br />
 				A<sub>1</sub> = A<sub>r</sub>A<sub>g</sub>A<sub>1</sub></td>
 			</tr>
 		</table>
@@ -2395,7 +2481,7 @@ the relationship between them and the <span class="inline_code"><a href="#dstrec
 which require pixels around a particular source pixel must utilize boundary techniques (mirror, repeat, clamp, etc.) at 
 the edges of the source rectangle.&nbsp; However, if the clipping rectangle, when translated back to the source rectangle, 
 leaves space between it and the source rectangle, pixels outside the clipped region may be accessed by the implementation.</p>
-<p class="Code_Header_2">bvbltparams.cliprect</p>
+<p class="Code_Header_2"><a name="cliprect">bvbltparams.cliprect</a></p>
 <p class="code_block"><a href="#bvrect">struct bvrect</a> cliprect;</p>
 <p><span class="inline_code">cliprect</span> is used to specify a rectangle that limits what region of the destination is 
 written.&nbsp; This is most useful for scaling operations, where the necessary scaling factor will not allow translation 
@@ -2469,7 +2555,7 @@ values will result in visible discontinuities at the boundaries between the rect
 		<td class="thin_bord">(240, 780) - 1440 x 300</td>
 	</tr>
 </table>
-<p class="Code_Header_2">bvbltparams.batchflags</p>
+<p class="Code_Header_2"><a name="batchflags">bvbltparams.batchflags</a></p>
 <p class="code_block">unsigned long batchflags;</p>
 <p><span class="inline_code">batchflags</span> are used by the client as a hint to indicate to the implementation which 
 parameters are changing between successive BLTs of a batch.&nbsp; The flags may be used when the
@@ -2514,19 +2600,19 @@ parameters are changing between successive BLTs of a batch.&nbsp; The flags may 
 		<a href="#dstrect">bvbltparams.dstrect</a></span>) has changed.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code">BVBATCH_SRC1</span> </td>
+		<td><span class="inline_code"><a name="BVBATCH_SRC1">BVBATCH_SRC1</a></span> </td>
 		<td>indicates that the source 1 surface (<span class="inline_code"><a href="#src1.desc">bvbltparams.src1.desc</a></span> 
 		or <span class="inline_code"><a href="#src1.tileparams">bvbltparams.src1.tileparams</a></span>, or
 		<span class="inline_code"><a href="#src1geom">bvbltparams.src1geom</a></span>) has changed.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code">BVBATCH_SRC2</span> </td>
+		<td><span class="inline_code"><a name="BVBATCH_SRC2">BVBATCH_SRC2</a></span> </td>
 		<td>indicates that the source 2 surface (<span class="inline_code"><a href="#src2.desc">bvbltparams.src2.desc</a></span> 
 		or <span class="inline_code"><a href="#src2.tileparams">bvbltparams.src2.tileparams</a></span>, or
 		<span class="inline_code"><a href="#src2geom">bvbltparams.src2geom</a></span>) has changed.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code">BVBATCH_MASK</span> </td>
+		<td><span class="inline_code"><a name="BVBATCH_MASK">BVBATCH_MASK</a></span> </td>
 		<td>indicates that the mask surface (<span class="inline_code"><a href="#mask.desc">bvbltparams.mask.desc</a></span> 
 		or <span class="inline_code"><a href="#mask.tileparams">bvbltparams.mask.tileparams</a></span>, or
 		<span class="inline_code"><a href="#maskgeom">bvbltparams.maskgeom</a></span>) has changed.</td>
@@ -2623,6 +2709,290 @@ parameter will be set to 0;</p>
 <p class="code_block">unsigned long callbackdata;</p>
 <p>This member is used as the parameter passed back by the <span class="inline_code"><a href="#callbackfn">bvbltparams.callbackfn</a></span>.&nbsp; 
 This can be anything from an identifying index to a pointer used by the client.</p>
+<p class="Code_Header_2">bvbltparams.<a name="src2auxdstrect">src2</a>/<a name="maskauxdstrect">maskauxdstrect</a></p>
+<p class="code_block">struct bvrect src2auxdstrect;<br />
+struct bvrect maskauxdstrect;</p>
+<p>These two members are used only when the associated <span class="inline_code"><a href="#BVFLAG_SRC2_AUXDSTRECT">
+BVFLAG_SRC2</a></span>/<span class="inline_code"><a href="#BVFLAG_MASK_AUXDSTRECT">MASK_AUXDSTRECT</a></span> flags are 
+set.&nbsp; They are only necessary (and should only be used) in the case where scaling of the inputs differs and the 
+entire source images are not being used.&nbsp; <span class="inline_code"><a href="#dstrect">bvbltparams.dstrect</a></span> is always 
+used to specify the destination of source 1 image.&nbsp; When the associated flags are set, these two members are used 
+to specify the destination of the source 2 and mask images, instead of <span class="inline_code"><a href="#dstrect">
+bvbltparams.dstrect</a></span>.</p>
+<p>These flags must be used with the <span class="inline_code"><a href="#BVFLAG_CLIP">BVFLAG_CLIP</a></span> flag.&nbsp; 
+And if the resulting clipped destination does not include all enabled destination rectangles, the results are undefined.</p>
+<div class="example"><strong>Example:</strong>&nbsp; We have two images that we want to merge and view on an 854x480 LCD panel.&nbsp; One 
+image is a small background image with 16:9 (64x36) aspect ratio that we want to stretch to fill the screen.&nbsp; 
+The other is a standard definition 720x480 (4:3 aspect ratio) image with transparency we want to blend on top of our 
+background.<br />
+<table align="center">
+	<tr>
+		<td>
+			<table>
+				<tr>
+					<td class="ctr"><img alt="" src="concrete-64x36.png" width="64" height="36" /></td>
+				</tr>
+				<tr>
+					<td class="ctr">(shown actual size)</td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<table class="ctr">
+				<tr>
+					<td><img alt="" src="clock-720x480_4x3-fauxtrans.jpg" width="360" height="240" /></td>
+				</tr>
+				<tr>
+					<td class="ctr">(shown 1/2x; not adjusted for aspect ratio)</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+We want to blend the second image onto the center of the first, scaling both, so that it looks like this:<br />
+<table align="center">
+	<tr>
+		<td><img alt="" src="blend-854x480.jpg" width="427" height="240" /></td>
+	</tr>
+	<tr>
+		<td class="ctr">(shown 1/2x)</td>
+	</tr>
+</table>
+The screen is effectively a 16:9 aspect ratio (we can ignore the fraction of a pixel here), which matches our 
+background image.&nbsp; So the background image just needs to be scaled from 64x36 to 854x480.<br />
+<br />
+	However, since the second image has a 4:3 aspect ratio, it will not cover the entire background image if we want to 
+	maintain its aspect ratio.&nbsp; Our second image is not as wide as our 16:9 image, which means it&#39;s height will match 
+	the screen height, but the width will be smaller.&nbsp; Since the screen is 480 lines (pixels) high, to maintain our 4:3 
+	aspect ratio, our second image will need to be 640 pixels wide (4 * 480 / 3).&nbsp; So it will need to be scaled from 
+	720x480 to 640x480.<br />
+<br />
+As we mentioned, we would like to center the 640 pixel image on our 854 pixel wide screen.&nbsp; That means the left edge 
+of the image will be at pixel 107 ( (854 - 640) / 2 ).&nbsp; So the leftmost 107 columns of pixels will just be a copy 
+of the left portion of the background image.&nbsp; Likewise, the rightmost 107 columns will be a copy of the right 
+portion of the background image.&nbsp; Only the middle section should be blended.<br />
+<table align="center">
+	<tr>
+		<td><img alt="" src="blend-854x480-threeblts.jpg" width="427" height="240" /></td>
+	</tr>
+	<tr>
+		<td class="ctr">(shown 1/2x)</td>
+	</tr>
+</table>
+	The side two BLTs are quite easy with BLTsville, by using the clipping rectangle:<br />
+<br />
+<table class="indent"><tr><td>
+<span class="inline_code">bvbltparams.flags = BVFLAG_ROP | BVFLAG_CLIP;<br />
+bvbltparams.op.rop = 0xCCCC;<br />
+<br />
+bvbltparams.src1.desc = bkgnddesc;<br />
+bvbltparams.src1geom = bkgndgeom;<br />
+bvbltparams.src1rect.left = 0;<br />
+bvbltparams.src1rect.top = 0;<br />
+bvbltparams.src1width = 64;<br />
+bvbltparams.src1height = 36;<br />
+<br />
+bvbltparams.dstdesc = screendesc;<br />
+bvbltparams.dstgeom = screengeom;<br />
+bvbltparams.dstrect.left = 0;<br />
+bvbltparams.dstrect.top = 0;<br />
+bvbltparams.dstrect.width = 854;<br />
+bvbltparams.dstrect.height = 480;<br />
+<br />
+bvbltparams.cliprect.left = 0;<br />
+bvbltparams.cliprect.top = 0;<br />
+bvbltparams.cliprect.width = 107;<br />
+bvbltparams.cliprect.height = 480;<br />
+bv_blt(&amp;bvbltparams);<br />
+<br />
+bvbltparams.cliprect.left += 640;<br />
+bv_blt(&amp;bvbltparams);</span></td></tr></table>
+<br />
+	However, if we try the same approach with the middle BLT, we run into problems:<br />
+<br />
+<table class="indent"><tr><td>
+<span class="inline_code">bvbltparams.flags = BVFLAG_BLEND | BVFLAG_CLIP;<br />
+bvbltparams.op.blend = BVBLEND_SRC1OVER;<br />
+<br />
+bvbltparams.src1.desc = foregnddesc;<br />
+bvbltparams.src1geom = foregndgeom;<br />
+bvbltparams.src1rect.left = 0;<br />
+bvbltparams.src1rect.top = 0;<br />
+bvbltparams.src1rect.width = 720;<br />
+bvbltparams.src1rect.height = 480;<br />
+<br />
+bvbltparams.src2.desc = bkgnddesc;<br />
+bvbltparams.src2geom = bkgndgeom;<br />
+bvbltparams.src2rect.left = 0;<br />
+bvbltparams.src2rect.top = 0;<br />
+bvbltparams.src2width = 64;<br />
+bvbltparams.src2height = 36;<br />
+<br />
+bvbltparams.cliprect.left = 107;<br />
+bvbltparams.cliprect.top = 0;<br />
+bvbltparams.cliprect.width = 640;<br />
+bvbltparams.cliprect.height = 480;<br />
+bv_blt(&amp;bvbltparams);</span></td></tr></table>
+<table align="center">
+	<tr>
+		<td><img alt="" src="blend-854x480-bad.jpg" width="427" height="240" /></td>
+	</tr>
+	<tr>
+		<td class="ctr">(shown 1/2x)</td>
+	</tr>
+</table>
+	The result is that the foreground image is stretched horizontally.&nbsp; That&#39;s because the scaling factor is 
+	derived from the source (1) rectangle and the destination rectangle, which is the full width of the screen.&nbsp; 
+	Since we were also scaling the background, we set the destination rectangle to cover the screen, as we did in the 
+	previous two BLTs.<br />
+	<br />
+	The edges of our foreground image are also cropped, since we were only modifying the middle of the screen.<br />
+	<br />
+	What if we change the destination rectangle?<br />
+	<br />
+<table class="indent"><tr><td>
+<span class="inline_code">bvbltparams.dstrect.left = 107;<br />
+bvbltparams.dstrect.top = 0;<br />
+bvbltparams.dstrect.width = 640;<br />
+bvbltparams.dstrect.height = 480;<br />
+<br />
+bv_blt(&amp;bvbltparams);</span></td></tr></table>
+<table align="center">
+	<tr>
+		<td><img alt="" src="blend-854x480-bad2.jpg" width="427" height="240" /></td>
+	</tr>
+	<tr>
+		<td class="ctr">(shown 1/2x)</td>
+	</tr>
+</table>
+	Here we get the proper scaling of the foreground image, but the background image is scaled improperly.<br />
+	<br />
+	What if we adjust the source rectangles?&nbsp;
+For our purposes, we want all of the foreground image, but we only need the middle of the background image.&nbsp; So 
+	we can manually specify the middle of the background image by modifying the source 2 rectangle:<br />
+	<br />
+<table class="indent"><tr><td>
+<span class="inline_code">bvbltparams.src2rect.left = 107 * 64 / 854;<br />
+bvbltparams.src2rect.width = 640 * 64 / 854;</span></td></tr></table><br />
+Nice, but what are those values?<br />
+<br />
+<table class="indent"><tr><td>
+107 * 1280 / 854 = 8.0187...<br />
+640 * 1280 / 854 = 47.9625...<br />
+</td></tr></table>
+<br />
+	In BLTsville, all rectangle parameters are expressed in integers (this also allows BLTsville to be used in the 
+	kernels where floating point variables are not allowed).&nbsp; The clipping rectangle then handles introducing the 
+	necessary source pixel subdivision (by translating the clipping rectangle back to the source rectangle in the 
+	implementation).&nbsp; So what happens if we actually do use these values as integers?<br />
+<br />
+<table class="indent"><tr><td>
+<span class="inline_code">bvbltparams.src2rect.left = 8;<br />
+bvbltparams.src2rect.top = 0;<br />
+bvbltparams.src2rect.width = 47;<br />
+bvbltparams.src2height = 36;<br />
+<br />
+bv_blt(&amp;bvbltparams);</span></td></tr></table>
+<br />
+	And this is what we get:<br />
+<table align="center">
+	<tr>
+		<td><img alt="" src="blend-854x480-roundingerror.jpg" width="427" height="240" /></td>
+	</tr>
+	<tr>
+		<td class="ctr">(shown 1/2x)</td>
+	</tr>
+</table>
+	Closer, but not quite.&nbsp; Rounding the values above to integers still results in visible errors at the boundaries 
+	between the middle and the side BLTs (the one on the right is a bit more visible at this reduced size, but if you 
+	view the full image, you&#39;ll see the left one as well), because the left edge and scaling (and right edge as a 
+	result) don&#39;t match the alignment and scaling done for the BLTs on the side.&nbsp; <p class="note">NOTE:&nbsp; This artifact is not always obvious in still images.&nbsp; 
+	The images here were chosen to make the artifacts obvious in this documentation.&nbsp; But even if the static images 
+	appear correct, movement of the images (e.g. moving the foreground image across the background image) or changes in 
+	the blending (e.g. fading the foreground image out and finally removing it), will show these less obvious 
+	discrepancies.</p>This is actually what the 
+	clipping rectangle is for.&nbsp; It&#39;s meant to allow us to always specify the source and destination rectangles the 
+	same, but move the clipping window around on the destination to get just the pixels we want.&nbsp; That way the 
+	scaling and alignment area always the same.&nbsp; Unfortunately, for this special case, we really need a way to 
+	specify different scaling factors for the different inputs.&nbsp; The src2auxdstrect (and maskauxdstrect, when 
+	needed) have been added to provide this capability.<br />
+	<br />
+	Here is how this set of BLTs can be done:<br />
+<br />
+<table class="indent"><tr><td>
+<span class="inline_code">bvbltparams.flags = BVFLAG_ROP | BVFLAG_CLIP;<br />
+bvbltparams.op.rop = 0xCCCC;<br />
+<br />
+bvbltparams.src1.desc = bkgnddesc;<br />
+bvbltparams.src1geom = bkgndgeom;<br />
+bvbltparams.src1rect.left = 0;<br />
+bvbltparams.src1rect.top = 0;<br />
+bvbltparams.src1width = 64;<br />
+bvbltparams.src1height = 36;<br />
+<br />
+bvbltparams.dstdesc = screendesc;<br />
+bvbltparams.dstgeom = screengeom;<br />
+bvbltparams.dstrect.left = 0;<br />
+bvbltparams.dstrect.top = 0;<br />
+bvbltparams.dstrect.width = 854;<br />
+bvbltparams.dstrect.height = 480;<br />
+<br />
+bvbltparams.cliprect.left = 0;<br />
+bvbltparams.cliprect.top = 0;<br />
+bvbltparams.cliprect.width = 107;<br />
+bvbltparams.cliprect.height = 480;<br />
+bv_blt(&amp;bvbltparams);<br />
+<br />
+bvbltparams.cliprect.left += 640;<br />
+bv_blt(&amp;bvbltparams);<br />
+<br />
+bvbltparams.flags = BVFLAG_BLEND | BVFLAG_CLIP | BVFLAG_SRC2_AUXDSTRECT;<br />
+bvbltparams.op.blend = BVBLEND_SRC1OVER;<br />
+<br />
+bvbltparams.src1.desc = foregnddesc;<br />
+bvbltparams.src1geom = foregndgeom;<br />
+bvbltparams.src1rect.left = 0;<br />
+bvbltparams.src1rect.top = 0;<br />
+bvbltparams.src1rect.width = 720;<br />
+bvbltparams.src1rect.height = 480;<br />
+<br />
+bvbltparams.dstrect.left = 107;<br />
+bvbltparams.dstrect.top = 0;<br />
+bvbltparams.dstrect.width = 640;<br />
+bvbltparams.dstrect.height = 480;<br />
+<br />
+bvbltparams.src2.desc = bkgnddesc;<br />
+bvbltparams.src2geom = bkgndgeom;<br />
+bvbltparams.src2rect.left = 0;<br />
+bvbltparams.src2rect.top = 0;<br />
+bvbltparams.src2width = 64;<br />
+bvbltparams.src2height = 36;<br />
+<br />
+bvbltparams.src2auxdstrect.left = 0;<br />
+bvbltparams.src2auxdstrect.top = 0;<br />
+bvbltparams.src2auxdstrect.width = 854;<br />
+bvbltparams.src2auxdstrect.height = 480;<br />
+<br />
+bvbltparams.cliprect.left = 107;<br />
+bvbltparams.cliprect.top = 0;<br />
+bvbltparams.cliprect.width = 640;<br />
+bvbltparams.cliprect.height = 480;<br />
+bv_blt(&amp;bvbltparams);</span></td></tr></table>
+<br />
+Using this approach, we get the desired output:<br />
+<table align="center">
+	<tr>
+		<td><img alt="" src="blend-854x480.jpg" width="427" height="240" /></td>
+	</tr>
+	<tr>
+		<td class="ctr">(shown 1/2x)</td>
+	</tr>
+</table>
+	It may also be clear that in that last BLT, the clip rectangle isn&#39;t really necessary.&nbsp; This is good, because 
+	it frees up the clipping rectangle to be used to further subdivide the image if necessary (e.g. if partially 
+	occluded).<br />
+</div>
+<br />
 <hr />
 <p class="Code_Header"><a name="bvrect">bvrect</a></p>
 <p class="small_code_block">struct bvrect {<br />
@@ -2636,7 +3006,7 @@ This can be anything from an identifying index to a pointer used by the client.<
 <p>This member indicates the left edge of the rectangle, measured in pixels from the left edge of the surface.&nbsp; Note 
 that this value <span class="underline">can</span> be negative, indicating that the rectangle begins before the left edge 
 of the surface.&nbsp; However, this is only allowed when a rectangle is clipped to the surface.&nbsp; If, after clipping, 
-the left edge of the rectangle is still negavie, this is an error.</p>
+the left edge of the rectangle is still negative, this is an error.</p>
 <p class="Code_Header_2"><a name="bvrect.top">bvrect.top</a></p>
 <p class="code_block">int top;</p>
 <p>This member indicates the top edge of the rectangle, measured in lines of
@@ -2659,7 +3029,7 @@ If, after clipping, the right edge of the rectangle still exceeds the width of t
 <span class="inline_code"><a href="#BVFLAG_VERT_FLIP">BVFLAG_VERT_FLIP_*</a></span> flags.)&nbsp; The value of this member 
 may exceed the width of the associated surface.&nbsp; However, this is only allowed when a rectangle is clipped to the surface.&nbsp; 
 If, after clipping, the right edge of the rectangle still exceeds the height of the surface, this is an error.</p>
-<hr /><br />
+<hr />
 <a name="bvcopparams" class="Code_Header">bvcopparams</a>
 <p><span class="inline_code">bvcopparams</span> is used to define the cache operation to be performed by
 <span class="inline_code"><a href="#bv_cache">bv_cache()</a></span>.</p>
@@ -2667,7 +3037,7 @@ If, after clipping, the right edge of the rectangle still exceeds the height of 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int <a href="#bvcopparams.structsize">structsize</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvbuffdesc">struct bvbuffdesc</a> *<a href="#bvcopparams.desc">desc</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvsurfgeom">struct bvsurfgeom</a> *<a href="#bvcopparams.geom">geom</a>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct bvrect&nbsp;&nbsp;&nbsp;&nbsp; *<a href="#bvcopparams.rect">rect</a>;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bvrect">struct bvrect</a>&nbsp;&nbsp;&nbsp;&nbsp; *<a href="#bvcopparams.rect">rect</a>;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum bvcacheop&nbsp; <a href="#bvcopparams.cacheop">cacheop</a>;<br />
 };</p>
 <a name="bvcopparams.structsize" class="Code_Header_2">bvcopparams.structsize</a>
@@ -2683,28 +3053,28 @@ the cache is being manipulated.&nbsp; This buffer should have been mapped with a
 <a href="#bv_blt">bv_blt()</a></span>, however in many systems, this will not function properly due to dynamic paging which 
 can occur when a surface is not locked.</p>
 <p><span class="Code_Header_2"><a name="bvcopparams.geom">bvcopparams.geom</a></span></p>
-<p class="code_block"><a href="#bvsurfgeom">struct bvsurfgeom</a> *<a href="#bvcopparams.geom">geom</a>;</p>
+<p class="code_block"><a href="#bvsurfgeom">struct bvsurfgeom</a> *geom;</p>
 <p>This member points to the <span class="inline_code"><a href="#bvsurfgeom">bvsurfgeom</a></span> of the surface for which 
 the cache is being manipulated.</p>
 <p><span class="Code_Header_2"><a name="bvcopparams.rect">bvcopparams.rect</a></span></p>
-<p class="code_block">struct bvrect *<a href="#bvcopparams.rect">rect</a>;</p>
+<p class="code_block"><a href="#bvrect">struct bvrect</a> *rect;</p>
 <p>This member points to the <span class="inline_code"><a href="bvrect">bvrect</a></span> describing the rectangle of the 
 surface which is being manipulated.</p>
 <p><span class="Code_Header_2"><a name="bvcopparams.cacheop">bvcopparams.cacheop</a></span></p>
-<p class="code_block">enum bvcacheop <a href="#bvcopparams.cacheop">cacheop</a>;</p>
+<p class="code_block">enum bvcacheop cacheop;</p>
 <p>This member specifies the cache operation to be performed.&nbsp; It is an enumeration from the following list:</p>
 <table style="" class="indent">
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_OP0">BV</a>CACHE_BIDIRECTIONAL</span></td>
+		<td><span class="inline_code"><a name="BVCACHE_BIDIRECTIONAL">BVCACHE_BIDIRECTIONAL</a></span></td>
 		<td>(This usually performs a cache flush operation.)</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_KEY0">BV</a>CACHE_CPU_TO_DEVICE</span></td>
+		<td><span class="inline_code"><a name="BVCACHE_CPU_TO_DEVICE">BVCACHE_CPU_TO_DEVICE</a></span></td>
 		<td>Performs the appropriate cache operation to ensure data can be transferred correctly when it was written with 
 		the CPU, but will be read by the 2-D device.&nbsp; (This is usually a cache clean operation.)</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_MISCFLAGS0">BVBATCH_</a>CPU_FROM_DEVICE</span></td>
+		<td><span class="inline_code"><a name="BVCACHE_CPU_FROM_DEVICE">BVCACHE_CPU_FROM_DEVICE</a></span></td>
 		<td>Performs the appropriate cache operation to ensure data can be transferred correctly when it was written by 
 		the 2-D device, but will be read by the CPU.&nbsp; (This is usually a cache invalidate operation.)</td>
 	</tr>
@@ -2723,7 +3093,7 @@ to specify the characteristics of a graphic surface.&nbsp; This structure specif
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *<a href="#bvbuffdesc.auxptr">auxptr</a>;<br />
 };</p>
 <p class="Code_Header_2"><a name="bvbuffdesc.structsize">bvbuffdesc.structsize</a></p>
-<p class="code_block">unsigned int <a href="#bvbuffdesc.structsize">structsize</a>;</p>
+<p class="code_block">unsigned int structsize;</p>
 <p>This member is used for compatibility between BLTsville versions.&nbsp; (See <span class="inline_code">
 <a href="#bvbltparams.structsize">bvbltparams.structsize</a></span> for an explanation.) </p>
 <p class="Code_Header_2"><a name="bvbuffdesc.virtaddr">bvbuffdesc.virtaddr</a></p>
@@ -2825,12 +3195,12 @@ structure with different <span class="inline_code">bvsurfgeom</span> structures 
 structures may be of benefit.&nbsp; See the <a href="#bvsurfgeom_examples">examples</a> at the bottom of this section.</p>
 <p class="small_code_block">struct bvcopparams {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int <a href="#bvsurfgeom.structsize">structsize</a>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum ocdformat format;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://graphics.github.com/ocd/">enum ocdformat</a> format;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int width;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int height;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int orientation;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long virtstride;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum ocdformat paletteformat;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://graphics.github.com/ocd/">enum ocdformat</a> paletteformat;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *palette;<br />
 };</p>
 <p class="Code_Header_2"><a name="bvsurfgeom.structsize">bvsurfgeom.structsize</a></p>
@@ -2838,8 +3208,8 @@ structures may be of benefit.&nbsp; See the <a href="#bvsurfgeom_examples">examp
 <p>This member is used for compatibility between BLTsville versions.&nbsp; (See <span class="inline_code">
 <a href="#bvbltparams.structsize">bvbltparams.structsize</a></span> for an explanation.) </p>
 <p class="Code_Header_2"><a name="bvsurfgeom.format">bvsurfgeom.format</a></p>
-<p class="code_block">enum ocdformat format;</p>
-<p>This member specifies the format of the surface using the <a href="#http://graphics.github.com/ocd">Open Color format 
+<p class="code_block"><a href="http://graphics.github.com/ocd/">enum ocdformat</a> format;</p>
+<p>This member specifies the format of the surface using the <a href="http://graphics.github.com/ocd">Open Color format 
 Definitions (OCD)</a>.</p>
 <p class="Code_Header_2"><a name="bvsurfgeom.width">bvsurfgeom.width</a></p>
 <p class="code_block">unsigned int width;</p>
@@ -2886,10 +3256,10 @@ the client will not be the one to supply it), so <em>physstride</em> will most l
 a client provides a physical description of the buffer (see the <a href="#Kernel_Mode_Interface">Kernel Mode Interface</a> 
 section below), the <span class="inline_code">virtstride</span> entry should be used to provide the physical stride.</p>
 <p class="Code_Header_2"><a name="bvsurfgeom.paletteformat">bvsurfgeom.paletteformat</a></p>
-<p class="code_block">enum ocdformat paletteformat;</p>
+<p class="code_block"><a href="http://graphics.github.com/ocd/">enum ocdformat</a> paletteformat;</p>
 <p>This member specifies the format of the palette supplied via the <span class="inline_code">
 <a href="#bvsurfgeom.palette">palette</a></span> member for palettized formats using the
-<a href="#http://graphics.github.com/ocd">Open Color format Definitions (OCD)</a>.</p>
+<a href="http://graphics.github.com/ocd">Open Color format Definitions (OCD)</a>.</p>
 <p class="Code_Header_2"><a name="bvsurfgeom.palette">bvsurfgeom.palette</a></p>
 <p class="code_block">void *palette;</p>
 <p>This member points to a palette used for palettized formats.&nbsp; The format of the palette is specified by the
@@ -2897,13 +3267,13 @@ section below), the <span class="inline_code">virtstride</span> entry should be 
 on their container size:</p>
 <table class="indent">
 	<tr>
-		<td class="center_thin_bord"><strong>Palette Format</strong></td>
-		<td class="center_thin_bord"><strong>Palette Layout (byte address)</strong></td>
-		<td class="center_thin_bord"><strong>Palette Layout (little endian)</strong></td>
+		<td class="ctr_thin_bord"><strong>Palette Format</strong></td>
+		<td class="ctr_thin_bord"><strong>Palette Layout (byte address)</strong></td>
+		<td class="ctr_thin_bord"><strong>Palette Layout (little endian)</strong></td>
 	</tr>
 	<tr class="small_code_block_in_table">
 		<td class="thin_bord">OCDFMT_xRGB12</td>
-		<td class="center_thin_bord">n/a</td>
+		<td class="ctr_thin_bord">n/a</td>
 		<td class="thin_bord">
 		<table style="width: 100%">
 			<tr>
@@ -2971,7 +3341,7 @@ on their container size:</p>
 			</tr>
 		</table>
 		</td>
-		<td class="center_thin_bord">n/a</td>
+		<td class="ctr_thin_bord">n/a</td>
 	</tr>
 	<tr class="small_code_block_in_table">
 		<td class="thin_bord">OCDFMT_RGBx24</td>
@@ -3108,10 +3478,13 @@ on their container size:</p>
 		<td>
 		<p class="indent"><span class="small_code_block_in_table">...<br />
 		// Convert premultiplied image to non-premultiplied in place<br />
+		struct
 		bvbltparams parms;<br />
 		...<br />
+		struct
 		bvbuffdesc buff;<br />
 		...<br />
+		struct
 		bvsurfgeom srcgeom, dstgeom;<br />
 		...<br />
 		srcgeom.format = OCDFMT_RGBA24;<br />
@@ -3137,10 +3510,13 @@ on their container size:</p>
 		<td>
 		<p class="indent"><span class="small_code_block_in_table">...<br />
 		// Blend two images of the same size<br />
+		struct
 		bvbltparams parms;<br />
 		...<br />
+		struct
 		bvbuffdesc src1buff, src2buff, dstbuff;<br />
 		...<br />
+		struct
 		bvsurfgeom geom;<br />
 		...<br />
 		parms.src1.desc = &amp;src1buff;<br />
@@ -3172,7 +3548,7 @@ to determine the operation that is performed.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int <a href="#bvtileparams.srcheight">srcheight</a>;<br />
 };</p>
 <p class="Code_Header_2"><a name="bvtileparams.structsize">bvtileparams.structsize</a></p>
-<p class="code_block">unsigned int <a href="#bvtileparams.structsize">structsize</a>;</p>
+<p class="code_block">unsigned int structsize;</p>
 <p>This member is used for compatibility between BLTsville versions.&nbsp; (See <span class="inline_code">
 <a href="#bvbltparams.structsize">bvbltparams.structsize</a></span> for an explanation.) </p>
 <p class="Code_Header_2"><a name="bvtileparams.flags">bvtileparams.flags</a></p>
@@ -3181,35 +3557,35 @@ to determine the operation that is performed.</p>
 of one selection for each edge (left, top, right, and bottom) from the following flags:</p>
 <table style="" class="indent">
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_OP1">BV</a>TILE_LEFT_REPEAT</span></td>
+		<td><span class="inline_code"><a name="BVTILE_LEFT_REPEAT">BVTILE_LEFT_REPEAT</a></span></td>
 		<td>indicates that the tile is repeated to the left of the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_KEY1">BV</a>TILE_TOP_REPEAT</span></td>
+		<td><span class="inline_code"><a name="BVTILE_TOP_REPEAT">BVTILE_TOP_REPEAT</a></span></td>
 		<td>indicates that the tile is repeated above the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_MISCFLAGS1">BV</a>TILE_RIGHT_REPEAT</span></td>
+		<td><span class="inline_code"><a name="BVTILE_RIGHT_REPEAT">BVTILE_RIGHT_REPEAT</a></span></td>
 		<td>indicates that the tile is repeated to the right of the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_ALPHA0">BV</a>TILE_BOTTOM_REPEAT</span></td>
+		<td><span class="inline_code"><a name="BVTILE_BOTTOM_REPEAT">BVTILE_BOTTOM_REPEAT</a></span></td>
 		<td>indicates that the tile is repeated below the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><a name="BVBATCH_DITHER0" class="inline_code">BVTILE_LEFT_MIRROR</a></td>
+		<td><a name="BVTILE_LEFT_MIRROR" class="inline_code">BVTILE_LEFT_MIRROR</a></td>
 		<td>indicates that the tile is mirrored to the left of the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_SCALE0">BV</a>TILE_TOP_MIRROR</span></td>
+		<td><span class="inline_code"><a name="BVTILE_TOP_MIRROR">BVTILE_TOP_MIRROR</a></span></td>
 		<td>indicates that the tile is mirrored above the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code"><a name="BVBATCH_DST0">BV</a>TILE_RIGHT_MIRROR</span></td>
+		<td><span class="inline_code"><a name="BVTILE_RIGHT_MIRROR">BVTILE_RIGHT_MIRROR</a></span></td>
 		<td>indicates that the tile is mirrored to the right of the destination alignment location.</td>
 	</tr>
 	<tr>
-		<td><span class="inline_code">BVTILE_BOTTOM_MIRROR</span></td>
+		<td><span class="inline_code"><a name="BVTILE_BOTTOM_MIRROR">BVTILE_BOTTOM_MIRROR</a></span></td>
 		<td>indicates that the tile is mirrored below the destination alignment location.</td>
 	</tr>
 </table>
@@ -3299,7 +3675,7 @@ no consistent meaning.&nbsp; So, when batching is mixed with <span class="inline
 only the callback for the last BLT occurs.</p>
 <p class="note">NOTE:&nbsp; Since implementations can perform batched BLTs in a variety of ways, even synchronous batched 
 BLTs can be effectively asynchronous.&nbsp; Therefore, only the last BLT determines the synchronicity of the entire batch.&nbsp; 
-i.e. the <span class="inline_code"><a href="#BVFLAG_ASYNC">BVBATCH_ASYNC</a></span> flag is only heeded when combined with
+i.e. the <span class="inline_code"><a href="#BVFLAG_ASYNC">BVFLAG_ASYNC</a></span> flag is only heeded when combined with
 <span class="inline_code"><a href="#BVFLAG_BATCH_END">BVFLAG_BATCH_END</a>.</span></p>
 <p class="note">NOTE: Failure during the performance of a batch (different from an error on submission--indicated by the 
 contents of the <a href="#bvcallbackerror" class="inline_code">bvcallbackerror</a> structure) will result in an unknown 
@@ -3317,7 +3693,7 @@ is maintained to hold the characters of a given font, rasterized with the specif
 etc.).&nbsp; Each font in the glyph cache is normally created using a font rasterization engine from a vector-based font, 
 such as FreeType.&nbsp; This technology allows fonts to be described in terms of curves and lines instead of pixels, which 
 means they can be created as needed, in any size desirable.</p>
-<table style="width: 100%" class="glyph_cache">
+<table style="" class="glyph_cache">
 	<tr>
 		<td class="glyph_cache">&nbsp; !&quot;#$%&amp;&#39;()*+&#39;-./0123456789:;&lt;=&gt;?<br />
 		@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_<br />
@@ -3395,7 +3771,7 @@ i++;<br />
 if(i &lt; textlen)<br />
 {<br />
 &nbsp; bltparams.flags = (bltparams.flags &amp; ~BVFLAG_BATCH_MASK) | BVFLAG_BATCH_CONTINUE;<br />
-&nbsp; bltparams.batch = BVBATCH_DSTRECT_ORIGIN | BVBATCH_SRC2RECT_ORIGIN | BVBATCH_MASKRECT_ORIGIN;<br />
+&nbsp; bltparams.batchflags = BVBATCH_DSTRECT_ORIGIN | BVBATCH_SRC2RECT_ORIGIN | BVBATCH_MASKRECT_ORIGIN;<br />
 <br />
 &nbsp; do<br />
 &nbsp; {<br />
@@ -3412,15 +3788,20 @@ if(i &lt; textlen)<br />
 }<br />
 <br />
 bltparams.flags = (bltparams.flags &amp; ~BVFLAG_BATCH_MASK) | BVFLAG_BATCH_END;<br />
-bltparams.batch = BVBATCH_ENDNOP;<br />
+bltparams.batchflags = BVBATCH_ENDNOP;<br />
 <br />
 bv_blt(&amp;bltparams);</p>
+<p class="note">NOTE:&nbsp; bvbltparams.batchflags is just a hit.&nbsp; Not all implementations support deltas in 
+batching, so clients must not change the values of members of <span class="inline_code"><a href="#bvbltparams">
+bvbltparams</a></span> (or structures it 
+references) between BLTs.&nbsp; These values may be used.</p>
 <p class="Header2">Batches For Special Feature BLTs</p>
 <p>Enabling special features of some implementations is a special challenge.&nbsp; But BLTsville is up the task.</p>
-<p>For example, perhaps an implementation is capable of blending 4 layers at the same time.&nbsp; But BLTsville only allows 
-blending to be specified using 2 layers at a time.&nbsp; How can this be accomplished?</p>
-<p>The most prevalent blending reference used is the Porter-Duff whitepaper, which specifies blending of 2 sources.&nbsp; 
-So any N-source blend would require the blends to be specified as a grouping of 2 source blends in order to utilize the 
+<p>For example, perhaps an implementation is capable of blending four layers at the same time.&nbsp; But BLTsville only allows 
+blending to be specified using two layers at a time.&nbsp; How can this be accomplished?</p>
+<p>The most prevalent blending reference used is the <a href="http://dx.doi.org/10.1145/800031.808606">Porter-Duff 
+whitepaper</a>, which specifies blending of two sources (A and B).&nbsp; So any N-source blend (N &gt; 2) would require the blends to be 
+specified as a grouping of N - 1 two-source blends in order to utilize the 
 Porter-Duff equations.&nbsp; That&#39;s how such a blend is specified in BLTsville:</p>
 <p class="small_code_block">bltparams.dstrect.width = bltparams.src1rect.width = bltparams.src2rect.width = dstgeom.width;<br />
 bltparams.dstrect.height = bltparams.src1rect.height = bltparams.src2rect.height = dstgeom.height; <br />
@@ -3454,9 +3835,223 @@ bltparams.batch = BVBATCH_SRC1;<br />
 <br />
 bv_blt(&amp;bltparams);</p>
 <p>The driver for an implementation that can perform this pair of operations as one BLT would be tasked with recognizing 
-that the batch contained BLTs which can be linked.</p>
-<p>The fantastic thing about this approach is that an implementation without the ability to blend 4 sources would perform 
-the 3 blends separately, with the identical result.</p>
+that the batch contained BLTs which can be combined.</p>
+<p>The fantastic thing about this approach is that an implementation without the ability to blend N sources in one pass would perform 
+the blends separately, but the result would be identical.&nbsp; Moreover, implementations with the ability to combine 
+different numbers of operations would likewise produce the same results, even they they used a different number of 
+internal steps.&nbsp; Here&#39;s an example:</p>
+<table align="center">
+	<tr>
+		<td>
+<table>
+	<tr>
+		<td class="ctr_thin_bord"><strong>Number of<br />
+		Layers to<br />
+		Blend</strong></td>
+		<td class="ctr_thin_bord"><strong>BLTsville<br />
+		Operations</strong></td>
+		<td class="ctr_thin_bord"><strong>Implementation<br />
+		Capable of<br />
+		Blending One<br />
+		Source with a<br />
+		Destination</strong><br />
+				(2 inputs)</td>
+		<td class="ctr_thin_bord"><strong>Implementation<br />
+		Capable of<br />
+		Blending Two<br />
+		Sources to a<br />
+		Destination</strong><br />
+				(2 inputs)</td>
+		<td class="ctr_thin_bord"><strong>Implementation<br />
+		Capable of<br />
+		Blending Four<br />
+		Sources to a<br />
+		Destination</strong><br />
+				(4 inputs)</td>
+		<td class="ctr_thin_bord"><strong>Implementation<br />
+		Capable of<br />
+		Blending Eight<br />
+		Sources with<br />
+		a Destination</strong><br />
+		(5 inputs)</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">2</td>
+		<td class="nowrap">A over B =&gt; O</td>
+		<td class="nowrap">B =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">A over B =&gt; O</td>
+		<td class="nowrap">A over B =&gt; O</td>
+		<td class="nowrap">A over B =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">3</td>
+		<td class="nowrap">B over C =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">C =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">B over C =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">A over B over C =&gt; O</td>
+		<td class="nowrap">A over B over C =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">4</td>
+		<td class="nowrap">C over D =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">D =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap"> C over D =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap"> A over B over C over D =&gt; O</td>
+		<td class="nowrap"> A over B over C over D =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">5</td>
+		<td class="nowrap">D over E =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">E =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">D over E =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">D over E =&gt; O<br />
+		A over B over C over O =&gt; O</td>
+		<td class="nowrap">E =&gt; O<br />
+		A over B over C over D over O =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">6</td>
+		<td class="nowrap">E over F =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">F =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">E over F =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">D over E over F =&gt; O<br />
+		A over B over C over O =&gt; O</td>
+		<td class="nowrap">E over F =&gt; O<br />
+		A over B over C over D over O =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">7</td>
+		<td class="nowrap">F over G =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">G =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">F over G =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">D over E over F over G =&gt; O<br />
+		A over B over C over O =&gt; O</td>
+		<td class="nowrap">E over F over G =&gt; O<br />
+		A over B over C over D over O =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">8</td>
+		<td class="nowrap">G over H =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">H =&gt; O<br />
+		G over O =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">G over H =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">G over H =&gt; O<br />
+		D over E over F over O =&gt; O<br />
+		A over B over C over O =&gt; O</td>
+		<td class="nowrap">E over F over G over H =&gt; O<br />
+		A over B over C over D over O =&gt; O</td>
+	</tr>
+	<tr>
+		<td class="ctr_thin_bord">9</td>
+		<td class="nowrap">H over I =&gt; O<br />
+		G over O =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">I =&gt; O<br />
+		H over O =&gt; O<br />
+		G over O =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">H over I =&gt; O<br />
+		G over O =&gt; O<br />
+		F over O =&gt; O<br />
+		E over O =&gt; O<br />
+		D over O =&gt; O<br />
+		C over O =&gt; O<br />
+		B over O =&gt; O<br />
+		A over O =&gt; O</td>
+		<td class="nowrap">G over H over I =&gt; O<br />
+		D over E over F over O =&gt; O<br />
+		A over B over C over O =&gt; O</td>
+		<td class="nowrap">I =&gt; O<br />
+		E over F over G over H over O =&gt; O<br />
+		A over B over C over D over O =&gt; O</td>
+	</tr>
+</table>
+</td>
+	</tr>
+	<tr>
+		<td class="ctr">Comparison of batched BLTsville calls with internal operations, based on implementation capabilities.
+</td>
+	</tr>
+</table>
 <p class="note">NOTE: As mentioned above a batch of BLTs may be serviced in any number of ways.&nbsp; In this example, the 
 destination buffer may be used for intermediate results, so it is important that this buffer not be used during the batch--i.e. 
 as a displayed buffer.</p>
@@ -3500,7 +4095,7 @@ each buffer to be accessed in BLTsville:</p>
 		buff.virtaddr = buffptr;<br />
 		buff.length = bufflength;</p>
 		</td>
-		<td style="width: 30px" class="center">or</td>
+		<td class="ctr">&nbsp;or&nbsp</td>
 		<td valign="top">
 		<p class="inline_code"><span class="small_code_block_in_table">struct bvbuffdesc buff;<br />
 		<br />
@@ -3520,11 +4115,11 @@ with the buffer:</p>
 		<td valign="top">
 		<p class="small_code_block_in_table">/* do nothing */ </p>
 		</td>
-		<td style="width: 30px" class="center">or</td>
+		<td class="ctr">&nbsp;or&nbsp;</td>
 		<td valign="top">
 		<p class="small_code_block_in_table">bvlib[0].bv_map(&amp;buff); </p>
 		</td>
-		<td style="width: 30px" class="center">or</td>
+		<td class="ctr">&nbsp;or&nbsp;</td>
 		<td valign="top">
 		<p class="small_code_block_in_table">for(int i = 0; i &lt; NUMLIBS; i++)<br />
 		{<br />
@@ -3596,9 +4191,9 @@ Having these two structures separated allows all of these combinations.</p>
 		geom.height = height;<br />
 		geom.virtstride = stride;</p>
 		</td>
-		<td style="width: 30px" class="center">or</td>
+		<td class="ctr">&nbsp;or&nbsp;</td>
 		<td valign="top">
-		<p class="inline_code"><span class="small_code_block_in_table">struct bvsurfgeom geom;<br />
+		<p class="inline_code"><span class="small_code_block_in_table">struct bvsurfgeom geom;
 		<br />
 		memset(&amp;geom, 0, sizeof(geom));<br />
 		geom.structsize = sizeof(geom);<br />
@@ -3639,11 +4234,32 @@ bltparams.src1rect.height = height / 2;</p>
 <p>The kernel mode interface differs only slightly from the user mode interface.&nbsp; Currently there are two differences 
 in the general kernel interface, and one in the Linux/Android interface:</p>
 <p class="Code_Header_2">bvbuffdesc.auxtype/auxptr</p>
-<p><span class="inline_code"><a href="#bvbuffdesc.auxtype">bvbuffdesc.auxtype</a></span> has an enumeration, and there is 
-a structure that exists only in the kernel mode.&nbsp; <span class="inline_code">BVAT_PHYSDESC</span> indicates that the
-<span class="inline_code"><a href="#bvbuffdesc.auxptr">bvbuffdesc.auxptr</a></span> points to a
-<a href="#bvphysdesc" class="inline_code">bvphysdesc</a> structure that describes the buffer in terms of physical addresses.&nbsp; 
-This method of describing the buffer is not exposed in user mode for security reasons.</p>
+<p><span class="inline_code"><a href="#bvbuffdesc.auxtype">bvbuffdesc.auxtype</a></span> is an <span class="inline_code">enum</span>, 
+indicating the type of the
+<span class="inline_code"><a href="#bvbuffdesc.auxptr">bvbuffdesc.auxptr</a></span>.&nbsp; The enumeration values and 
+the associated types are:</p>
+<table class="indent_thick_bord">
+	<tr>
+		<td class="thin_bord_dbl_botbord"><span class="inline_code"><a href="#bvbuffdesc.auxtype">bvbuffdesc.auxtype</a></span></td>
+		<td class="thin_bord_dbl_botbord">
+<span class="inline_code"><a href="#bvbuffdesc.auxptr">bvbuffdesc.auxptr</a></span> type</td>
+		<td class="thin_bord_dbl_botbord">Notes</td>
+	</tr>
+	<tr>
+		<td class="thin_bord"><span class="inline_code"><a name="BVAT_PHYSDESC">BVAT_PHYSDESC</a></span></td>
+		<td class="thin_bord">
+<a href="#bvphysdesc" class="inline_code">bvphysdesc</a></td>
+		<td class="thin_bord">Used to specify the physical pages of a physically discontiguous buffer constructed using 
+		a single page size.&nbsp; This may be used with physically contiguous buffers as well, but
+		<span class="inline_code"><a href="#BVAT_PHYSADDR">BVAT_PHYSADDR</a></span> is preferred.</td>
+	</tr>
+	<tr>
+		<td class="thin_bord"><span class="inline_code"><a name="BVAT_PHYSADDR">BVAT_PHYSADDR</a></span></td>
+		<td class="thin_bord">physical address</td>
+		<td class="thin_bord">Used to specify the starting physical address of a physically contiguous buffer.</td>
+	</tr>
+</table>
+<p>The methods of describing the buffer using physical addresses is not exposed in user mode for security reasons.</p>
 <hr />
 <p class="Code_Header"><a name="bvphysdesc">bvphysdesc</a></p>
 <p class="small_code_block">struct bvphysdesc {<br />
@@ -3660,22 +4276,36 @@ This method of describing the buffer is not exposed in user mode for security re
 <p class="Code_Header_2"><a name="bvphysdesc.pagesize">bvphysdesc.pagesize</a></p>
 <p class="code_block">unsigned long pagesize;</p>
 <p>This member indicates the size of the physical pages containing the buffer.&nbsp; <span class="inline_code">BVAT_PHYSDESC</span>/<span class="inline_code">bvphysdesc
-</span>does not support buffers which reside in pages that are not all the same size.&nbsp; If this value is 0, the default 
+</span>does not support buffers which reside in pages that are not all the same size.&nbsp; <span class="inline_code">
+bvphysdesc.pagesize</span> is used to indicate the length of the pages in the <span class="inline_code">
+<a href="#bvphysdesc.pagearray">bvphysdesc.pagearray</a></span> as well as the expected alignment of those pages.&nbsp; If this value is 0, the default 
 page size of the system is assumed.</p>
+<p class="note">NOTE:&nbsp; When used with physically contiguous buffers, this member should be set to the length of the 
+buffer, which is the same as the value in <span class="inline_code"><a href="#bvbuffdesc.length">bvbuffdesc.length</a></span>.</p>
 <p class="Code_Header_2"><a name="bvphysdesc.pagearray">bvphysdesc.pagearray</a></p>
 <p class="code_block">unsigned long *pagearray;</p>
 <p>This member is an array of <span class="inline_code">unsigned long</span>s holding the physical addresses of the pages 
 holding the buffer.&nbsp; The array contains <span class="inline_code"><a href="#bvphysdesc.pagecount">pagecount</a></span> 
 entries.&nbsp; The specific format of the physical addresses is O/S dependent.&nbsp; However, <span class="inline_code">
 BVAT_PHYSDESC</span>/<span class="inline_code">bvphysdesc</span> only supports 32-bit physical addresses.</p>
+<p>Addresses in this array must be aligned on <span class="inline_code"><a href="#bvphysdesc.pagesize">
+bvphysdesc.pagesize</a></span> boundaries.&nbsp; Use the <span class="inline_code"><a href="#bvphysdesc.pageoffset">
+bvphysdesc.pageoffset</a></span> member to indicate the offset from the start of the first page to the beginning of the 
+buffer.</p>
+<p class="note">NOTE:&nbsp; When used with physically contiguous buffers, the first (only) address in this array should 
+be aligned on the system default page boundary, and the <span class="inline_code"><a href="#bvphysdesc.pageoffset">
+bvphysdesc.pageoffset</a></span> member should be used to indicate the offset from that address to the beginning of the 
+buffer.</p>
 <p class="Code_Header_2"><a name="bvphysdesc.pagecount">bvphysdesc.pagecount</a></p>
 <p class="code_block">unsigned int pagecount;</p>
 <p>This member indicates the number of pages in the array pointed to by <span class="inline_code">
-<a href="#bvphysdesc.pagearray">pagearray</a></span>.</p>
+<a href="#bvphysdesc.pagearray">bvphysdesc.pagearray</a></span>.</p>
+<p class="note">NOTE:&nbsp; When used with physically contiguous buffers, this member should be set to 1.</p>
 <p class="Code_Header_2"><a name="bvphysdesc.pageoffset">bvphysdesc.pageoffset</a></p>
 <p class="code_block">unsigned long pageoffset;</p>
 <p>This member indicates the number of bytes from the start of the first page (<span class="inline_code">*pagearray</span>) 
-to the start of the buffer.&nbsp; The value must be less than <span class="inline_code"><a href="#bvphysdesc.pagesize">pagesize</a></span>.</p>
+to the start of the buffer.&nbsp; The value must be less than <span class="inline_code"><a href="#bvphysdesc.pagesize">
+bvphysdesc.pagesize</a></span>.</p>
 <p class="imponly"><strong>Implementations Only</strong><br />
 <br />
 Implementations should not ignore this member.</p>
