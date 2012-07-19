@@ -58,5 +58,4 @@ struct bvbuffdesc {
 					type depends on auxtype */
 };
 
-
 #endif /* BVBUFFDESC_H */

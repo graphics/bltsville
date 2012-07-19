@@ -505,7 +505,7 @@ struct bvcallbackerror {
 struct bvbatch;
 
 /*
- * bvinbuff - provides the buffer in bvbltparams 
+ * bvinbuff - provides the buffer in bvbltparams
  */
 union bvinbuff {
 	struct bvbuffdesc *desc;	 /* buffer description when
