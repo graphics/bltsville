@@ -92,7 +92,9 @@ struct bvrect {
 
 #define BVFLAG_SRC2_AUXDSTRECT	0x00400000 /* src2auxdstrect used */
 #define BVFLAG_MASK_AUXDSTRECT	0x00800000 /* maskauxdstrect used */
-/**** Bits 31-24 reserved ****/
+
+#define BVFLAG_TESTPARAMS_NOP	0x01000000 /* test params only - no BLT */
+/**** Bits 25-31 reserved ****/
 
 /*
  * BVIMPL_* - BLTsville implementations may be combined under managers to
@@ -133,7 +135,7 @@ struct bvrect {
 #define BVSCALEDEF_BETTER	(0x2A << BVSCALEDEF_QUALITY_SHIFT)
 #define BVSCALEDEF_BEST		(0x3F << BVSCALEDEF_QUALITY_SHIFT)
 #define BVSCALEDEF_QUALITY_MASK	(0x3F << BVSCALEDEF_QUALITY_SHIFT)
-/* Bits 15-12 are reserved */
+/* Bits 12-15 are reserved */
 /*** Bits 11-8 indicate the desired technique ***/
 #define BVSCALEDEF_TECHNIQUE_SHIFT 8
 #define BVSCALEDEF_DONT_CARE	(0x0 << BVSCALEDEF_TECHNIQUE_SHIFT)
@@ -141,7 +143,7 @@ struct bvrect {
 #define BVSCALEDEF_POINT_SAMPLE	(0x2 << BVSCALEDEF_TECHNIQUE_SHIFT)
 #define BVSCALEDEF_INTERPOLATED	(0x3 << BVSCALEDEF_TECHNIQUE_SHIFT)
 #define BVSCALEDEF_TECHNIQUE_MASK	(0xF << BVSCALEDEF_TECHNIQUE_SHIFT)
-/* Bits 7-2 reserved */
+/* Bits 2-7 reserved */
 /*** Bits 1-0 indicate the type of image ***/
 #define BVSCALEDEF_TYPE_SHIFT 0
 /* 0 don't know */
@@ -151,7 +153,7 @@ struct bvrect {
 #define BVSCALEDEF_TYPE_MASK	(3 << BVSCALEDEF_TYPE_SHIFT)
 
 /**** EXPLICIT definitions ****/
-/* Bits 21-16 reserved */
+/* Bits 16-21 reserved */
 #define BVSCALEDEF_HORZ_SHIFT	8
 #define BVSCALEDEF_HORZ_MASK	(0xFF << BVSCALEDEF_HORZ_SHIFT)
 
@@ -303,7 +305,7 @@ enum bvscalemode {
 #define BVDITHERDEF_VENDOR_GENERIC (0xFF << BVDITHERDEF_VENDOR_SHIFT)
 
 /***** VENDOR_GENERIC definitions *****/
-/* Bits 23-18 reserved */
+/* Bits 18-23 reserved */
 /**** Bits 17-16 indicate the type of image - 0 = don't know ****/
 #define BVDITHERDEF_TYPE_SHIFT 16
 #define BVDITHERDEF_PHOTO	(0x01 << BVDITHERDEF_TYPE_SHIFT)
@@ -482,7 +484,7 @@ struct bvtileparams {
 #define BVBATCH_TILE_SRC1	0x00400000 /* tile params for src 1 changed */
 #define BVBATCH_TILE_SRC2	0x00800000 /* tile params for src 2 changed */
 #define BVBATCH_TILE_MASK	0x00100000 /* tile params for mask changed */
-/* Bits 30-21 reserved */
+/* Bits 21-30 reserved */
 #define BVBATCH_ENDNOP		0x80000000 /* just end batch, don't do BLT;
 					      only with BVFLAG_BATCH_END */
 
